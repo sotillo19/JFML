@@ -1,0 +1,45 @@
+package jfml.knowledgebase.variable;
+
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for standardAccumulationType.
+ * 
+ * <pre>
+ * &lt;simpleType name="standardAccumulationType">
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *     &lt;enumeration value="MAX"/>
+ *     &lt;enumeration value="PROBOR"/>
+ *     &lt;enumeration value="BSUM"/>
+ *     &lt;enumeration value="DRS"/>
+ *     &lt;enumeration value="ESUM"/>
+ *     &lt;enumeration value="HSUM"/>
+ *     &lt;enumeration value="NILMAX"/>
+ *   &lt;/restriction>
+ * &lt;/simpleType>
+ * </pre>
+ * 
+ */
+@XmlType(name = "standardAccumulationType")
+@XmlEnum
+public enum StandardAccumulationType {
+
+    MAX,
+    PROBOR,
+    BSUM,
+    DRS,
+    ESUM,
+    HSUM,
+    NILMAX;
+
+    public String value() {
+        return name();
+    }
+
+    public static StandardAccumulationType fromValue(String v) {
+        return valueOf(v);
+    }
+
+}
