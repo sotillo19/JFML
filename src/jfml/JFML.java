@@ -1,6 +1,12 @@
 package jfml;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -93,6 +99,8 @@ public class JFML {
 
 			m.marshal(element, output);
 			// m.marshal(element, System.out);
+			
+			//removePrefixNS(output, "ns2");
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -125,9 +133,36 @@ public class JFML {
 
 			m.marshal(element, output);
 			// m.marshal(element, System.out);
+			
+			//removePrefixNS(output, "ns2");
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private static void removePrefixNS(File file, String prefix){
+		BufferedReader bf = null;
+		String s;
+		String b="";
+
+		try {
+			bf = new BufferedReader(new FileReader(file));
+			do{
+				s = bf.readLine();
+				if(s!=null)
+					b += s.replaceAll(prefix+":", "").replaceAll(":"+prefix, "") + "\r\n";
+			}
+			while (s != null);
+			
+			bf.close();
+			
+			BufferedWriter out = new BufferedWriter(new FileWriter(file));
+			out.write(b);
+			out.close();
+		} 
+		catch (IOException io) {
+			System.err.println(io.getMessage());
 		}
 	}
 }

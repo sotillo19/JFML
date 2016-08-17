@@ -20,7 +20,13 @@ public class FuzzySystem extends FuzzySystemType {
 		super(name);
 	}
 	
+	/**
+	 * Constructor using a FuzzySystemType instance
+	 * @param fst
+	 */
 	public FuzzySystem(FuzzySystemType fst){
 		super(fst.getName(),fst.getKnowledgeBase(),fst.getRuleBase(),fst.getNetworkAddress());
 	}
+	
+	
 }

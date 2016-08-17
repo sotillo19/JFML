@@ -95,6 +95,7 @@ public class FuzzySystemType {
 	
 	public FuzzySystemType(String name, KnowledgeBaseType knowledgeBase, List<Object> ruleBase, String networkAddress){
 		super();
+		this.name=name;
 		this.knowledgeBase=knowledgeBase;
 		this.ruleBase=ruleBase;
 		this.networkAddress=networkAddress;
