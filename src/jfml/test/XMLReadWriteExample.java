@@ -17,7 +17,7 @@ import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentType;
 import jfml.rule.FuzzyRuleType;
-import jfml.rulebase.FuzzySystemRuleBaseType;
+import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
 import jfml.term.FuzzyTermType;
 
@@ -395,7 +395,7 @@ public class XMLReadWriteExample {
 		
 		//RULE BASE
 		
-		RuleBaseType fr = new RuleBaseType("rulebase1",FuzzySystemRuleBaseType.TYPE_MAMDANI);
+		RuleBaseType fr = new RuleBaseType("rulebase1",FuzzySystemRuleBase.TYPE_MAMDANI);
 		
 		//RULE 1
 		FuzzyRuleType reg1 = new FuzzyRuleType("reg1","or","MIN","MAX",1.0f);
@@ -497,7 +497,7 @@ public class XMLReadWriteExample {
 		
 		//RULE BASE
 		
-		RuleBaseType fr = new RuleBaseType("rulebase1",FuzzySystemRuleBaseType.TYPE_MAMDANI);
+		RuleBaseType fr = new RuleBaseType("rulebase1",FuzzySystemRuleBase.TYPE_MAMDANI);
 		
 		//RULE 1
 		FuzzyRuleType reg1 = new FuzzyRuleType("reg1","or","MIN","MAX",1.0f);

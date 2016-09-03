@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import jfml.knowledgebase.variable.FuzzyVariable;
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+
 
 /**
  * <p>Java class for tskTermType complex type.
@@ -36,7 +39,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "tskTermType", propOrder = {
     "tskValue"
 })
-public class TskTermType {
+public class TskTermType extends TskTerm{
 
     @XmlElement(type = Float.class)
     protected List<Float> tskValue;
@@ -47,23 +50,22 @@ public class TskTermType {
     protected String name;
     @XmlAttribute(name = "order", required = true)
     protected int order;
+    
+    public TskTermType(){
+    	
+    }
 
-    /**
-     * Gets the value of the tskValue property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tskValue property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTskValue().add(newItem);
-     * </pre>
-     * 
-     * 
+    public TskTermType(String name, int order, float[] coeff) {
+		super();
+		this.name=name;
+		this.order=order;
+		this.tskValue = new ArrayList<>();
+		for(int i=0;i<coeff.length;i++)
+			tskValue.add(new Float(coeff[i]));
+	}
+
+	/**
+     * Gets the value of the tskValue property. Coefficients
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Float }
@@ -116,5 +118,38 @@ public class TskTermType {
     public void setOrder(int value) {
         this.order = value;
     }
+    
+    @Override
+    public String toString(){
+    	String b = name;
+    	
+    	List<Float> coeff = getTskValue();
+    	
+    	b += " - z = "+coeff.get(0).toString() + " + ";
+
+    	for(int i=1;i<coeff.size();i++)
+    		b += coeff.get(i).toString() + "v"+i + " + ";
+		
+    	return b.substring(0, b.length()-3);
+    }
+
+	@Override
+	public void evaluateTskTerm(List<FuzzyVariable> list) {
+		if(getOrder() == 0)
+			setEvaluation(getTskValue().get(0));
+		else if(getOrder() == 1)
+			setEvaluation(evaluateLinearFunction(getTskValue(), list));
+	}
+
+	private float evaluateLinearFunction(List<Float> coefficients, List<FuzzyVariable> kbv) {
+		// initialize coefficient "c"
+		float res = coefficients.get(0);
+		
+		//calculate a*v1 + b*v2 + ...
+		for(int i=1;i<coefficients.size();i++)
+			res += coefficients.get(i)* (kbv.get(i-1).getValue());
+		
+		return res;
+	}
 
 }

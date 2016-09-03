@@ -45,7 +45,7 @@ import jfml.term.FuzzyTermType;
 @XmlType(name = "ruleBaseType", propOrder = {
     "rules"
 })
-public class RuleBaseType extends FuzzySystemRuleBaseType{
+public class RuleBaseType extends FuzzySystemRuleBase{
 
     @XmlElement(required = true, name="rule")
     protected List<FuzzyRuleType> rules;
@@ -68,7 +68,7 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
     * Default constructor
     */
     public RuleBaseType(){
-    	
+    	setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_MAMDANI);
     }
 
     /**
@@ -80,9 +80,9 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
     	super();
     	setName(name);
     	setRuleBaseSystemType(type);
-    	setActivationMethod(FuzzySystemRuleBaseType.defaultActivationMethod);
-    	setAndMethod(FuzzySystemRuleBaseType.defaultAndMethod);
-    	setOrMethod(FuzzySystemRuleBaseType.defaultOrMethod);
+    	setActivationMethod(FuzzySystemRuleBase.defaultActivationMethod);
+    	setAndMethod(FuzzySystemRuleBase.defaultAndMethod);
+    	setOrMethod(FuzzySystemRuleBase.defaultOrMethod);
     	//setNetworkAddress(FuzzySystemRuleBaseType.defaultNetworkAddress);
     }
     
@@ -160,7 +160,7 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
      */
     public String getActivationMethod() {
         if (activationMethod == null) {
-            return FuzzySystemRuleBaseType.defaultActivationMethod;
+            return FuzzySystemRuleBase.defaultActivationMethod;
         } else {
             return activationMethod;
         }
@@ -265,7 +265,7 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
 	public void evaluate() {
 		//evaluate each rule
 		for(FuzzyRuleType r : getRules()){
-			float value = -1;
+			float value = Float.NaN;
 			//evaluate antecedents
 			value = evaluateAntecedents(r);
 			
@@ -284,24 +284,30 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
 		ConsequentClausesType then = r.getConsequent().getThen();
 		ConsequentClausesType _else = r.getConsequent().getElse();
 		if(then!=null){
-			ClauseType c = then.getClause().get(0);
-			FuzzyTermType t=null;
-			FuzzyVariableType v=null;
-			if(c!=null && c.getTerm() instanceof FuzzyTermType)
-				t = (FuzzyTermType) c.getTerm();
-			if(c.getVariable() instanceof FuzzyVariableType)
-				v = (FuzzyVariableType) c.getVariable();
-			
-			activation(v,t,ant_evaluation);
-			
-			if(_else!=null){
-				c = _else.getClause().get(0);
+			for(ClauseType c : then.getClause()){
+				//ClauseType c = then.getClause().get(0);
+				FuzzyTermType t=null;
+				FuzzyVariableType v=null;
 				if(c!=null && c.getTerm() instanceof FuzzyTermType)
 					t = (FuzzyTermType) c.getTerm();
 				if(c.getVariable() instanceof FuzzyVariableType)
 					v = (FuzzyVariableType) c.getVariable();
 				
-				activation(v,t,(1-ant_evaluation));
+				activation(v,t,ant_evaluation);
+			}
+			
+			if(_else!=null){
+				for(ClauseType c : _else.getClause()){
+					//c = _else.getClause().get(0);
+					FuzzyTermType t=null;
+					FuzzyVariableType v=null;
+					if(c!=null && c.getTerm() instanceof FuzzyTermType)
+						t = (FuzzyTermType) c.getTerm();
+					if(c.getVariable() instanceof FuzzyVariableType)
+						v = (FuzzyVariableType) c.getVariable();
+					
+					activation(v,t,(1-ant_evaluation));
+				}
 			}
 		}
 	}
@@ -350,130 +356,6 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
 		return r.aggregation(degrees);
 	}
 	
-	/**
-	    - MIN for implementing the implication with the minimum as defined from Equation (A.28);
-		- PROD for implementing the implication with the product as defined from Equation (A.29);
-		- BDIF for implementing the implication with bounded difference as defined from Equation (A.30);
-		- DRP for implementing the implication with the drastic product as defined from Equation (A.31);
-		- EPROD for implementing the implication with the Einstein product as defined from Equation (A.32);
-		- HPROD for implementing the implication with the Hamacher product as defined from Equation (A.33);
-		- NILMIN for implementing the implication with the Nilpotent minimum as defined from Equation (A.34); 
-		- custom_\S* for a custom implication method.
-	 * @param x degree of antecedent
-	 * @param y degree of consequent
-	 * @return The degree of membership of the consequent part according to the activation method {@link getActivationMethod()}
-	 */
-	private float activation(float x, float y){
-		String act=getActivationMethod();
-		if(act.equals("MIN"))
-			return min(x,y);
-		else if(act.equals("PROD"))
-			return prod(x,y);
-		else if(act.equals("BDIF"))
-			return bdif(x,y);
-		else if(act.equals("DRP"))
-			return drp(x,y);
-		else if(act.equals("EPROD"))
-			return eprod(x,y);
-		else if(act.equals("HPROD"))
-			return hprod(x,y);
-		else if(act.equals("NILMIN"))
-			return nilmin(x,y);
-		else if(act.contains("custom"))
-			return custom(x,y);
-		else
-			return min(x,y);
-	}
-
-	/**
-		- custom_\S* for a custom implication method.
-	 * @param x 
-	 * @param y 
-	 * @return
-	 */
-	private float custom(float x, float y) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-		- NILMIN for implementing the implication with the Nilpotent minimum as defined from Equation (A.34); 
-	 * @param x 
-	 * @param y 
-	 * @return
-	 */
-	private float nilmin(float x, float y) {
-		if(x+y>1)
-			return Math.min(x, y);
-		else
-			return 0;
-	}
-
-	/**
-		- HPROD for implementing the implication with the Hamacher product as defined from Equation (A.33);
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	private float hprod(float x, float y) {
-		return (x+y)/(x+y-(x*y));
-	}
-
-	/**
-		- EPROD for implementing the implication with the Einstein product as defined from Equation (A.32);
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	private float eprod(float x, float y) {
-		return (x+y)/(2-(x+y-(x*y)));
-	}
-
-	/**
-		- DRP for implementing the implication with the drastic product as defined from Equation (A.31);
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	private float drp(float x, float y) {
-		if(y==1)
-			return x;
-		if(x==1)
-			return y;
-		else
-			return 0;
-	}
-
-	/**
-		- BDIF for implementing the implication with bounded difference as defined from Equation (A.30);
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	private float bdif(float x, float y) {
-		return Math.max(0, (x+y-1));
-	}
-
-	/**
-		- PROD for implementing the implication with the product as defined from Equation (A.29);
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	private float prod(float x, float y) {
-		return x*y;
-	}
-
-	/**
-	 - MIN for implementing the implication with the minimum as defined from Equation (A.28);
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	private float min(float x, float y) {
-		return Math.min(x, y);
-	}
-
 	@Override
 	public void reset() {
 		for(FuzzyRuleType r : getRules())
@@ -482,10 +364,10 @@ public class RuleBaseType extends FuzzySystemRuleBaseType{
 
 	@Override
 	public String toString() {
-		String b= getRuleBaseSystemTypeName() + " - " + getName() + ": OR=" + getOrMethod() + "; AND="+getAndMethod() + "; ACTIVATION=" + getActivationMethod() + "\n";
+		String b= "  *"+ getRuleBaseSystemTypeName() + " - " + getName() + ": OR=" + getOrMethod() + "; AND="+getAndMethod() + "; ACTIVATION=" + getActivationMethod() + "\n";
 		int numRule=1;
 		for(FuzzyRuleType r : getRules())
-			b += "\t RULE "+(numRule++) + ": " +r.toString() +"\n";
+			b += "\tRULE "+(numRule++) + ": " +r.toString() +"\n";
 			
 		return b;
 	}

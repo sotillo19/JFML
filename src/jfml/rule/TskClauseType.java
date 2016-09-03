@@ -41,7 +41,17 @@ public class TskClauseType {
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
     protected Object term;
+    
+    public TskClauseType(){
+    	
+    }
 
+    public TskClauseType(Object variable, Object term){
+    	super();
+    	this.setVariable(variable);
+    	this.setTerm(term);
+    }
+    
     /**
      * Gets the value of the property variable.
      * 

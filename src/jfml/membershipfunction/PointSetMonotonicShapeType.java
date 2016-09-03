@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "pointSetMonotonicShapeType", propOrder = {
     "point"
 })
-public class PointSetMonotonicShapeType {
+public class PointSetMonotonicShapeType extends MembershipFunction {
 
     @XmlElement(required = true)
     protected List<PointType> point;
@@ -94,5 +94,29 @@ public class PointSetMonotonicShapeType {
     public void setInterpolationMethod(MonotonicInterpolationMethodType value) {
         this.interpolationMethod = value;
     }
+
+	@Override
+	public float getMembershipDegree(float x) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean checkParamters(StringBuffer errors) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void estimateUniverse() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

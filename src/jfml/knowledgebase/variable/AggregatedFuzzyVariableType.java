@@ -40,7 +40,7 @@ import jfml.term.AggregatedFuzzyTermType;
 @XmlType(name = "aggregatedFuzzyVariableType", propOrder = {
     "aggregatedFuzzyTerm"
 })
-public class AggregatedFuzzyVariableType extends KnowledgeBaseVariable{
+public class AggregatedFuzzyVariableType extends FuzzyVariable{
 
     @XmlElement(required = true)
     protected List<AggregatedFuzzyTermType> aggregatedFuzzyTerm;
@@ -176,12 +176,18 @@ public class AggregatedFuzzyVariableType extends KnowledgeBaseVariable{
 		else
 			return false;
 	}
+    
+    @Override
+	public void reset() {
+		this.value = Float.NaN;
+	}
 
-	@Override
+    
+	/*@Override
 	public float getDefuzzifierValue() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 
 	@Override
 	public float getValue() {

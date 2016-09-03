@@ -5,6 +5,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.term.FuzzyTerm;
+import jfml.term.TskTerm;
+
 
 /**
  * <p>Java class for tskConsequentType complex type.
@@ -35,6 +39,44 @@ public class TskConsequentType {
     protected TskConsequentClausesType tskThen;
     protected TskConsequentClausesType tskElse;
 
+    public TskConsequentType(){
+    	super();
+    }
+    
+    public TskConsequentType(TskConsequentClausesType then, TskConsequentClausesType _else){
+    	super();
+    	this.setTskThen(then);
+    	this.setTskElse(_else);
+    }
+    
+    public void addTskThenClause(KnowledgeBaseVariable variable, TskTerm term){
+    	if(tskThen==null)
+    		tskThen = new TskConsequentClausesType();
+    	
+    	tskThen.addTskClause(variable, term);
+    }
+    
+    public void addTskThenClause(TskClauseType c){
+    	if(tskThen==null)
+    		tskThen = new TskConsequentClausesType();
+    	
+    	tskThen.addTskClause(c);
+    }
+    
+    public void addTskElseClause(KnowledgeBaseVariable variable, TskTerm term){
+    	if(tskElse==null)
+    		tskElse = new TskConsequentClausesType();
+    	
+    	tskElse.addTskClause(variable, term);
+    }
+    
+    public void addTskElseClause(TskClauseType c){
+    	if(tskElse==null)
+    		tskElse = new TskConsequentClausesType();
+    	
+    	tskElse.addTskClause(c);
+    }
+    
     /**
      * Gets the value of the property tskThen.
      * 

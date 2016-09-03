@@ -8,11 +8,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.defuzzifier.Defuzzifier;
+import jfml.term.FuzzyTermType;
 import jfml.term.TskTermType;
 
 
@@ -62,22 +64,33 @@ public class TskVariableType extends KnowledgeBaseVariable {
     protected Float defaultValue;
     @XmlAttribute(name = "networkAddress")
     protected String networkAddress;
+    
+    @XmlTransient
+    protected List<WZ> z;
+    
+    @XmlTransient
+    protected List<FuzzyVariable> inputs;
+    
+    public TskVariableType(){
+    	
+    }
 
     /**
+     * Constructor with required elements
+     * @param name
+     * @param domainLeft
+     * @param domainRight
+     */
+    public TskVariableType(String name){
+    	super();
+    	this.setName(name);
+    	this.setScale("");
+    	this.setType(this.getType());
+    }
+
+    
+    /**
      * Gets the value of the tskTerm property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tskTerm property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTskTerm().add(newItem);
-     * </pre>
-     * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
@@ -85,17 +98,28 @@ public class TskVariableType extends KnowledgeBaseVariable {
      * 
      * 
      */
-    /*public List<TskTermType> getTskTerm() {
-        if (tskTerm == null) {
-            tskTerm = new ArrayList<TskTermType>();
-        }
-        return this.tskTerm;
-    }*/
     public List<TskTermType> getTerms() {
         if (tskTerm == null) {
             tskTerm = new ArrayList<TskTermType>();
         }
         return this.tskTerm;
+    }
+    
+    public void addTskTerm(TskTermType t) {
+        if (tskTerm == null) {
+            tskTerm = new ArrayList<TskTermType>();
+        }
+        this.tskTerm.add(t);
+    }
+    
+    /**
+     * 
+     * @param name
+     * @param order
+     * @param coeff
+     */
+    public void addTskTerm(String name, int order, float[] coeff){
+    	addTskTerm(new TskTermType(name,order,coeff));
     }
 
     /**
@@ -267,35 +291,91 @@ public class TskVariableType extends KnowledgeBaseVariable {
 	}
 
 	@Override
-	public float getDefuzzifierValue() {
+	public float getValue() {
+		//calculate Z according to the combination method
+		if(Float.isNaN(value))
+			value = combination();
+			
+		return value;
+	}
+
+	private float combination() {
+		String comb = getCombination();
+		float v=value;
+		if(comb.equals("WA")){
+			v= weightedAverage(this.z);
+		}
+		else if(comb.equals("custom_\\S*"))
+			v= customCombination(this.z);
+		
+		return v;
+	}
+
+	private float customCombination(List<WZ> z) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public float getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+	private float weightedAverage(List<WZ> z) {
+		float sum =0;
+		float res=0;
+		
+		for(WZ zi : z){
+			sum += zi.getW();
+			res += zi.getW()*zi.getZ();
+		}
+		return res/sum;
 	}
 
 	@Override
 	public void setValue(float x) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected Defuzzifier getDefuzzifier() {
-		// TODO Auto-generated method stub
-		return null;
+		this.value=x;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		String b = name + " - ";
+    	    	
+    	b+= getType() + "\n";
+    	
+    	for(TskTermType t : getTerms())
+    		b += "\t" + t.toString()  + "\n";
+    	
+    	return b;
 	}
 
+	public void addEvaluation(float wi, float zi) {
+		if(z==null)
+			z= new ArrayList<>();
+		
+		z.add(new WZ(wi,zi));
+	}
 	
+	public void addInputVariable(FuzzyVariable fv){
+		if(inputs==null)
+			inputs = new ArrayList<>();
+		
+		inputs.add(fv);
+	}
 
+	public List<FuzzyVariable> getInputVariables(){
+		return this.inputs;
+	}
+
+	public void setInputVariables(List<KnowledgeBaseVariable> kbvs) {
+		inputs = new ArrayList<>();
+		
+		for(KnowledgeBaseVariable v : kbvs){
+			if(v.isInput() && v instanceof FuzzyVariable)
+				inputs.add((FuzzyVariable) v);
+		}
+	}
+
+	@Override
+	public void reset() {
+		this.value=Float.NaN;
+		this.z=new ArrayList<>();
+		for(TskTermType t : getTerms())
+			t.reset();
+	}
 }

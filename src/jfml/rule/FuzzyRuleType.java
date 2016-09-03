@@ -118,6 +118,25 @@ public class FuzzyRuleType extends Rule{
 		this.orMethod = orMethod;
 		this.weight = weight;
 	}
+	
+	/**
+	 * @param name
+	 * @param connector
+	 * @param andMethod
+	 * @param orMethod
+	 * @param weight
+	 * @param networkAddress
+	 */
+	public FuzzyRuleType(String name, String connector, String connectorMethod, Float weight) {
+		super();
+		this.name = name;
+		this.connector = connector;
+		if(connector.equals("or"))
+			this.orMethod = connectorMethod;
+		else if(connector.equals("and"))
+			this.andMethod = connectorMethod;
+		this.weight = weight;
+	}
 
 	/**
 	 * 
@@ -380,36 +399,42 @@ public class FuzzyRuleType extends Rule{
 		ConsequentClausesType then = getConsequent().getThen();
 		ConsequentClausesType _else = getConsequent().getElse();
 		if(then!=null){
-			ClauseType c = then.getClause().get(0);
-			FuzzyTermType t=null;
-			FuzzyVariableType v=null;
-			if(c!=null && c.getTerm() instanceof FuzzyTermType)
-				t = (FuzzyTermType) c.getTerm();
-			if(c.getVariable() instanceof FuzzyVariableType)
-				v = (FuzzyVariableType) c.getVariable();
-
-			String modifier = c.getModifier();
-			if(modifier!=null)
-				modifier += " ";
-			else
-				modifier="";
-			
-			b += " THEN "+v.getName() +" IS "+ modifier + t.getName();
-			
-			if(_else!=null){
-				c = _else.getClause().get(0);
+			b += " THEN ";
+			for(ClauseType c : then.getClause()){
+				FuzzyTermType t=null;
+				FuzzyVariableType v=null;
 				if(c!=null && c.getTerm() instanceof FuzzyTermType)
 					t = (FuzzyTermType) c.getTerm();
 				if(c.getVariable() instanceof FuzzyVariableType)
 					v = (FuzzyVariableType) c.getVariable();
-				
-				modifier = c.getModifier();
+	
+				String modifier = c.getModifier();
 				if(modifier!=null)
 					modifier += " ";
-				b += " ELSE "+v.getName() +" IS "+ modifier + t.getName();
+				else
+					modifier="";
+				
+				b += v.getName() +" IS "+ modifier + t.getName() + " ";
+			}
+			
+			if(_else!=null){
+				b += " ELSE ";
+				for(ClauseType c : _else.getClause()){
+					FuzzyTermType t=null;
+					FuzzyVariableType v=null;
+					if(c!=null && c.getTerm() instanceof FuzzyTermType)
+						t = (FuzzyTermType) c.getTerm();
+					if(c.getVariable() instanceof FuzzyVariableType)
+						v = (FuzzyVariableType) c.getVariable();
+					
+					String modifier = c.getModifier();
+					if(modifier!=null)
+						modifier += " ";
+					b += v.getName() +" IS "+ modifier + t.getName() + " ";
+				}
 			}	
 			
-			b += " [weight="+getWeight()+"]";
+			b += "[weight="+getWeight()+"]";
 		}
 		return b;
 	}

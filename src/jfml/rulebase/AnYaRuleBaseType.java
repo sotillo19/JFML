@@ -39,7 +39,7 @@ import jfml.rule.AnYaRuleType;
 @XmlType(name = "anYaRuleBaseType", propOrder = {
     "anYaRule"
 })
-public class AnYaRuleBaseType extends FuzzySystemRuleBaseType{
+public class AnYaRuleBaseType extends FuzzySystemRuleBase{
 
     @XmlElement(required = true)
     protected List<AnYaRuleType> anYaRule;
@@ -52,22 +52,13 @@ public class AnYaRuleBaseType extends FuzzySystemRuleBaseType{
     protected String activationMethod;
     @XmlAttribute(name = "networkAddress")
     protected String networkAddress;
+    
+    public AnYaRuleBaseType(){
+    	setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_ANYA);
+    }
 
     /**
      * Gets the value of the anYaRule property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the anYaRule property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAnYaRule().add(newItem);
-     * </pre>
-     * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list

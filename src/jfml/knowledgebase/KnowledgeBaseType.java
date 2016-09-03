@@ -88,7 +88,24 @@ public class KnowledgeBaseType {
     
     /**
      * 
-     * @param ft
+     * @return List of KnowledgeBaseVariable
+     */
+    public List<KnowledgeBaseVariable> getKnowledgeBaseVariables(){
+    	if(variable!=null){
+    		List<KnowledgeBaseVariable> kbvs = new ArrayList<>();
+    		for(Object e : variable){
+    			if(e instanceof JAXBElement && ((JAXBElement<?>) e).getValue() instanceof KnowledgeBaseVariable)
+    				kbvs.add((KnowledgeBaseVariable) ((JAXBElement<?>) e).getValue());
+    		}
+    		return kbvs;
+    	}
+    	else
+    		return null;
+    }
+    
+    /**
+     * 
+     * @param var
      */
     public void addVariable(KnowledgeBaseVariable var){
     	if (variable == null) {
@@ -154,10 +171,10 @@ public class KnowledgeBaseType {
 		// VARIABLES
 		for (Object v : getVariables()) {
 			KnowledgeBaseVariable var = null;
-			if (((JAXBElement) v).getValue() instanceof KnowledgeBaseVariable) {
-				var = (KnowledgeBaseVariable) ((JAXBElement) v).getValue();
+			if (((JAXBElement<?>) v).getValue() instanceof KnowledgeBaseVariable) {
+				var = (KnowledgeBaseVariable) ((JAXBElement<?>) v).getValue();
 				if (var != null)
-					b.append("\t" +var.toString() + "\n");
+					b.append("  *" +var.toString() + "\n");
 			}
 		}
 		return b.toString();

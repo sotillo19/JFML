@@ -102,8 +102,42 @@ public class FuzzyTerm {
 				t.setType(TYPE_customShape);
 			}
 		}
-		else{
-			//TODO for other fuzzyTerms
+		else if(this instanceof TsukamotoTermType){
+			TsukamotoTermType t = (TsukamotoTermType) this;
+			
+			if (t.getRightLinearShape() != null){
+				mf = new RightLinearMembershipFunction(t.getRightLinearShape(),domainLeft,domainRight);
+				t.setType(TYPE_rightLinearShape);
+			}
+			else if (t.getLeftLinearShape() != null){
+				mf = new LeftLinearMembershipFunction(t.getLeftLinearShape(),domainLeft,domainRight);
+				t.setType(TYPE_leftLinearShape);
+			}
+			else if (t.getRightGaussianShape() != null){
+				mf = new RightGaussianMembershipFunction(t.getRightGaussianShape(),domainLeft,domainRight);
+				t.setType(TYPE_rightGaussianShape);
+			}
+			else if (t.getLeftGaussianShape() != null){
+				mf = new LeftGaussianMembershipFunction(t.getLeftGaussianShape(),domainLeft,domainRight);
+				t.setType(TYPE_leftGaussianShape);
+			}
+			else if (t.getZShape() != null){
+				mf = new ZShapeMembershipFunction(t.getZShape(),domainLeft,domainRight);
+				t.setType(TYPE_zShape);
+			}
+			else if (t.getSShape() != null){
+				mf = new SShapeMembershipFunction(t.getSShape(),domainLeft,domainRight);
+				t.setType(TYPE_sShape);
+			}
+			//TODO pointsetmonotonic
+			/*else if (t.getPointSetShape() != null){
+				mf = new PointSetShapeMembershipFunction(t.getPointSetShape(),domainLeft,domainRight);
+				t.setType(TYPE_pointSetShape);
+			}
+			else if (t.getCustomShape() != null){
+				mf = new CustomMembershipFunction(t.getCustomShape(),domainLeft,domainRight);
+				t.setType(TYPE_customShape);
+			}*/
 		}
 	}
 	

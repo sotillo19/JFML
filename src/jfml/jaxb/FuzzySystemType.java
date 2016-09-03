@@ -21,8 +21,9 @@ import org.w3c.dom.Element;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.knowledgebase.variable.TskVariableType;
 import jfml.rulebase.AnYaRuleBaseType;
-import jfml.rulebase.FuzzySystemRuleBaseType;
+import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
 import jfml.rulebase.TskRuleBaseType;
 
@@ -56,7 +57,6 @@ import jfml.rulebase.TskRuleBaseType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fuzzySystemType", propOrder = { "knowledgeBase", "ruleBase" })
-//@XmlRootElement
 public class FuzzySystemType {
 
 	@XmlElement(required = true)
@@ -147,7 +147,7 @@ public class FuzzySystemType {
 	 * @param r
 	 *            allowed object is {@link FuzzySystemRuleBaseType }
 	 */
-	public void addRuleBase(FuzzySystemRuleBaseType r) {
+	public void addRuleBase(FuzzySystemRuleBase r) {
 		if (ruleBase == null) {
 			ruleBase = new ArrayList<Object>();
 		}
@@ -155,7 +155,7 @@ public class FuzzySystemType {
 		JAXBElement<?> e = null;
 
 		if (r instanceof RuleBaseType) {
-			if (r.getRuleBaseSystemType() == FuzzySystemRuleBaseType.TYPE_MAMDANI)
+			if (r.getRuleBaseSystemType() == FuzzySystemRuleBase.TYPE_MAMDANI)
 				e = of.createFuzzySystemTypeMamdaniRuleBase((RuleBaseType) r);
 			else
 				e = of.createFuzzySystemTypeTsukamotoRuleBase((RuleBaseType) r);
@@ -258,8 +258,8 @@ public class FuzzySystemType {
 			Object v = it.next();
 			if (((JAXBElement) v).getValue() instanceof KnowledgeBaseVariable) {
 				KnowledgeBaseVariable kbvar = (KnowledgeBaseVariable) ((JAXBElement) v).getValue();
-				if (kbvar instanceof FuzzyVariableType && ((FuzzyVariableType) kbvar).getName().equals(cad))
-					return (KnowledgeBaseVariable) kbvar;
+				if (kbvar.getName().equals(cad))
+					return kbvar;
 			}
 		}
 		return null;
@@ -272,12 +272,12 @@ public class FuzzySystemType {
 	public void evaluate() {
 		// Reset defuzzifiers, variables, rules, etc.
 		reset(getKnowledgeBase(), getRuleBase());
-
+		
 		// Evaluate each rule
 		evaluateRules();
 
-		// Defuzzify each consequent variable
-		defuzzify(getKnowledgeBase());
+		// Defuzzify each consequent variable: fuzzy variable call defuzzify() and other variable call getValue()
+		//defuzzify(getKnowledgeBase());
 
 	}
 
@@ -288,16 +288,20 @@ public class FuzzySystemType {
 			KnowledgeBaseVariable var = null;
 			if (((JAXBElement) v).getValue() instanceof KnowledgeBaseVariable) {
 				var = (KnowledgeBaseVariable) ((JAXBElement) v).getValue();
-				if (var != null && var.isOutput())
+				if (var != null && var.isOutput()){
 					var.reset();
+					//SETTING INPUT VARIABLES INTO TSKVARIABLES
+					if(var instanceof TskVariableType)
+						((TskVariableType) var).setInputVariables(knowledgeBase.getKnowledgeBaseVariables());
+				}
 			}
 		}
 
 		// RESETTING RULES
 		for (Object rb : ruleBase) {
-			FuzzySystemRuleBaseType r = null;
-			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBaseType) {
-				r = (FuzzySystemRuleBaseType) ((JAXBElement) rb).getValue();
+			FuzzySystemRuleBase r = null;
+			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBase) {
+				r = (FuzzySystemRuleBase) ((JAXBElement) rb).getValue();
 				
 				if (r != null)
 					r.reset();
@@ -305,7 +309,7 @@ public class FuzzySystemType {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	/*@SuppressWarnings("rawtypes")
 	private void defuzzify(KnowledgeBaseType kb) {
 		for (Object v : kb.getVariables()) {
 			KnowledgeBaseVariable var = null;
@@ -316,14 +320,14 @@ public class FuzzySystemType {
 			}
 		}
 
-	}
+	}*/
 
 	@SuppressWarnings("rawtypes")
 	private void evaluateRules() {
 		for (Object rb : getRuleBase()) {
-			FuzzySystemRuleBaseType r = null;
-			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBaseType)
-				r = (FuzzySystemRuleBaseType) ((JAXBElement) rb).getValue();
+			FuzzySystemRuleBase r = null;
+			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBase)
+				r = (FuzzySystemRuleBase) ((JAXBElement) rb).getValue();
 
 			if (r != null && r instanceof RuleBaseType) {
 				if (((RuleBaseType) r).getRuleBaseSystemType() == RuleBaseType.TYPE_MAMDANI)
@@ -350,7 +354,8 @@ public class FuzzySystemType {
 	}
 
 	private void evaluateTsk(TskRuleBaseType r) {
-		// TODO Auto-generated method stub
+		//evaluate the TskRules
+		r.evaluate();
 	}
 
 	private void evaluateTsukamoto(RuleBaseType r) {
@@ -364,7 +369,7 @@ public class FuzzySystemType {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public String toString() {
-		StringBuffer b = new StringBuffer();
+		StringBuffer b = new StringBuffer("\n");
 
 		b.append("FUZZY SYSTEM: " + getName() + "\n");
 
@@ -374,11 +379,11 @@ public class FuzzySystemType {
 		// RULES
 		b.append("RULEBASE:\n");
 		for (Object rb : getRuleBase()) {
-			FuzzySystemRuleBaseType r = null;
-			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBaseType) {
-				r = (FuzzySystemRuleBaseType) ((JAXBElement) rb).getValue();
-				if (r != null)
-					b.append(r.toString());
+			FuzzySystemRuleBase rbi = null;
+			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBase) {
+				rbi = (FuzzySystemRuleBase) ((JAXBElement) rb).getValue();
+				if (rbi != null)
+					b.append(rbi.toString());
 			}
 		}
 		return b.toString();

@@ -136,12 +136,18 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
     public void setNetworkAddress(String value) {
         this.networkAddress = value;
     }
+    
+    @Override
+	public void reset() {
+		this.value = Float.NaN;
+	}
 
+    /*
 	@Override
 	public float getDefuzzifierValue() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 
 	@Override
 	public float getValue() {
@@ -155,11 +161,11 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 		
 	}
 
-	@Override
+	/*@Override
 	protected Defuzzifier getDefuzzifier() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	@Override
 	public boolean isOutput() {

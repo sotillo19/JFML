@@ -62,6 +62,20 @@ public class ConsequentType {
     	
     	then.addClause(c);
     }
+    
+    public void addElseClause(KnowledgeBaseVariable variable, FuzzyTerm term){
+    	if(_else==null)
+    		_else = new ConsequentClausesType();
+    	
+    	_else.addClause(variable, term);
+    }
+    
+    public void addElseClause(ClauseType c){
+    	if(_else==null)
+    		_else = new ConsequentClausesType();
+    	
+    	_else.addClause(c);
+    }
    
     
     /**

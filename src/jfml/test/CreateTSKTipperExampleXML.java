@@ -6,19 +6,26 @@ import jfml.FuzzySystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
+import jfml.knowledgebase.variable.TskVariableType;
 import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentType;
 import jfml.rule.FuzzyRuleType;
+import jfml.rule.TskClauseType;
+import jfml.rule.TskConsequentType;
+import jfml.rule.TskFuzzyRuleType;
 import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
+import jfml.rulebase.TskRuleBaseType;
 import jfml.term.FuzzyTermType;
+import jfml.term.TskTerm;
+import jfml.term.TskTermType;
 
-public class CreateMamdaniTipperExampleXML {
+public class CreateTSKTipperExampleXML {
 
 	public static void main(String[] args) {
 
-		FuzzySystem tipper = new FuzzySystem("tipper - MAMDANI");
+		FuzzySystem tipper = new FuzzySystem("tipper - TSK");
 
 		// KNOWLEDGE BASE
 		KnowledgeBaseType kb = new KnowledgeBaseType();
@@ -47,7 +54,7 @@ public class CreateMamdaniTipperExampleXML {
 				(new float[] { 10f, 2f }));
 		service.addFuzzyTerm(excellent);
 		// FUZZY TERM good
-		FuzzyTermType good = new FuzzyTermType("good", FuzzyTermType.TYPE_gaussianShape, (new float[] { 5f, 4f }));
+		FuzzyTermType good = new FuzzyTermType("good", FuzzyTermType.TYPE_gaussianShape, (new float[] { 5f, 2f }));
 		service.addFuzzyTerm(good);
 		// FUZZY TERM poor
 		FuzzyTermType poor = new FuzzyTermType("poor", FuzzyTermType.TYPE_leftGaussianShape, (new float[] { 0f, 2f }));
@@ -55,71 +62,69 @@ public class CreateMamdaniTipperExampleXML {
 
 		kb.addVariable(service);
 
-		// FUZZY VARIABLE tip
-		FuzzyVariableType tip = new FuzzyVariableType("tip", 0, 20);
+		// TSK VARIABLE tip
+		TskVariableType tip = new TskVariableType("tip");
 		tip.setDefaultValue(0f);
-		tip.setAccumulation("MAX");
-		tip.setDefuzzifierName("COG");
+		tip.setCombination("WA");
 		tip.setType("output");
 
-		// FUZZY TERM average
-		FuzzyTermType average = new FuzzyTermType("average", FuzzyTermType.TYPE_triangularShape,
-				(new float[] { 5f, 10f, 15f }));
-		tip.addFuzzyTerm(average);
-		// FUZZY TERM cheap
-		FuzzyTermType cheap = new FuzzyTermType("cheap", FuzzyTermType.TYPE_triangularShape,
-				(new float[] { 0f, 5f, 10f }));
-		tip.addFuzzyTerm(cheap);
-		// FUZZY TERM generous
-		FuzzyTermType generous = new FuzzyTermType("generous", FuzzyTermType.TYPE_triangularShape,
-				(new float[] { 10f, 15f, 20f }));
-		tip.addFuzzyTerm(generous);
+		// TSK TERM average
+		TskTermType average = new TskTermType("average", TskTerm._ORDER_0, (new float[] { 1.6f}));
+		tip.addTskTerm(average);
+		// TSK TERM cheap
+		TskTermType cheap = new TskTermType("cheap", TskTerm._ORDER_1,
+				(new float[] { 1.9f, 5.6f, 6.0f }));
+		tip.addTskTerm(cheap);
+		// TSK TERM generous
+		TskTermType generous = new TskTermType("generous", TskTerm._ORDER_1,
+				(new float[] { 0.6f, 1.3f, 1.0f }));
+		tip.addTskTerm(generous);
 
 		kb.addVariable(tip);
 
 		// RULE BASE
-		RuleBaseType fr = new RuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_MAMDANI);
+		TskRuleBaseType fr = new TskRuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_TSK);
 
 		// RULE 1
-		FuzzyRuleType reg1 = new FuzzyRuleType("reg1", "or", "MAX", 1.0f);
+		TskFuzzyRuleType reg1 = new TskFuzzyRuleType("reg1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
-		ant1.addClause(new ClauseType(service, poor, "very"));
-		ConsequentType con1 = new ConsequentType();
-		con1.addThenClause(tip, cheap);
+		ant1.addClause(new ClauseType(service, poor));
+		TskConsequentType con1 = new TskConsequentType();
+		con1.addTskThenClause(tip, cheap);
 		reg1.setAntecedent(ant1);
-		reg1.setConsequent(con1);
+		reg1.setTskConsequent(con1);
 
-		fr.addRule(reg1);
+		fr.addTskRule(reg1);
 
 		// RULE 2
-		FuzzyRuleType reg2 = new FuzzyRuleType("reg2", "or", "MAX", 1.0f);
+		TskFuzzyRuleType reg2 = new TskFuzzyRuleType("reg2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
-		ConsequentType con2 = new ConsequentType();
-		con2.addThenClause(tip, average);
+		TskConsequentType con2 = new TskConsequentType();
+		con2.addTskThenClause(tip, average);
 		reg2.setAntecedent(ant2);
-		reg2.setConsequent(con2);
-		fr.addRule(reg2);
+		reg2.setTskConsequent(con2);
+		fr.addTskRule(reg2);
 
 		// RULE 3
-		FuzzyRuleType reg3 = new FuzzyRuleType("reg3", "or", "MAX", 1.0f);
+		TskFuzzyRuleType reg3 = new TskFuzzyRuleType("reg3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
 		ant3.addClause(new ClauseType(food, delicious));
-		ConsequentType con3 = new ConsequentType();
-		con3.addThenClause(tip, generous);
+		TskConsequentType con3 = new TskConsequentType();
+		con3.addTskThenClause(tip, generous);
 		reg3.setAntecedent(ant3);
-		reg3.setConsequent(con3);
-		fr.addRule(reg3);
+		reg3.setTskConsequent(con3);
+		fr.addTskRule(reg3);
 
 		tipper.addRuleBase(fr);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
-		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani.xml");
+		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}
 

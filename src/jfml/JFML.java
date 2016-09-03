@@ -16,6 +16,7 @@ import javax.xml.bind.Unmarshaller;
 import jfml.jaxb.FuzzySystemType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.knowledgebase.variable.TsukamotoVariableType;
 import jfml.term.FuzzyTerm;
 
 public class JFML {
@@ -73,14 +74,14 @@ public class JFML {
 						if (var instanceof FuzzyVariableType) {
 							d_left = ((FuzzyVariableType) var).getDomainleft();
 							d_right = ((FuzzyVariableType) var).getDomainright();
-						} else if (var instanceof FuzzyVariableType) {
-							d_left = ((FuzzyVariableType) var).getDomainleft();
-							d_right = ((FuzzyVariableType) var).getDomainright();
+						} else if (var instanceof TsukamotoVariableType) {
+							d_left = ((TsukamotoVariableType) var).getDomainleft();
+							d_right = ((TsukamotoVariableType) var).getDomainright();
 						}
 
 						((FuzzyTerm) t).initializeMembershipFunction(d_left, d_right);
 					}
-					// TODO initialize other terms (tskTerms)
+					// TODO initialize other terms
 				}
 			}
 		}

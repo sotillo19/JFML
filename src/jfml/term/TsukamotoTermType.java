@@ -57,7 +57,7 @@ import jfml.parameter.TwoParamType;
     "pointSetMonotonicShape",
     "customMonotonicShape"
 })
-public class TsukamotoTermType {
+public class TsukamotoTermType extends FuzzyTerm{
 
     protected TwoParamType rightLinearShape;
     protected TwoParamType leftLinearShape;

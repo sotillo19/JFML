@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.term.FuzzyTerm;
+import jfml.term.TskTerm;
+
 
 /**
  * <p>Java class for tskConsequentClausesType complex type.
@@ -38,19 +42,6 @@ public class TskConsequentClausesType {
      * Gets the value of the tskClause property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tskClause property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTskClause().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link TskClauseType }
      * 
@@ -61,6 +52,23 @@ public class TskConsequentClausesType {
             tskClause = new ArrayList<TskClauseType>();
         }
         return this.tskClause;
+    }
+    
+    public void addTskClause(TskClauseType c){
+    	if (tskClause == null) {
+    		tskClause = new ArrayList<TskClauseType>();
+        }
+    	if(c!=null)
+    		tskClause.add(c);
+    }
+    
+    public void addTskClause(KnowledgeBaseVariable v, TskTerm t){
+    	if (tskClause == null) {
+    		tskClause = new ArrayList<TskClauseType>();
+        }
+    	TskClauseType c = new TskClauseType(v,t);
+    	if(c!=null)
+    		tskClause.add(c);
     }
 
 }

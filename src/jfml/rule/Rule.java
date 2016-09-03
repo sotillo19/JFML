@@ -85,7 +85,7 @@ public abstract class Rule {
 
 
 	private float nilmin(float a, float b) {
-		if(a+b==1)
+		if(a+b>1)
 			return Math.min(a, b);
 		else
 			return 0;

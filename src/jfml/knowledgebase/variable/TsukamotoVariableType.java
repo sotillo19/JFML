@@ -304,11 +304,12 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
 			return false;
 	}
     
+    /*
 	@Override
 	public float getDefuzzifierValue() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 
 	@Override
 	public float getValue() {
@@ -323,17 +324,14 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
 	}
 
 	@Override
-	protected Defuzzifier getDefuzzifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
+	@Override
+	public void reset() {
+		this.value = Float.NaN;
+	}
 
 }

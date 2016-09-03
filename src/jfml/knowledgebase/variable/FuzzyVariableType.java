@@ -52,7 +52,7 @@ import jfml.term.FuzzyTermType;
     "fuzzyTerm"
 })
 
-public class FuzzyVariableType extends KnowledgeBaseVariable{
+public class FuzzyVariableType extends FuzzyVariable{
 
     @XmlElement(required = true)
     protected List<FuzzyTermType> fuzzyTerm;
@@ -399,7 +399,20 @@ public class FuzzyVariableType extends KnowledgeBaseVariable{
     }
     
 
+    /*
+    @Override
+	public float getDefuzzifierValue() {
+    	if(this.getDefuzzifier()!=null && value!=Float.NaN)
+    		return getDefuzzifier().defuzzify();
+    	else
+    		return value;
+	}*/
+    
     /**
+     *  If the variable is input type, return value setter. 
+     *  If the variable is output, return the deffuzifier value or the calculated tsk value
+     *  
+     *  Defuzzifier method:
      *  - MOM for the defuzzifier method named mean of maxima as defined from Equation (A.42);
 		- LM for the defuzzifier method named leftmost maximum as defined from Equation (A.43);
 		- RM for the defuzzifier method named rightmost maximum as defined from Equation (A.44);
@@ -408,23 +421,18 @@ public class FuzzyVariableType extends KnowledgeBaseVariable{
 		- custom_\S* for a custom defuzzifier method.
      * @return the defuzzification value
      */
-    @Override
-	public float getDefuzzifierValue() {
-    	if(this.getDefuzzifier()!=null && x!=-1)
-    		return getDefuzzifier().defuzzify();
-    	else
-    		return x;
-	}
-    
 	@Override
 	public float getValue() {
-		return x;
+		if(this.getDefuzzifier()!=null && this.isOutput() && value!=Float.NaN)
+    		return getDefuzzifier().defuzzify();
+    	else
+    		return value;
 	}
 
 	@Override
 	public void setValue(float x) {
 		if(x >= getDomainleft() && x<= getDomainright())
-			this.x = x;
+			this.value = x;
 	}
 
 	/**
@@ -537,5 +545,10 @@ public class FuzzyVariableType extends KnowledgeBaseVariable{
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public void reset() {
+		this.value = Float.NaN;
 	}
 }

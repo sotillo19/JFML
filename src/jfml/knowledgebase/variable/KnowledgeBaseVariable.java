@@ -11,34 +11,21 @@ import javax.xml.bind.annotation.XmlAccessType;
 @XmlAccessorType(XmlAccessType.NONE) //This is needed to ignore class attributes as xml tags in XML files
 public abstract class KnowledgeBaseVariable {
 
-	float x=-1;
-	
-	Defuzzifier defuzzifier;
-	
-	public void setDefuzzifier(Defuzzifier def){
-		this.defuzzifier=def;
-	}
-	
-	protected abstract Defuzzifier getDefuzzifier();
+	float value=Float.NaN;
 	
 	public abstract float getValue();
 	
 	public abstract void setValue(float x);
 	
-	public abstract float getDefuzzifierValue();
-	
 	public abstract List<?> getTerms();
 	
 	public abstract boolean isOutput();
-
-	public void defuzzify(){
-		if(this.isOutput() && this.getDefuzzifier()!=null && x==-1)
-    		x = getDefuzzifier().defuzzify();
+	
+	public boolean isInput(){
+		return !isOutput();
 	}
 
-	public void reset() {
-		this.x = -1;
-	}
+	public abstract void reset();
 	
 	@Override
 	public abstract String toString();
