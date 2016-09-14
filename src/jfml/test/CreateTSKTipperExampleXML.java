@@ -2,20 +2,16 @@ package jfml.test;
 
 import java.io.File;
 
-import jfml.FuzzySystem;
+import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.TskVariableType;
 import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
-import jfml.rule.ConsequentType;
-import jfml.rule.FuzzyRuleType;
-import jfml.rule.TskClauseType;
 import jfml.rule.TskConsequentType;
 import jfml.rule.TskFuzzyRuleType;
 import jfml.rulebase.FuzzySystemRuleBase;
-import jfml.rulebase.RuleBaseType;
 import jfml.rulebase.TskRuleBaseType;
 import jfml.term.FuzzyTermType;
 import jfml.term.TskTerm;
@@ -25,7 +21,7 @@ public class CreateTSKTipperExampleXML {
 
 	public static void main(String[] args) {
 
-		FuzzySystem tipper = new FuzzySystem("tipper - TSK");
+		FuzzyInferenceSystem tipper = new FuzzyInferenceSystem("tipper - TSK");
 
 		// KNOWLEDGE BASE
 		KnowledgeBaseType kb = new KnowledgeBaseType();

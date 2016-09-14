@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.knowledgebase.variable.FuzzyVariableType;
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.term.FuzzyTerm;
 import jfml.term.FuzzyTermType;
 
 /**
@@ -377,12 +379,9 @@ public class FuzzyRuleType extends Rule{
 		List<ClauseType> clauses = getAntecedent().getClauses();
 		for(int i=0;i<clauses.size();i++){
 			ClauseType c= clauses.get(i);
-			FuzzyTermType t=null;
-			FuzzyVariableType v=null;
-			if(c!=null && c.getTerm() instanceof FuzzyTermType)
-				t = (FuzzyTermType) c.getTerm();
-			if(c.getVariable() instanceof FuzzyVariableType)
-				v = (FuzzyVariableType) c.getVariable();
+			
+			FuzzyTerm t=(FuzzyTerm) c.getTerm();
+			KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
 			
 			String modifier = c.getModifier();
 			if(modifier!=null)
@@ -401,12 +400,8 @@ public class FuzzyRuleType extends Rule{
 		if(then!=null){
 			b += " THEN ";
 			for(ClauseType c : then.getClause()){
-				FuzzyTermType t=null;
-				FuzzyVariableType v=null;
-				if(c!=null && c.getTerm() instanceof FuzzyTermType)
-					t = (FuzzyTermType) c.getTerm();
-				if(c.getVariable() instanceof FuzzyVariableType)
-					v = (FuzzyVariableType) c.getVariable();
+				FuzzyTerm t=(FuzzyTerm) c.getTerm();
+				KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
 	
 				String modifier = c.getModifier();
 				if(modifier!=null)
@@ -420,12 +415,8 @@ public class FuzzyRuleType extends Rule{
 			if(_else!=null){
 				b += " ELSE ";
 				for(ClauseType c : _else.getClause()){
-					FuzzyTermType t=null;
-					FuzzyVariableType v=null;
-					if(c!=null && c.getTerm() instanceof FuzzyTermType)
-						t = (FuzzyTermType) c.getTerm();
-					if(c.getVariable() instanceof FuzzyVariableType)
-						v = (FuzzyVariableType) c.getVariable();
+					FuzzyTerm t=(FuzzyTerm) c.getTerm();
+					KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
 					
 					String modifier = c.getModifier();
 					if(modifier!=null)

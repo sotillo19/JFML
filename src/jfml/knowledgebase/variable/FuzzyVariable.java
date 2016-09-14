@@ -11,7 +11,7 @@ public abstract class FuzzyVariable extends KnowledgeBaseVariable {
 	}
 	
 	public void defuzzify(){
-		if(this.isOutput() && this.getDefuzzifier()!=null && value==Float.NaN)
+		if(this.isOutput() && this.getDefuzzifier()!=null && Float.isNaN(value))
     		value = getDefuzzifier().defuzzify();
 	}
 	

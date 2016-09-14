@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import jfml.membershipfunction.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class FuzzyTerm {
+public abstract class FuzzyTerm {
 	public static final int TYPE_rightLinearShape = 0;
 	public static final int TYPE_leftLinearShape = 1;
 	public static final int TYPE_piShape = 2;
@@ -20,14 +20,18 @@ public class FuzzyTerm {
 	public static final int TYPE_zShape = 10;
 	public static final int TYPE_sShape = 11;
 	public static final int TYPE_pointSetShape = 12;
-	public static final int TYPE_circularDefinition = 13;
-	public static final int TYPE_customShape = 14;
+	public static final int TYPE_pointSetMonotonicShape = 13;
+	public static final int TYPE_circularDefinition = 14;
+	public static final int TYPE_customShape = 15;
+	public static final int TYPE_customMonotonicShape = 16;
 
 	protected int type = -1;
 
 	protected float evaluation = -1;
 	
 	protected MembershipFunction mf;
+	
+	public abstract String getComplement();
 	
 	public void setType(int type){
 		this.type=type;
@@ -90,7 +94,7 @@ public class FuzzyTerm {
 				t.setType(TYPE_sShape);
 			}
 			else if (t.getPointSetShape() != null){
-				mf = new PointSetShapeMembershipFunction(t.getPointSetShape(),domainLeft,domainRight);
+				mf = new PointSetShapeType(domainLeft,domainRight,t.getPointSetShape().getPoints());
 				t.setType(TYPE_pointSetShape);
 			}
 			else if (t.getCircularDefinition() != null){
@@ -129,15 +133,14 @@ public class FuzzyTerm {
 				mf = new SShapeMembershipFunction(t.getSShape(),domainLeft,domainRight);
 				t.setType(TYPE_sShape);
 			}
-			//TODO pointsetmonotonic
-			/*else if (t.getPointSetShape() != null){
-				mf = new PointSetShapeMembershipFunction(t.getPointSetShape(),domainLeft,domainRight);
-				t.setType(TYPE_pointSetShape);
+			else if (t.getPointSetMonotonicShape() != null){
+				mf = new PointSetMonotonicShapeType(domainLeft,domainRight,t.getPointSetMonotonicShape().getPoints());
+				t.setType(TYPE_pointSetMonotonicShape);
 			}
-			else if (t.getCustomShape() != null){
-				mf = new CustomMembershipFunction(t.getCustomShape(),domainLeft,domainRight);
-				t.setType(TYPE_customShape);
-			}*/
+			else if (t.getCustomMonotonicShape() != null){
+				mf = new CustomMembershipFunction(t.getCustomMonotonicShape(),domainLeft,domainRight);
+				t.setType(TYPE_customMonotonicShape);
+			}
 		}
 	}
 	
@@ -148,14 +151,25 @@ public class FuzzyTerm {
 		if(mf!=null)
 			d = mf.getMembershipDegree(x);
 		
-		if (this instanceof FuzzyTermType) {
-			FuzzyTermType t = (FuzzyTermType) this;
-
-			if (t.getComplement().equals("true") || t.getComplement().equals("TRUE")
-					|| t.getComplement().equals("True"))
-				d = 1 - d;
-		}
+		if (getComplement().equals("true") || getComplement().equals("TRUE") || getComplement().equals("True"))
+			d = 1 - d;
+		
 		return d;
 	}
+	
+	public float getFi(float y){
+		float d = 0;
+		MembershipFunction mf = getMembershipFunction();
+		
+		if(mf!=null && mf instanceof MonotonicalMembershipFunction)
+			d = ((MonotonicalMembershipFunction) mf).getFi(y);
+		
+		if (getComplement().equals("true") || getComplement().equals("TRUE") || getComplement().equals("True"))
+			d = 1 - d;
+		
+		return d;
+	}
+
+	public abstract String getName();
 
 }

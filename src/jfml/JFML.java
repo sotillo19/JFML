@@ -27,8 +27,8 @@ public class JFML {
      *     {@link File }
 	 * @return a fuzzy System instance
 	 */
-	public static FuzzySystem load(File xml) {
-		return new FuzzySystem(readFSTfromXML(xml, false).getValue());
+	public static FuzzyInferenceSystem load(File xml) {
+		return new FuzzyInferenceSystem(readFSTfromXML(xml, false).getValue());
 	}
 
 	@SuppressWarnings({ "unchecked" })

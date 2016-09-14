@@ -2,12 +2,12 @@ package jfml;
 
 import jfml.jaxb.FuzzySystemType;
 
-public class FuzzySystem extends FuzzySystemType {
+public class FuzzyInferenceSystem extends FuzzySystemType {
 
 	/**
 	 * Default constructor
 	 */
-	public FuzzySystem() {
+	public FuzzyInferenceSystem() {
 		super();
 	}
 
@@ -16,7 +16,7 @@ public class FuzzySystem extends FuzzySystemType {
 	 * 
 	 * @param name
 	 */
-	public FuzzySystem(String name) {
+	public FuzzyInferenceSystem(String name) {
 		super(name);
 	}
 	
@@ -24,7 +24,7 @@ public class FuzzySystem extends FuzzySystemType {
 	 * Constructor using a FuzzySystemType instance
 	 * @param fst
 	 */
-	public FuzzySystem(FuzzySystemType fst){
+	public FuzzyInferenceSystem(FuzzySystemType fst){
 		super(fst.getName(),fst.getKnowledgeBase(),fst.getRuleBase(),fst.getNetworkAddress());
 	}
 	

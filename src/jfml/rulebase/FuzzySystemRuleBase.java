@@ -3,6 +3,8 @@ package jfml.rulebase;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import jfml.enumeration.StandardActivationMethodType;
+
 @XmlAccessorType(XmlAccessType.NONE) // This is needed to ignore class
 										// attributes as xml tags in XML files
 public abstract class FuzzySystemRuleBase {
@@ -61,17 +63,14 @@ public abstract class FuzzySystemRuleBase {
 	}
 
 	/**
-	 * - MIN for implementing the implication with the minimum as defined from
-	 * Equation (A.28); - PROD for implementing the implication with the product
-	 * as defined from Equation (A.29); - BDIF for implementing the implication
-	 * with bounded difference as defined from Equation (A.30); - DRP for
-	 * implementing the implication with the drastic product as defined from
-	 * Equation (A.31); - EPROD for implementing the implication with the
-	 * Einstein product as defined from Equation (A.32); - HPROD for
-	 * implementing the implication with the Hamacher product as defined from
-	 * Equation (A.33); - NILMIN for implementing the implication with the
-	 * Nilpotent minimum as defined from Equation (A.34); - custom_\S* for a
-	 * custom implication method.
+	 * - MIN for implementing the implication with the minimum as defined from Equation (A.28); 
+	 * - PROD for implementing the implication with the product  as defined from Equation (A.29); 
+	 * - BDIF for implementing the implication with bounded difference as defined from Equation (A.30); 
+	 * - DRP for implementing the implication with the drastic product as defined from Equation (A.31); 
+	 * - EPROD for implementing the implication with the Einstein product as defined from Equation (A.32); 
+	 * - HPROD for implementing the implication with the Hamacher product as defined from Equation (A.33); 
+	 * - NILMIN for implementing the implication with the Nilpotent minimum as defined from Equation (A.34); 
+	 * - custom_\S* for a custom implication method.
 	 * 
 	 * @param x
 	 *            degree of antecedent
@@ -82,19 +81,19 @@ public abstract class FuzzySystemRuleBase {
 	 */
 	protected float activation(float x, float y) {
 		String act = getActivationMethod();
-		if (act.equals("MIN"))
+		if (act.equals(StandardActivationMethodType.MIN.value()))
 			return min(x, y);
-		else if (act.equals("PROD"))
+		else if (act.equals(StandardActivationMethodType.PROD.value()))
 			return prod(x, y);
-		else if (act.equals("BDIF"))
+		else if (act.equals(StandardActivationMethodType.BDIF.value()))
 			return bdif(x, y);
-		else if (act.equals("DRP"))
+		else if (act.equals(StandardActivationMethodType.DRP.value()))
 			return drp(x, y);
-		else if (act.equals("EPROD"))
+		else if (act.equals(StandardActivationMethodType.EPROD.value()))
 			return eprod(x, y);
-		else if (act.equals("HPROD"))
+		else if (act.equals(StandardActivationMethodType.HPROD.value()))
 			return hprod(x, y);
-		else if (act.equals("NILMIN"))
+		else if (act.equals(StandardActivationMethodType.NILMIN.value()))
 			return nilmin(x, y);
 		else if (act.contains("custom"))
 			return custom(x, y);

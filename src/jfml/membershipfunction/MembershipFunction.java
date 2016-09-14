@@ -7,7 +7,7 @@ import jfml.parameter.Parameter;
  */
 public abstract class MembershipFunction {
 
-	boolean discrete;
+	//boolean discrete;
 	/** Function's parameters */
 	Parameter parameter;
 	/** Domain right (range max) */
@@ -35,16 +35,12 @@ public abstract class MembershipFunction {
 	/** 
 	 * Get membership degree value.
 	 * @param x : Variable's 'x' value
-	 * Note: Output mu be in range [0,1] 
+	 * @return 
+	 * Note: Output must be in range [0,1] 
 	 */
 	public abstract float getMembershipDegree(float x);
 
-	public abstract boolean checkParamters(StringBuffer errors);
 
-	/** Try to guess the universe (if not setted) */
-	public abstract void estimateUniverse();
-
-	/** Short name */
 	public String getName() {
 		String str = this.getClass().getName();
 		String mfStr = "MembershipFunction";

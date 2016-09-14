@@ -2,7 +2,7 @@ package jfml.membershipfunction;
 
 import jfml.parameter.Parameter;
 
-public class LeftGaussianMembershipFunction extends MembershipFunction {
+public class LeftGaussianMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction{
 
 	float sigma, c;
 	
@@ -46,20 +46,16 @@ public class LeftGaussianMembershipFunction extends MembershipFunction {
 	}
 
 	@Override
-	public boolean checkParamters(StringBuffer errors) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void estimateUniverse() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String toString() {
 		return name + " [c: " + c + ", sigma: "+sigma+"]";
+	}
+
+	@Override
+	public float getFi(float y) {
+		if(y==1)
+			return c;
+		else
+			return (float) (c + Math.sqrt(-2*Math.pow(sigma, 2)*Math.log(y)));
 	}
 
 }

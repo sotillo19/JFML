@@ -33,6 +33,7 @@ import jfml.rule.TskConsequentClausesType;
 import jfml.rule.TskConsequentType;
 import jfml.rule.TskFuzzyRuleType;
 import jfml.rulebase.AnYaRuleBaseType;
+import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
 import jfml.rulebase.TskRuleBaseType;
 import jfml.term.AggregatedFuzzyTermType;
@@ -554,6 +555,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://www.ieee1855.org", name = "mamdaniRuleBase", scope = FuzzySystemType.class)
     public JAXBElement<RuleBaseType> createFuzzySystemTypeMamdaniRuleBase(RuleBaseType value) {
+    	value.setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_MAMDANI);
         return new JAXBElement<RuleBaseType>(_FuzzySystemTypeMamdaniRuleBase_QNAME, RuleBaseType.class, FuzzySystemType.class, value);
     }
 
@@ -563,6 +565,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://www.ieee1855.org", name = "tsukamotoRuleBase", scope = FuzzySystemType.class)
     public JAXBElement<RuleBaseType> createFuzzySystemTypeTsukamotoRuleBase(RuleBaseType value) {
+    	value.setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_TSUKAMOTO);
         return new JAXBElement<RuleBaseType>(_FuzzySystemTypeTsukamotoRuleBase_QNAME, RuleBaseType.class, FuzzySystemType.class, value);
     }
 

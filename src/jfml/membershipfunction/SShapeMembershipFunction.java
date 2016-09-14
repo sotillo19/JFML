@@ -2,7 +2,7 @@ package jfml.membershipfunction;
 
 import jfml.parameter.Parameter;
 
-public class SShapeMembershipFunction extends MembershipFunction {
+public class SShapeMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction{
 
 	float a,b;
 	
@@ -33,7 +33,7 @@ public class SShapeMembershipFunction extends MembershipFunction {
 		if (a <= x && x <= ((a + b) / 2))
 			return (float) (2 * (Math.pow((x - a) / (b - a), 2)));
 		if (((a + b) / 2) <= x && x <= b)
-			return (float) (1 - 2 * (Math.pow((x - b) / (b - a), 2)));
+			return (float) (1 - (2 * (Math.pow((x - b) / (b - a), 2))));
 		if (x >= b)
 			return 1;
 
@@ -41,20 +41,18 @@ public class SShapeMembershipFunction extends MembershipFunction {
 	}
 
 	@Override
-	public boolean checkParamters(StringBuffer errors) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void estimateUniverse() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+"]";
+	}
+
+	@Override
+	public float getFi(float y) {
+		if (y == 0)  return a;
+	       else if (y == 1) return b;
+	       else  if (y >= 0.5)
+	           return (float) (b - (Math.sqrt((1.0 - y) / 2.0) * (b - a)));
+	       else
+	           return (float) ((Math.sqrt(y / 2.0) * (b - a)) + a);
 	}
 
 }

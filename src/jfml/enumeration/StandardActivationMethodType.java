@@ -1,19 +1,19 @@
-package jfml.term;
+package jfml.enumeration;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for standardTnormType.
+ * <p>Java class for standardActivationMethodType.
  * 
  * <pre>
- * &lt;simpleType name="standardTnormType">
+ * &lt;simpleType name="standardActivationMethodType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="MIN"/>
  *     &lt;enumeration value="PROD"/>
- *     &lt;enumeration value="BSUM"/>
- *     &lt;enumeration value="DRS"/>
+ *     &lt;enumeration value="BDIF"/>
+ *     &lt;enumeration value="DRP"/>
  *     &lt;enumeration value="EPROD"/>
  *     &lt;enumeration value="HPROD"/>
  *     &lt;enumeration value="NILMIN"/>
@@ -22,14 +22,14 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  * 
  */
-@XmlType(name = "standardTnormType")
+@XmlType(name = "standardActivationMethodType")
 @XmlEnum
-public enum StandardTnormType {
+public enum StandardActivationMethodType {
 
     MIN,
     PROD,
-    BSUM,
-    DRS,
+    BDIF,
+    DRP,
     EPROD,
     HPROD,
     NILMIN;
@@ -38,7 +38,7 @@ public enum StandardTnormType {
         return name();
     }
 
-    public static StandardTnormType fromValue(String v) {
+    public static StandardActivationMethodType fromValue(String v) {
         return valueOf(v);
     }
 

@@ -1,4 +1,4 @@
-package jfml.term;
+package jfml.enumeration;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;

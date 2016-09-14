@@ -1,5 +1,7 @@
 package jfml.term;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -105,14 +107,6 @@ public class FuzzyTermType extends FuzzyTerm{
     	super();
     }
     
-    /**
-     * Constructor using name property
-     * @param name
-     */
-    /*public FuzzyTermType(String name){
-    	super();
-    	setName(name);
-    }*/
     
     /**
      * 
@@ -131,7 +125,7 @@ public class FuzzyTermType extends FuzzyTerm{
     		numParam=param.length;
     	
     	switch (type) {
-		case FuzzyTermType.TYPE_rightLinearShape:
+		case FuzzyTerm.TYPE_rightLinearShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -139,7 +133,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setRightLinearShape(two);
 			}
 			break;
-		case FuzzyTermType.TYPE_leftLinearShape:
+		case FuzzyTerm.TYPE_leftLinearShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -147,7 +141,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setLeftLinearShape(two);
 			}
 			break;	
-		case FuzzyTermType.TYPE_piShape:
+		case FuzzyTerm.TYPE_piShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -155,7 +149,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setPiShape(two);
 			}
 			break;
-		case FuzzyTermType.TYPE_triangularShape:
+		case FuzzyTerm.TYPE_triangularShape:
 			if(numParam==3){
 				ThreeParamType three = new ThreeParamType();
 				three.setParam1(param[0]);
@@ -164,7 +158,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setTriangularShape(three);
 			}
 			break;	
-		case FuzzyTermType.TYPE_gaussianShape:
+		case FuzzyTerm.TYPE_gaussianShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -172,7 +166,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setGaussianShape(two);
 			}
 			break;
-		case FuzzyTermType.TYPE_rightGaussianShape:
+		case FuzzyTerm.TYPE_rightGaussianShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -180,7 +174,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setRightGaussianShape(two);
 			}
 			break;	
-		case FuzzyTermType.TYPE_leftGaussianShape:
+		case FuzzyTerm.TYPE_leftGaussianShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -188,7 +182,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setLeftGaussianShape(two);
 			}
 			break;
-		case FuzzyTermType.TYPE_trapezoidShape:
+		case FuzzyTerm.TYPE_trapezoidShape:
 			if(numParam==4){
 				FourParamType four = new FourParamType();
 				four.setParam1(param[0]);
@@ -198,14 +192,14 @@ public class FuzzyTermType extends FuzzyTerm{
 				setTrapezoidShape(four);
 			}
 			break;
-		case FuzzyTermType.TYPE_singletonShape:
+		case FuzzyTerm.TYPE_singletonShape:
 			if(numParam==1){
 				OneParamType one = new OneParamType();
 				one.setParam1(param[0]);
 				setSingletonShape(one);
 			}
 			break;	
-		case FuzzyTermType.TYPE_rectangularShape:
+		case FuzzyTerm.TYPE_rectangularShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -213,7 +207,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setRectangularShape(two);
 			}
 			break;
-		case FuzzyTermType.TYPE_zShape:
+		case FuzzyTerm.TYPE_zShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -221,7 +215,7 @@ public class FuzzyTermType extends FuzzyTerm{
 				setZShape(two);
 			}
 			break;	
-		case FuzzyTermType.TYPE_sShape:
+		case FuzzyTerm.TYPE_sShape:
 			if(numParam==2){
 				TwoParamType two = new TwoParamType();
 				two.setParam1(param[0]);
@@ -235,6 +229,20 @@ public class FuzzyTermType extends FuzzyTerm{
 		}
 	}
     
+    public FuzzyTermType(String name, int type, List<PointType> points) {
+    	super();
+    	this.setName(name);
+    	this.setComplement("false");
+    	this.type=type;
+    	
+    	switch (type) {
+		case FuzzyTerm.TYPE_pointSetShape:
+			setPointSetShape(new PointSetShapeType(points));
+			default:
+			break;
+    	}
+    }
+    
     /**
      * 
      * @param name
@@ -244,6 +252,7 @@ public class FuzzyTermType extends FuzzyTerm{
     	super();
     	setName(name);
     	setComplement("false");
+    	this.type=FuzzyTerm.TYPE_pointSetShape;
     	setPointSetShape(p);
     }
     
@@ -256,6 +265,7 @@ public class FuzzyTermType extends FuzzyTerm{
     	super();
     	setName(name);
     	setComplement("false");
+    	this.type=FuzzyTerm.TYPE_circularDefinition;
     	setCircularDefinition(c);
     }
     
@@ -268,6 +278,7 @@ public class FuzzyTermType extends FuzzyTerm{
     	super();
     	setName(name);
     	setComplement("false");
+    	this.type=FuzzyTerm.TYPE_customShape;
     	setCustomShape(c);
     }
 
@@ -293,7 +304,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setRightLinearShape(TwoParamType value) {
         this.rightLinearShape = value;
-        this.type=FuzzyTermType.TYPE_rightLinearShape;
+        this.type=FuzzyTerm.TYPE_rightLinearShape;
         this.mf = new RightLinearMembershipFunction(value);
     }
 
@@ -319,7 +330,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setLeftLinearShape(TwoParamType value) {
         this.leftLinearShape = value;
-        this.type=FuzzyTermType.TYPE_leftLinearShape;
+        this.type=FuzzyTerm.TYPE_leftLinearShape;
         this.mf = new LeftLinearMembershipFunction(value);
     }
 
@@ -345,7 +356,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setPiShape(TwoParamType value) {
         this.piShape = value;
-        this.type=FuzzyTermType.TYPE_piShape;
+        this.type=FuzzyTerm.TYPE_piShape;
         this.mf = new PiShapedMembershipFunction(value);
     }
 
@@ -371,7 +382,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setTriangularShape(ThreeParamType value) {
         this.triangularShape = value;
-        this.type=FuzzyTermType.TYPE_triangularShape;
+        this.type=FuzzyTerm.TYPE_triangularShape;
         this.mf = new TriangularMembershipFunction(value);
     }   
 
@@ -397,7 +408,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setGaussianShape(TwoParamType value) {
         this.gaussianShape = value;
-        this.type=FuzzyTermType.TYPE_gaussianShape;
+        this.type=FuzzyTerm.TYPE_gaussianShape;
         this.mf = new GaussianMembershipFunction(value);
     }
 
@@ -423,7 +434,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setRightGaussianShape(TwoParamType value) {
         this.rightGaussianShape = value;
-        this.type=FuzzyTermType.TYPE_rightGaussianShape;
+        this.type=FuzzyTerm.TYPE_rightGaussianShape;
         this.mf = new RightGaussianMembershipFunction(value);
     }
 
@@ -449,7 +460,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setLeftGaussianShape(TwoParamType value) {
         this.leftGaussianShape = value;
-        this.type=FuzzyTermType.TYPE_leftGaussianShape;
+        this.type=FuzzyTerm.TYPE_leftGaussianShape;
         this.mf = new LeftGaussianMembershipFunction(value);
     }
 
@@ -475,7 +486,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setTrapezoidShape(FourParamType value) {
         this.trapezoidShape = value;
-        this.type=FuzzyTermType.TYPE_trapezoidShape;
+        this.type=FuzzyTerm.TYPE_trapezoidShape;
         this.mf = new TrapezoidMembershipFunction(value);
     }
 
@@ -501,7 +512,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setSingletonShape(OneParamType value) {
         this.singletonShape = value;
-        this.type=FuzzyTermType.TYPE_singletonShape;
+        this.type=FuzzyTerm.TYPE_singletonShape;
         this.mf = new SingletonMembershipFunction(value);
     }
 
@@ -527,7 +538,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setRectangularShape(TwoParamType value) {
         this.rectangularShape = value;
-        this.type=FuzzyTermType.TYPE_rectangularShape;
+        this.type=FuzzyTerm.TYPE_rectangularShape;
         this.mf = new RectangularMembershipFunction(value);
     }
 
@@ -553,7 +564,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setZShape(TwoParamType value) {
         this.zShape = value;
-        this.type=FuzzyTermType.TYPE_zShape;
+        this.type=FuzzyTerm.TYPE_zShape;
         this.mf = new ZShapeMembershipFunction(value);
     }
 
@@ -579,7 +590,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setSShape(TwoParamType value) {
         this.sShape = value;
-        this.type=FuzzyTermType.TYPE_sShape;
+        this.type=FuzzyTerm.TYPE_sShape;
         this.mf = new SShapeMembershipFunction(value);
     }
 
@@ -605,8 +616,8 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setPointSetShape(PointSetShapeType value) {
         this.pointSetShape = value;
-        this.type=FuzzyTermType.TYPE_pointSetShape;
-        this.mf = new PointSetShapeMembershipFunction(value);
+        this.type=FuzzyTerm.TYPE_pointSetShape;
+        this.mf = value;
     }
 
     /**
@@ -631,7 +642,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setCircularDefinition(CircularDefinitionType value) {
         this.circularDefinition = value;
-        this.type=FuzzyTermType.TYPE_circularDefinition;
+        this.type=FuzzyTerm.TYPE_circularDefinition;
         this.mf = new CircularMembershipFunction(value);
     }
 
@@ -657,7 +668,7 @@ public class FuzzyTermType extends FuzzyTerm{
      */
     public void setCustomShape(CustomShapeType value) {
         this.customShape = value;
-        this.type=FuzzyTermType.TYPE_customShape;
+        this.type=FuzzyTerm.TYPE_customShape;
         this.mf = new CustomMembershipFunction(value);
     }
 

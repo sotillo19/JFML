@@ -14,9 +14,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.defuzzifier.DefuzzifierContinuous;
 import jfml.knowledgebase.variable.FuzzyVariableType;
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.knowledgebase.variable.TsukamotoVariableType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentClausesType;
 import jfml.rule.FuzzyRuleType;
+import jfml.term.FuzzyTerm;
 import jfml.term.FuzzyTermType;
 
 /**
@@ -68,7 +71,7 @@ public class RuleBaseType extends FuzzySystemRuleBase{
     * Default constructor
     */
     public RuleBaseType(){
-    	setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_MAMDANI);
+    	
     }
 
     /**
@@ -83,7 +86,6 @@ public class RuleBaseType extends FuzzySystemRuleBase{
     	setActivationMethod(FuzzySystemRuleBase.defaultActivationMethod);
     	setAndMethod(FuzzySystemRuleBase.defaultAndMethod);
     	setOrMethod(FuzzySystemRuleBase.defaultOrMethod);
-    	//setNetworkAddress(FuzzySystemRuleBaseType.defaultNetworkAddress);
     }
     
     /**
@@ -100,7 +102,6 @@ public class RuleBaseType extends FuzzySystemRuleBase{
     	setAndMethod(and);
     	setOrMethod(or);
     	setRuleBaseSystemType(type);
-    	//setNetworkAddress(FuzzySystemRuleBaseType.defaultNetworkAddress);
     }
     
     /**
@@ -284,35 +285,25 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 		ConsequentClausesType then = r.getConsequent().getThen();
 		ConsequentClausesType _else = r.getConsequent().getElse();
 		if(then!=null){
-			for(ClauseType c : then.getClause()){
-				//ClauseType c = then.getClause().get(0);
-				FuzzyTermType t=null;
-				FuzzyVariableType v=null;
-				if(c!=null && c.getTerm() instanceof FuzzyTermType)
-					t = (FuzzyTermType) c.getTerm();
-				if(c.getVariable() instanceof FuzzyVariableType)
-					v = (FuzzyVariableType) c.getVariable();
-				
-				activation(v,t,ant_evaluation);
+			for(ClauseType c : then.getClause()){				
+				if(c!=null && c.getVariable() instanceof FuzzyVariableType)
+					activationMamdani((FuzzyVariableType)c.getVariable(),(FuzzyTerm)c.getTerm(),ant_evaluation);
+				else if(c!=null && c.getVariable() instanceof TsukamotoVariableType)
+					activationTsukamoto((TsukamotoVariableType)c.getVariable(),(FuzzyTerm)c.getTerm(),ant_evaluation);
 			}
 			
 			if(_else!=null){
 				for(ClauseType c : _else.getClause()){
-					//c = _else.getClause().get(0);
-					FuzzyTermType t=null;
-					FuzzyVariableType v=null;
-					if(c!=null && c.getTerm() instanceof FuzzyTermType)
-						t = (FuzzyTermType) c.getTerm();
-					if(c.getVariable() instanceof FuzzyVariableType)
-						v = (FuzzyVariableType) c.getVariable();
-					
-					activation(v,t,(1-ant_evaluation));
+					if(c!=null && c.getVariable() instanceof FuzzyVariableType)
+						activationMamdani((FuzzyVariableType)c.getVariable(),(FuzzyTerm)c.getTerm(),(1-ant_evaluation));
+					else if(c!=null && c.getVariable() instanceof TsukamotoVariableType)
+						activationTsukamoto((TsukamotoVariableType)c.getVariable(),(FuzzyTerm)c.getTerm(),(1-ant_evaluation));
 				}
 			}
 		}
 	}
 
-	private void activation(FuzzyVariableType v, FuzzyTermType t, float ant_evaluation) {
+	private void activationMamdani(FuzzyVariableType v, FuzzyTerm t, float ant_evaluation) {
 		DefuzzifierContinuous defuzzifier = (DefuzzifierContinuous) v.getDefuzzifier();
 		float membership, y, x, aggregated = 0;
 
@@ -334,6 +325,10 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 		}
 	}
 	
+	
+	private void activationTsukamoto(TsukamotoVariableType v, FuzzyTerm t, float ant_evaluation) {
+		v.addEvaluation(ant_evaluation,t.getFi(ant_evaluation));
+	}
 	
 
 	private float evaluateAntecedents(FuzzyRuleType r){

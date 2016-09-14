@@ -162,8 +162,7 @@ public class KnowledgeBaseType {
         this.networkAddress = value;
     }
     
-    @SuppressWarnings("rawtypes")
-	@Override
+    @Override
     public String toString(){
     	StringBuffer b = new StringBuffer();
     	b.append("KNOWLEDGEBASE: \n");

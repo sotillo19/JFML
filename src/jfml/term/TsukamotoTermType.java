@@ -1,5 +1,7 @@
 package jfml.term;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -9,8 +11,19 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import jfml.membershipfunction.CustomMembershipFunction;
 import jfml.membershipfunction.CustomShapeType;
+import jfml.membershipfunction.LeftGaussianMembershipFunction;
+import jfml.membershipfunction.LeftLinearMembershipFunction;
 import jfml.membershipfunction.PointSetMonotonicShapeType;
+import jfml.membershipfunction.PointType;
+import jfml.membershipfunction.RightGaussianMembershipFunction;
+import jfml.membershipfunction.RightLinearMembershipFunction;
+import jfml.membershipfunction.SShapeMembershipFunction;
+import jfml.membershipfunction.ZShapeMembershipFunction;
+import jfml.parameter.FourParamType;
+import jfml.parameter.OneParamType;
+import jfml.parameter.ThreeParamType;
 import jfml.parameter.TwoParamType;
 
 
@@ -75,7 +88,124 @@ public class TsukamotoTermType extends FuzzyTerm{
     @XmlAttribute(name = "complement")
     protected String complement;
 
+    
     /**
+     * Default constructor
+     */
+    public TsukamotoTermType(){
+    	super();
+    }
+    
+    
+    /**
+     * 
+     * @param name
+     * @param type
+     * @param param
+     */
+    public TsukamotoTermType(String name, int type, float[] param) {
+    	super();
+    	this.setName(name);
+    	this.setComplement("false");
+    	this.type=type;
+    	
+    	int numParam=0;
+    	if(param!=null)
+    		numParam=param.length;
+    	
+    	switch (type) {
+		case FuzzyTerm.TYPE_rightLinearShape:
+			if(numParam==2){
+				TwoParamType two = new TwoParamType();
+				two.setParam1(param[0]);
+				two.setParam2(param[1]);
+				setRightLinearShape(two);
+			}
+			break;
+		case FuzzyTerm.TYPE_leftLinearShape:
+			if(numParam==2){
+				TwoParamType two = new TwoParamType();
+				two.setParam1(param[0]);
+				two.setParam2(param[1]);
+				setLeftLinearShape(two);
+			}
+			break;	
+		case FuzzyTerm.TYPE_rightGaussianShape:
+			if(numParam==2){
+				TwoParamType two = new TwoParamType();
+				two.setParam1(param[0]);
+				two.setParam2(param[1]);
+				setRightGaussianShape(two);
+			}
+			break;	
+		case FuzzyTerm.TYPE_leftGaussianShape:
+			if(numParam==2){
+				TwoParamType two = new TwoParamType();
+				two.setParam1(param[0]);
+				two.setParam2(param[1]);
+				setLeftGaussianShape(two);
+			}
+			break;
+		case FuzzyTerm.TYPE_zShape:
+			if(numParam==2){
+				TwoParamType two = new TwoParamType();
+				two.setParam1(param[0]);
+				two.setParam2(param[1]);
+				setZShape(two);
+			}
+			break;	
+		case FuzzyTerm.TYPE_sShape:
+			if(numParam==2){
+				TwoParamType two = new TwoParamType();
+				two.setParam1(param[0]);
+				two.setParam2(param[1]);
+				setSShape(two);
+			}
+			break;				
+			
+		default:
+			break;
+		}
+	}
+    
+    /**
+     * 
+     * @param name
+     * @param type
+     * @param param
+     */
+    public TsukamotoTermType(String name, int type, List<PointType> param) {
+    	super();
+    	this.setName(name);
+    	this.setComplement("false");
+    	this.type=type;
+    	
+    	switch (type) {
+		case FuzzyTerm.TYPE_pointSetMonotonicShape:
+			PointSetMonotonicShapeType psm = new PointSetMonotonicShapeType();
+			psm.setPoints(param);
+			setPointSetMonotonicShape(psm);
+			break;
+		case FuzzyTerm.TYPE_customMonotonicShape:
+			CustomShapeType cs = new CustomShapeType();
+			setCustomMonotonicShape(cs);
+			break;		
+			
+		default:
+			break;
+		}
+	}
+    
+    public TsukamotoTermType(String name, PointSetMonotonicShapeType psm) {
+    	super();
+    	this.setName(name);
+    	this.setComplement("false");
+    	this.type=FuzzyTerm.TYPE_pointSetMonotonicShape;
+    	setPointSetMonotonicShape(psm);
+	}
+
+
+	/**
      * Gets the value of the property rightLinearShape.
      * 
      * @return
@@ -97,6 +227,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setRightLinearShape(TwoParamType value) {
         this.rightLinearShape = value;
+        this.type=FuzzyTerm.TYPE_rightLinearShape;
+        this.mf = new RightLinearMembershipFunction(value);
     }
 
     /**
@@ -121,6 +253,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setLeftLinearShape(TwoParamType value) {
         this.leftLinearShape = value;
+        this.type=FuzzyTerm.TYPE_leftLinearShape;
+        this.mf = new LeftLinearMembershipFunction(value);
     }
 
     /**
@@ -145,6 +279,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setRightGaussianShape(TwoParamType value) {
         this.rightGaussianShape = value;
+        this.type=FuzzyTerm.TYPE_rightGaussianShape;
+        this.mf = new RightGaussianMembershipFunction(value);
     }
 
     /**
@@ -169,6 +305,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setLeftGaussianShape(TwoParamType value) {
         this.leftGaussianShape = value;
+        this.type=FuzzyTerm.TYPE_leftGaussianShape;
+        this.mf = new LeftGaussianMembershipFunction(value);
     }
 
     /**
@@ -193,6 +331,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setZShape(TwoParamType value) {
         this.zShape = value;
+        this.type=FuzzyTerm.TYPE_zShape;
+        this.mf = new ZShapeMembershipFunction(value);
     }
 
     /**
@@ -217,6 +357,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setSShape(TwoParamType value) {
         this.sShape = value;
+        this.type=FuzzyTerm.TYPE_sShape;
+        this.mf = new SShapeMembershipFunction(value);
     }
 
     /**
@@ -241,6 +383,9 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setPointSetMonotonicShape(PointSetMonotonicShapeType value) {
         this.pointSetMonotonicShape = value;
+        //TODO create monotonic 
+        //this.type=FuzzyTerm.TYPE_MONOTONIC;
+        //this.mf = new MonotonicMembershipFunction(value);
     }
 
     /**
@@ -265,6 +410,8 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setCustomMonotonicShape(CustomShapeType value) {
         this.customMonotonicShape = value;
+        this.type=FuzzyTerm.TYPE_customShape;
+        this.mf = new CustomMembershipFunction(value);
     }
 
     /**
@@ -317,6 +464,15 @@ public class TsukamotoTermType extends FuzzyTerm{
      */
     public void setComplement(String value) {
         this.complement = value;
+    }
+    
+    @Override
+    public String toString(){
+    	String b = name;
+    	if(mf!=null)
+    		b += " - "+ mf.toString();
+		
+    	return b;
     }
 
 }

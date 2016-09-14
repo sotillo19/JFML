@@ -1,11 +1,16 @@
 package jfml.test;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
+import jfml.enumeration.InterpolationMethodType;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
+import jfml.membershipfunction.PointSetMonotonicShapeType;
+import jfml.membershipfunction.PointSetShapeType;
+import jfml.membershipfunction.PointType;
 import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentType;
@@ -13,7 +18,7 @@ import jfml.rule.FuzzyRuleType;
 import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.FuzzyTermType;
 
-public class CreateMamdaniTipperExampleXML {
+public class CreateMamdaniTipperExampleXML2 {
 
 	public static void main(String[] args) {
 
@@ -60,12 +65,22 @@ public class CreateMamdaniTipperExampleXML {
 		tip.setType("output");
 
 		// FUZZY TERM cheap
-		FuzzyTermType cheap = new FuzzyTermType("cheap", FuzzyTermType.TYPE_triangularShape,
-						(new float[] { 0f, 5f, 10f }));
+		//FuzzyTermType cheap = new FuzzyTermType("cheap", FuzzyTermType.TYPE_triangularShape, (new float[] { 0f, 5f, 10f }));
+		ArrayList<PointType> points1 = new ArrayList<>();
+		points1.add(new PointType(0, 1));
+		points1.add(new PointType(1, 1));
+		points1.add(new PointType(2, 0.6f));
+		points1.add(new PointType(3, 0.4f));
+		points1.add(new PointType(4, 0));
+				
+		PointSetShapeType ps = new PointSetShapeType(points1);
+		ps.setInterpolationMethod(InterpolationMethodType.LAGRANGE);
+		FuzzyTermType cheap = new FuzzyTermType("cheap", ps);
+		
 		tip.addFuzzyTerm(cheap);
+		
 		// FUZZY TERM average
-		FuzzyTermType average = new FuzzyTermType("average", FuzzyTermType.TYPE_triangularShape,
-				(new float[] { 5f, 10f, 15f }));
+		FuzzyTermType average = new FuzzyTermType("average", FuzzyTermType.TYPE_triangularShape, (new float[] { 5f, 10f, 15f }));
 		tip.addFuzzyTerm(average);
 		// FUZZY TERM generous
 		FuzzyTermType generous = new FuzzyTermType("generous", FuzzyTermType.TYPE_triangularShape,
@@ -117,7 +132,7 @@ public class CreateMamdaniTipperExampleXML {
 		tipper.addRuleBase(rb);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
-		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani.xml");
+		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani2.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}
 

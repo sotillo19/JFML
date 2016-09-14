@@ -3,6 +3,10 @@ package jfml.rule;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import jfml.enumeration.StandardAndMethodType;
+import jfml.enumeration.StandardOrMethodType;
+import jfml.enumeration.StandardTnormType;
+
 @XmlAccessorType(XmlAccessType.NONE) //This is needed to ignore class attributes as xml tags in XML files
 public abstract class Rule {
 	public static String defaultAndMethod = "MIN";
@@ -37,19 +41,19 @@ public abstract class Rule {
 	 * @return
 	 */
 	public float and(String andMethod, float[] degrees){
-		if(andMethod.equals("MIN"))
+		if(andMethod.equals(StandardAndMethodType.MIN.value()))
 			return min(degrees);
-		else if(andMethod.equals("PROD"))
+		else if(andMethod.equals(StandardAndMethodType.PROD.value()))
 			return prod(degrees);
-		else if(andMethod.equals("BDIF"))
+		else if(andMethod.equals(StandardAndMethodType.BDIF.value()))
 			return bdif(degrees);
-		else if(andMethod.equals("DRP"))
+		else if(andMethod.equals(StandardAndMethodType.DRP.value()))
 			return drp(degrees);
-		else if(andMethod.equals("EPROD"))
+		else if(andMethod.equals(StandardAndMethodType.EPROD.value()))
 			return eprod(degrees);
-		else if(andMethod.equals("HPROD"))
+		else if(andMethod.equals(StandardAndMethodType.HPROD.value()))
 			return hprod(degrees);
-		else if(andMethod.equals("NILMIN"))
+		else if(andMethod.equals(StandardAndMethodType.NILMIN.value()))
 			return nilmin(degrees);
 		else if(andMethod.contains("custom"))
 			return custom_and(degrees);
@@ -230,19 +234,19 @@ public abstract class Rule {
 	 * @return
 	 */
 	public float or(String orMethod, float[] degrees){
-		if(orMethod.equals("MAX"))
+		if(orMethod.equals(StandardOrMethodType.MAX.value()))
 			return max(degrees);
-		else if(orMethod.equals("PROBOR"))
+		else if(orMethod.equals(StandardOrMethodType.PROBOR.value()))
 			return probor(degrees);
-		else if(orMethod.equals("BSUM"))
+		else if(orMethod.equals(StandardOrMethodType.BSUM.value()))
 			return bsum(degrees);
-		else if(orMethod.equals("DRS"))
+		else if(orMethod.equals(StandardOrMethodType.DRS.value()))
 			return drs(degrees);
-		else if(orMethod.equals("ESUM"))
+		else if(orMethod.equals(StandardOrMethodType.ESUM.value()))
 			return esum(degrees);
-		else if(orMethod.equals("HSUM"))
+		else if(orMethod.equals(StandardOrMethodType.HSUM.value()))
 			return hsum(degrees);
-		else if(orMethod.equals("NILMAX"))
+		else if(orMethod.equals(StandardOrMethodType.NILMAX.value()))
 			return nilmax(degrees);
 		else if(orMethod.contains("custom"))
 			return custom_or(degrees);

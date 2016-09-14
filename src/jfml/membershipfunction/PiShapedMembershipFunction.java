@@ -48,18 +48,6 @@ public class PiShapedMembershipFunction extends MembershipFunction {
 		}
 		return 0.0f;
 	}
-
-	@Override
-	public boolean checkParamters(StringBuffer errors) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void estimateUniverse() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	@Override
 	public String toString() {

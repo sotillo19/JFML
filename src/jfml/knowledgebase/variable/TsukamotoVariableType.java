@@ -8,11 +8,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.defuzzifier.Defuzzifier;
+import jfml.enumeration.StandardCombinationType;
+import jfml.term.FuzzyTermType;
+import jfml.term.TskTermType;
 import jfml.term.TsukamotoTermType;
 
 
@@ -69,21 +73,34 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
     @XmlAttribute(name = "networkAddress")
     protected String networkAddress;
 
+    @XmlTransient
+    protected List<WZ> z;
+    
+    /**
+     * Default constructor
+     */
+    public TsukamotoVariableType(){
+    	
+    }
+    
+    /**
+     * Constructor with required elements
+     * @param name
+     * @param domainLeft
+     * @param domainRight
+     */
+    public TsukamotoVariableType(String name, float domainLeft, float domainRight){
+    	super();
+    	this.setName(name);
+    	this.setDomainleft(domainLeft);
+    	this.setDomainright(domainRight);
+    	this.setScale("");
+    	this.setType(this.getType());
+    }
+
+    
     /**
      * Gets the value of the tsukamotoTerm property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tsukamotoTerm property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTsukamotoTerm().add(newItem);
-     * </pre>
-     * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
@@ -91,17 +108,45 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
      * 
      * 
      */
-    /*public List<TsukamotoTermType> getTsukamotoTerm() {
-        if (tsukamotoTerm == null) {
-            tsukamotoTerm = new ArrayList<TsukamotoTermType>();
-        }
-        return this.tsukamotoTerm;
-    }*/
     public List<TsukamotoTermType> getTerms() {
         if (tsukamotoTerm == null) {
             tsukamotoTerm = new ArrayList<TsukamotoTermType>();
         }
         return this.tsukamotoTerm;
+    }
+    
+    /**
+     * Returns the i-th FuzzyTerm
+     * @param i
+     * @return
+     */
+    public TsukamotoTermType getTsukamotoTerm(int i) {
+        if (tsukamotoTerm != null && i<tsukamotoTerm.size() && i>=0) {
+        	return tsukamotoTerm.get(i);
+        }
+        else return null;
+            
+    }
+    
+    /**
+     * 
+     * @param t
+     */
+    public void addTsukamotoTerm(TsukamotoTermType t){
+    	if (tsukamotoTerm == null) {
+    		tsukamotoTerm = new ArrayList<TsukamotoTermType>();
+        }
+    	this.tsukamotoTerm.add(t);
+    }
+    
+    /**
+     * 
+     * @param name
+     * @param type
+     * @param param
+     */
+    public void addTsukamotoTerm(String name, int type, float[] param){
+    	addTsukamotoTerm(new TsukamotoTermType(name,type,param));
     }
 
     /**
@@ -304,29 +349,66 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
 			return false;
 	}
     
-    /*
-	@Override
-	public float getDefuzzifierValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
-
-	@Override
+    @Override
 	public float getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		//calculate Z according to the combination method
+		if(Float.isNaN(value))
+			value = combination();
+			
+		return value;
 	}
-
+    
 	@Override
 	public void setValue(float x) {
-		// TODO Auto-generated method stub
-		
+		this.value=x;
 	}
+
+	public void addEvaluation(float wi, float zi) {
+		if(z==null)
+			z= new ArrayList<>();
+		
+		z.add(new WZ(wi,zi));
+	}
+
+	private float combination() {
+		String comb = getCombination();
+		float v=value;
+		if(comb.equals(StandardCombinationType.WA.value())){
+			v= weightedAverage(this.z);
+		}
+		else if(comb.contains("custom"))
+			v= customCombination(this.z);
+		
+		return v;
+	}
+
+	private float customCombination(List<WZ> z) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private float weightedAverage(List<WZ> z) {
+		float sum =0;
+		float res=0;
+		
+		for(WZ zi : z){
+			sum += zi.getW();
+			res += zi.getW()*zi.getZ();
+		}
+		return res/sum;
+	}
+	
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		String b = name + " - domain["+getDomainleft() + ", "+getDomainright()+"] - Combination:"+getCombination() + " - ";
+    	    	
+    	b+= getType() + "\n";
+    	
+    	for(TsukamotoTermType t : getTerms())
+    		b += "\t" + t.toString()  + "\n";
+    	
+    	return b;
 	}
 
 	@Override

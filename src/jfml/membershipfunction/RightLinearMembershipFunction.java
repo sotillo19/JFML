@@ -3,7 +3,7 @@ package jfml.membershipfunction;
 import jfml.parameter.Parameter;
 import jfml.parameter.TwoParamType;
 
-public class RightLinearMembershipFunction extends MembershipFunction {
+public class RightLinearMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction {
 
 	float a,b;
 	
@@ -36,22 +36,15 @@ public class RightLinearMembershipFunction extends MembershipFunction {
 
 		return (float) (((x - a) / (b - a)));
 	}
-
-	@Override
-	public boolean checkParamters(StringBuffer errors) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void estimateUniverse() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+"]";
+	}
+
+	@Override
+	public float getFi(float y) {
+		return (a + y*(b-a));
 	}
 
 }

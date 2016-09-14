@@ -22,6 +22,7 @@ import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TskVariableType;
+import jfml.knowledgebase.variable.TsukamotoVariableType;
 import jfml.rulebase.AnYaRuleBaseType;
 import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
@@ -284,6 +285,7 @@ public class FuzzySystemType {
 	@SuppressWarnings("rawtypes")
 	private void reset(KnowledgeBaseType knowledgeBase, List<Object> ruleBase) {
 		// RESETTING VARIABLES
+		boolean tsukamoto = false;
 		for (Object v : knowledgeBase.getVariables()) {
 			KnowledgeBaseVariable var = null;
 			if (((JAXBElement) v).getValue() instanceof KnowledgeBaseVariable) {
@@ -293,6 +295,8 @@ public class FuzzySystemType {
 					//SETTING INPUT VARIABLES INTO TSKVARIABLES
 					if(var instanceof TskVariableType)
 						((TskVariableType) var).setInputVariables(knowledgeBase.getKnowledgeBaseVariables());
+					if(var instanceof TsukamotoVariableType)
+						tsukamoto=true;
 				}
 			}
 		}
@@ -305,6 +309,9 @@ public class FuzzySystemType {
 				
 				if (r != null)
 					r.reset();
+				
+				if(r instanceof RuleBaseType && tsukamoto)
+					r.setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_TSUKAMOTO);
 			}
 		}
 	}
@@ -354,7 +361,6 @@ public class FuzzySystemType {
 	}
 
 	private void evaluateTsk(TskRuleBaseType r) {
-		//evaluate the TskRules
 		r.evaluate();
 	}
 

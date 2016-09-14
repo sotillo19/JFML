@@ -2,9 +2,7 @@ package jfml.test;
 
 import java.io.File;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import jfml.FuzzySystem;
+import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 
@@ -19,11 +17,13 @@ public class EvaluateTipperExample {
 	public static void main(String[] args) {
 		//File xml = new File("./XMLFiles/TipperExample_Mamdani.xml");
 		//File xml = new File("./XMLFiles/TipperExample_TSK.xml");
-		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani.xml");
-		File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
+		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani2.xml");
+		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
+		File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Tsukamoto2.xml");
+		
 		
 		//loading Fuzzy System from an XML file according the standard IEEE 1855
-		FuzzySystem fs = JFML.load(xml);
+		FuzzyInferenceSystem fs = JFML.load(xml);
 		
 		//printing the FuzzySystem
 		//System.out.println(fs.toString());

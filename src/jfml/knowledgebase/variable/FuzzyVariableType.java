@@ -18,6 +18,8 @@ import jfml.defuzzifier.DefuzzifierCenterOfGravity;
 import jfml.defuzzifier.DefuzzifierLeftMostMax;
 import jfml.defuzzifier.DefuzzifierMeanMax;
 import jfml.defuzzifier.DefuzzifierRightMostMax;
+import jfml.enumeration.StandardAccumulationType;
+import jfml.enumeration.StandardDefuzzifierType;
 import jfml.term.FuzzyTermType;
 
 
@@ -423,7 +425,7 @@ public class FuzzyVariableType extends FuzzyVariable{
      */
 	@Override
 	public float getValue() {
-		if(this.getDefuzzifier()!=null && this.isOutput() && value!=Float.NaN)
+		if(this.getDefuzzifier()!=null && this.isOutput() && Float.isNaN(value))
     		return getDefuzzifier().defuzzify();
     	else
     		return value;
@@ -449,19 +451,19 @@ public class FuzzyVariableType extends FuzzyVariable{
 	 */
 	public float accumulation(float x, float y) {
 		String acc=getAccumulation();
-			if(acc.equals("MAX"))
+			if(acc.equals(StandardAccumulationType.MAX.value()))
 				return max(x,y);
-			else if(acc.equals("PROBOR"))
+			else if(acc.equals(StandardAccumulationType.PROBOR.value()))
 				return probor(x,y);
-			else if(acc.equals("BSUM"))
+			else if(acc.equals(StandardAccumulationType.BSUM.value()))
 				return bsum(x,y);
-			else if(acc.equals("DRS"))
+			else if(acc.equals(StandardAccumulationType.DRS.value()))
 				return drs(x,y);
-			else if(acc.equals("ESUM"))
+			else if(acc.equals(StandardAccumulationType.ESUM.value()))
 				return esum(x,y);
-			else if(acc.equals("HSUM"))
+			else if(acc.equals(StandardAccumulationType.HSUM.value()))
 				return hsum(x,y);
-			else if(acc.equals("NILMAX"))
+			else if(acc.equals(StandardAccumulationType.NILMAX.value()))
 				return nilmax(x,y);
 			else if(acc.contains("custom"))
 				return custom_accumulation(x,y);
@@ -523,15 +525,15 @@ public class FuzzyVariableType extends FuzzyVariable{
 	public Defuzzifier getDefuzzifier() {
 		if(defuzzifier==null){
 			String def = getDefuzzifierName();
-			if(def.equals("MOM"))
+			if(def.equals(StandardDefuzzifierType.MOM.value()))
 				defuzzifier = new DefuzzifierMeanMax(getDomainleft(), getDomainright());
-			else if(def.equals("LM"))
+			else if(def.equals(StandardDefuzzifierType.LM.value()))
 				defuzzifier = new DefuzzifierLeftMostMax(getDomainleft(), getDomainright());
-			else if(def.equals("RM"))
+			else if(def.equals(StandardDefuzzifierType.RM.value()))
 				defuzzifier = new DefuzzifierRightMostMax(getDomainleft(), getDomainright());
-			else if(def.equals("COG"))
+			else if(def.equals(StandardDefuzzifierType.COG.value()))
 				defuzzifier = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
-			else if(def.equals("COA"))
+			else if(def.equals(StandardDefuzzifierType.COA.value()))
 				defuzzifier = new DefuzzifierCenterOfArea(getDomainleft(), getDomainright());
 			else
 				defuzzifier= new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());

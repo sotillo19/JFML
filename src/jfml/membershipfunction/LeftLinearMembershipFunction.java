@@ -2,7 +2,7 @@ package jfml.membershipfunction;
 
 import jfml.parameter.Parameter;
 
-public class LeftLinearMembershipFunction extends MembershipFunction {
+public class LeftLinearMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction{
 
 	float a,b;
 	
@@ -36,21 +36,15 @@ public class LeftLinearMembershipFunction extends MembershipFunction {
 		return (float) (((b - x) / (b - a)));
 	}
 
-	@Override
-	public boolean checkParamters(StringBuffer errors) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void estimateUniverse() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+"]";
+	}
+
+	@Override
+	public float getFi(float y) {
+		return (b - y*(b-a));
 	}
 
 }

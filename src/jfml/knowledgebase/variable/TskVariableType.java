@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.defuzzifier.Defuzzifier;
+import jfml.enumeration.StandardCombinationType;
 import jfml.term.FuzzyTermType;
 import jfml.term.TskTermType;
 
@@ -302,10 +303,10 @@ public class TskVariableType extends KnowledgeBaseVariable {
 	private float combination() {
 		String comb = getCombination();
 		float v=value;
-		if(comb.equals("WA")){
+		if(comb.equals(StandardCombinationType.WA.value())){
 			v= weightedAverage(this.z);
 		}
-		else if(comb.equals("custom_\\S*"))
+		else if(comb.contains("custom"))
 			v= customCombination(this.z);
 		
 		return v;
