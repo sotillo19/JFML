@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	targetNamespace="http://www.ieee1855.org" xmlns="http://www.ieee1855.org">
+	<xs:element name="fuzzySystem" type="fuzzySystemType">
+		<xs:annotation>
+			<xs:documentation>Fuzzy System</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="fuzzySystemType">
+		<xs:sequence>
+			<xs:element name="knowledgeBase" type="knowledgeBaseType">
+				<xs:annotation>
+					<xs:documentation>Fuzzy Concepts Collection</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element name="mamdaniRuleBase" type="ruleBaseType">
+					<xs:annotation>
+						<xs:documentation>Mamdani Fuzzy Rules Collection
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="tsukamotoRuleBase" type="ruleBaseType">
+					<xs:annotation>
+						<xs:documentation>Tsukamoto Fuzzy Rules Collection
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="tskRuleBase" type="tskRuleBaseType">
+					<xs:annotation>
+						<xs:documentation>TSK Fuzzy Rules Collection</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="anYaRuleBase" type="anYaRuleBaseType">
+					<xs:annotation>
+						<xs:documentation>AnYa Fuzzy Rules Collection</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:any namespace="##other" processContents="lax" minOccurs="0" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="knowledgeBaseType">
+		<xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="unbounded">
+				<xs:element name="fuzzyVariable" type="fuzzyVariableType">
+					<xs:annotation>
+						<xs:documentation>Fuzzy Concept Item composed of fuzzy
+							sets
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="tsukamotoVariable" type="tsukamotoVariableType">
+					<xs:annotation>
+						<xs:documentation>Fuzzy Concept Item composed of fuzzy
+							sets
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="aggregatedFuzzyVariable" type="aggregatedFuzzyVariableType">
+					<xs:annotation>
+						<xs:documentation>Linear function coefficients</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="tskVariable" type="tskVariableType">
+					<xs:annotation>
+						<xs:documentation>Linear function coefficients</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="anYaDataCloud" type="anYaDataCloudType">
+					<xs:annotation>
+						<xs:documentation>Data cloud to be used in the rule antecedent part of a cloud-based fuzzy system
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:any namespace="##other" processContents="lax" minOccurs="0" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="fuzzyVariableType">
+		<xs:sequence>
+			<xs:element name="fuzzyTerm" type="fuzzyTermType"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="scale" type="xs:string" />
+		<xs:attribute name="domainleft" type="xs:float" use="required" />
+		<xs:attribute name="domainright" type="xs:float" use="required" />
+		<xs:attribute name="type" type="typeType" default="input" />
+		<xs:attribute name="accumulation" type="accumulationType"
+			default="MAX" />
+		<xs:attribute name="defuzzifier" type="defuzzifierType"
+			default="COG" />
+		<xs:attribute name="defaultValue" type="xs:float"
+			default="0" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="fuzzyTermType">
+		<xs:choice>
+			<xs:element name="rightLinearShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Right Linear Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftLinearShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Left Linear Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="piShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Pishape Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="triangularShape" type="threeParamType">
+				<xs:annotation>
+					<xs:documentation>Triangle Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gaussianShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Gaussian Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rightGaussianShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Right Gaussian Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftGaussianShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Left Gaussian Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trapezoidShape" type="fourParamType">
+				<xs:annotation>
+					<xs:documentation>Trapezoid Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="singletonShape" type="oneParamType">
+				<xs:annotation>
+					<xs:documentation>Singleton Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rectangularShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Rectagle Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="zShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Z Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>S Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pointSetShape" type="pointSetShapeType">
+				<xs:annotation>
+					<xs:documentation>Fuzzy Set based on a set of
+						points
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="circularDefinition" type="circularDefinitionType">
+				<xs:annotation>
+					<xs:documentation>Fuzzy Set based on a circular definition
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="customShape" type="customShapeType">
+				<xs:annotation>
+					<xs:documentation>Custom Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="complement" default="false">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="true|false|TRUE|FALSE|True|False" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="tsukamotoVariableType">
+		<xs:sequence>
+			<xs:element name="tsukamotoTerm" type="tsukamotoTermType"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="scale" type="xs:string" />
+		<xs:attribute name="domainleft" type="xs:float" use="required" />
+		<xs:attribute name="domainright" type="xs:float" use="required" />
+		<xs:attribute name="type" type="xs:string" fixed="output"
+			use="required" />
+		<xs:attribute name="combination" type="combinationType"
+			default="WA" />
+		<xs:attribute name="defaultValue" type="xs:float"
+			default="0" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="tsukamotoTermType">
+		<xs:choice>
+			<xs:element name="rightLinearShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Right Linear Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftLinearShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Left Linear Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rightGaussianShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Right Gaussian Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftGaussianShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Left Gaussian Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="zShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>Z Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sShape" type="twoParamType">
+				<xs:annotation>
+					<xs:documentation>S Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pointSetMonotonicShape" type="pointSetMonotonicShapeType">
+				<xs:annotation>
+					<xs:documentation>Fuzzy Set based on a set of points
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="customMonotonicShape" type="customShapeType">
+				<xs:annotation>
+					<xs:documentation>Custom Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="complement" default="false">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="true|false|TRUE|FALSE|True|False" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="oneParamType">
+		<xs:attribute name="param1" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="twoParamType">
+		<xs:attribute name="param1" type="xs:float" use="required" />
+		<xs:attribute name="param2" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="threeParamType">
+		<xs:attribute name="param1" type="xs:float" use="required" />
+		<xs:attribute name="param2" type="xs:float" use="required" />
+		<xs:attribute name="param3" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="fourParamType">
+		<xs:attribute name="param1" type="xs:float" use="required" />
+		<xs:attribute name="param2" type="xs:float" use="required" />
+		<xs:attribute name="param3" type="xs:float" use="required" />
+		<xs:attribute name="param4" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="pointSetShapeType">
+		<xs:sequence>
+			<xs:element name="point" type="pointType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="interpolationMethod" type="interpolationMethodType"
+			default="linear" />
+		<xs:attribute name="degree" type="xs:int" default="3" />
+	</xs:complexType>
+	<xs:complexType name="pointSetMonotonicShapeType">
+		<xs:sequence>
+			<xs:element name="point" type="pointType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="interpolationMethod" type="monotonicInterpolationMethodType"
+			default="linear" />
+	</xs:complexType>
+	<xs:complexType name="pointType">
+		<xs:attribute name="x" type="xs:float" use="required" />
+		<xs:attribute name="y" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="customShapeType">
+		<xs:sequence>
+			<xs:element name="parameter" type="parameterType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="customLabelType" use="required" />
+	</xs:complexType>
+	<xs:complexType name="parameterType">
+		<xs:attribute name="value" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="circularDefinitionType">
+		<xs:choice>
+			<xs:element name="and" type="andLogicalType" />
+			<xs:element name="or" type="orLogicalType" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="andLogicalType">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="termName" type="circularTermType"
+					minOccurs="2" maxOccurs="2" />
+			</xs:sequence>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element name="and" type="andLogicalType" />
+					<xs:element name="or" type="orLogicalType" />
+				</xs:choice>
+				<xs:element name="termName" type="circularTermType" />
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="t-norm" type="andMethodType" default="MIN" />
+	</xs:complexType>
+	<xs:complexType name="orLogicalType">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="termName" type="circularTermType"
+					minOccurs="2" maxOccurs="2" />
+			</xs:sequence>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element name="and" type="andLogicalType" />
+					<xs:element name="or" type="orLogicalType" />
+				</xs:choice>
+				<xs:element name="termName" type="circularTermType" />
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="t-conorm" type="orMethodType"
+			default="MAX" />
+	</xs:complexType>
+	<xs:complexType name="circularTermType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="complement" default="false">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="true|false|TRUE|FALSE|True|False" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="aggregatedFuzzyVariableType">
+		<xs:sequence>
+			<xs:element name="aggregatedFuzzyTerm" type="aggregatedFuzzyTermType"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Aggregated Fuzzy Set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="type" type="typeType" fixed="input" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="aggregatedFuzzyTermType">
+		<xs:choice>
+			<xs:element name="and" type="andAggregatedType" />
+			<xs:element name="or" type="orAggregatedType" />
+		</xs:choice>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+	</xs:complexType>
+	<xs:complexType name="andAggregatedType">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="clause" type="clauseType" minOccurs="2"
+					maxOccurs="2" />
+			</xs:sequence>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element name="and" type="andAggregatedType" />
+					<xs:element name="or" type="orAggregatedType" />
+				</xs:choice>
+				<xs:element name="clause" type="clauseType" />
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="t-norm" type="andMethodType" default="MIN" />
+	</xs:complexType>
+	<xs:complexType name="orAggregatedType">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="clause" type="clauseType" minOccurs="2"
+					maxOccurs="2" />
+			</xs:sequence>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element name="and" type="andAggregatedType" />
+					<xs:element name="or" type="orAggregatedType" />
+				</xs:choice>
+				<xs:element name="clause" type="clauseType" />
+			</xs:sequence>
+		</xs:choice>
+		<xs:attribute name="t-conorm" type="orMethodType"
+			default="MAX" />
+	</xs:complexType>
+	<xs:complexType name="tskVariableType">
+		<xs:sequence>
+			<xs:element name="tskTerm" type="tskTermType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>TSK Term</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="scale" type="xs:string" />
+		<xs:attribute name="type" type="xs:string" fixed="output"
+			use="required" />
+		<xs:attribute name="combination" type="combinationType"
+			default="WA" />
+		<xs:attribute name="defaultValue" type="xs:float"
+			default="0" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="tskTermType">
+		<xs:sequence>
+			<xs:element name="tskValue" type="xs:float" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="order" type="tskOrderType" use="required" />
+	</xs:complexType>
+	<xs:complexType name="anYaDataCloudType">
+		<xs:sequence>
+			<xs:element name="datum" type="xs:double" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="ruleBaseType">
+		<xs:sequence>
+			<xs:element name="rule" type="fuzzyRuleType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Rule in a Mamdani system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="activationMethod" type="activationMethodType"
+			default="MIN" />
+		<xs:attribute name="andMethod" type="andMethodType"
+			default="MIN" />
+		<xs:attribute name="orMethod" type="orMethodType"
+			default="MAX" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="tskRuleBaseType">
+		<xs:sequence>
+			<xs:element name="tskRule" type="tskFuzzyRuleType"
+				minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Rule in a TSK system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="activationMethod" type="activationMethodType"
+			default="MIN" />
+		<xs:attribute name="andMethod" type="andMethodType"
+			default="MIN" />
+		<xs:attribute name="orMethod" type="orMethodType"
+			default="MAX" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="anYaRuleBaseType">
+		<xs:sequence>
+			<xs:element name="anYaRule" type="anYaRuleType" minOccurs="1"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Rule in a cloud-based fuzzy system
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="activationMethod" type="activationMethodType"
+			default="MIN" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="fuzzyRuleType">
+		<xs:sequence>
+			<xs:element name="antecedent" type="antecedentType">
+				<xs:annotation>
+					<xs:documentation>IF-part of a fuzzy rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="consequent" type="consequentType">
+				<xs:annotation>
+					<xs:documentation>THEN[-ELSE]-part of a fuzzy rule
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="andMethod" type="andMethodType"
+			default="MIN" />
+		<xs:attribute name="orMethod" type="orMethodType"
+			default="MAX" />
+		<xs:attribute name="connector" type="connectorType"
+			default="and" />
+		<xs:attribute name="weight" type="weightType" default="1.0" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="tskFuzzyRuleType">
+		<xs:sequence>
+			<xs:element name="antecedent" type="antecedentType">
+				<xs:annotation>
+					<xs:documentation>IF-part of a rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tskConsequent" type="tskConsequentType">
+				<xs:annotation>
+					<xs:documentation>THEN[-ELSE}-part of a TSK rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="andMethod" type="andMethodType"
+			default="MIN" />
+		<xs:attribute name="orMethod" type="orMethodType"
+			default="MAX" />
+		<xs:attribute name="connector" type="connectorType"
+			default="and" />
+		<xs:attribute name="weight" type="weightType" default="1.0" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="anYaRuleType">
+		<xs:sequence>
+			<xs:element name="anYaAntecedent" type="anYaAntecedentType">
+				<xs:annotation>
+					<xs:documentation>IF-part of a fuzzy rule in a cloud-based fuzzy system
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="consequent" type="consequentType">
+					<xs:annotation>
+						<xs:documentation>THEN[-ELSE]-part of a Mamdani rule
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="tskConsequent" type="tskConsequentType">
+					<xs:annotation>
+						<xs:documentation>THEN[-ELSE]-part of a TSK fuzzy rule
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:ID" use="required" />
+		<xs:attribute name="weight" type="weightType" default="1.0" />
+		<xs:attribute name="networkAddress" default="127.0.0.1"
+			type="networkAddressType" />
+	</xs:complexType>
+	<xs:complexType name="antecedentType">
+		<xs:sequence>
+			<xs:element name="clause" type="clauseType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Antecedent Clause Fuzzy Rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="anYaAntecedentType">
+		<xs:sequence>
+			<xs:element name="dataCloudName" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>Antecedent Clause Fuzzy Rule in a cloud-based fuzzy system
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="consequentType">
+		<xs:sequence>
+			<xs:element name="then" type="consequentClausesType">
+				<xs:annotation>
+					<xs:documentation>THEN-part of a fuzzy rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="else" type="consequentClausesType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ELSE-part of a fuzzy rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="consequentClausesType">
+		<xs:sequence>
+			<xs:element name="clause" type="clauseType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Consequent Mamdani Clause Fuzzy Rule
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tskConsequentType">
+		<xs:sequence>
+			<xs:element name="tskThen" type="tskConsequentClausesType">
+				<xs:annotation>
+					<xs:documentation>THEN-part of a TSK fuzzy rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tskElse" type="tskConsequentClausesType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ELSE-part of a TSK fuzzy rule</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tskConsequentClausesType">
+		<xs:sequence>
+			<xs:element name="tskClause" type="tskClauseType"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Consequent Tsk Clause Fuzzy Rule
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="clauseType">
+		<xs:sequence>
+			<xs:element name="variable" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>Clause Fuzzy Variable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="term" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>Clause Fuzzy Term</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="modifier" use="optional" type="modifierType" />
+	</xs:complexType>
+	<xs:complexType name="tskClauseType">
+		<xs:sequence>
+			<xs:element name="variable" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>Clause Fuzzy Variable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="term" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>Clause Fuzzy Term</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="standardDefuzzifierType">
+		<xs:restriction base="xs:string">
+			<!-- MOM reference: Equation (A.42) from IEEE Std 1855 -->
+			<xs:enumeration value="MOM"></xs:enumeration>
+			<!-- LM reference: Equation (A.43) from IEEE Std 1855 -->
+			<xs:enumeration value="LM"></xs:enumeration>
+			<!-- RM reference: Equation (A.44) from IEEE Std 1855 -->
+			<xs:enumeration value="RM"></xs:enumeration>
+			<!-- COG reference: Equation (A.45) from IEEE Std 1855 -->
+			<xs:enumeration value="COG"></xs:enumeration>
+			<!-- COA reference: Equation (A.46) from IEEE Std 1855 -->
+			<xs:enumeration value="COA"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="defuzzifierType">
+		<xs:union memberTypes="standardDefuzzifierType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="customLabelType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="custom_\S*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="standardAccumulationType">
+		<xs:restriction base="xs:string">
+			<!-- MAX reference: Equation (A.35) from IEEE Std 1855 -->
+			<xs:enumeration value="MAX"></xs:enumeration>
+			<!-- PROBOR reference: Equation (A.36) from IEEE Std 1855 -->
+			<xs:enumeration value="PROBOR"></xs:enumeration>
+			<!-- BSUM reference: Equation (A.37) from IEEE Std 1855 -->
+			<xs:enumeration value="BSUM"></xs:enumeration>
+			<!-- DRS reference: Equation (A.38) from IEEE Std 1855 -->
+			<xs:enumeration value="DRS"></xs:enumeration>
+			<!-- ESUM reference: Equation (A.39) from IEEE Std 1855 -->
+			<xs:enumeration value="ESUM"></xs:enumeration>
+			<!-- HSUM reference: Equation (A.40) from IEEE Std 1855 -->
+			<xs:enumeration value="HSUM"></xs:enumeration>
+			<!-- NILMAX reference: Equation (A.41) from IEEE Std 1855 -->
+			<xs:enumeration value="NILMAX"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="accumulationType">
+		<xs:union memberTypes="standardAccumulationType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="typeType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="input|output|INPUT|OUTPUT|Input|Output" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tskOrderType">
+		<xs:restriction base="xs:int">
+			<xs:pattern value="0|1" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="standardActivationMethodType">
+		<xs:restriction base="xs:string">
+			<!-- MIN reference: Equation (A.28) from IEEE Std 1855 -->
+			<xs:enumeration value="MIN"></xs:enumeration>
+			<!-- PROD reference: Equation (A.29) from IEEE Std 1855 -->
+			<xs:enumeration value="PROD"></xs:enumeration>
+			<!-- BDIF reference: Equation (A.30) from IEEE Std 1855 -->
+			<xs:enumeration value="BSUM"></xs:enumeration>
+			<!-- DRP reference: Equation (A.31) from IEEE Std 1855 -->
+			<xs:enumeration value="DRS"></xs:enumeration>
+			<!-- EPROD reference: Equation (A.32) from IEEE Std 1855 -->
+			<xs:enumeration value="EPROD"></xs:enumeration>
+			<!-- HPROD reference: Equation (A.33) from IEEE Std 1855 -->
+			<xs:enumeration value="HPROD"></xs:enumeration>
+			<!-- NILMIN reference: Equation (A.34) from IEEE Std 1855 -->
+			<xs:enumeration value="NILMIN"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="combinationType">
+		<xs:union memberTypes="standardCombinationType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="standardCombinationType">
+		<xs:restriction base="xs:string">
+			<!-- WA reference: Equation (A.47) from IEEE Std 1855 -->
+			<xs:enumeration value="WA"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="activationMethodType">
+		<xs:union memberTypes="standardActivationMethodType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="standardTnormType">
+		<xs:restriction base="xs:string">
+			<!-- MIN reference: Equation (A.14) from IEEE Std 1855 -->
+			<xs:enumeration value="MIN"></xs:enumeration>
+			<!-- PROD reference: Equation (A.15) from IEEE Std 1855 -->
+			<xs:enumeration value="PROD"></xs:enumeration>
+			<!-- BDIF reference: Equation (A.16) from IEEE Std 1855 -->
+			<xs:enumeration value="BSUM"></xs:enumeration>
+			<!-- DRP reference: Equation (A.17) from IEEE Std 1855 -->
+			<xs:enumeration value="DRS"></xs:enumeration>
+			<!-- EPROD reference: Equation (A.18) from IEEE Std 1855 -->
+			<xs:enumeration value="EPROD"></xs:enumeration>
+			<!-- HPROD reference: Equation (A.19) from IEEE Std 1855 -->
+			<xs:enumeration value="HPROD"></xs:enumeration>
+			<!-- NILMIN reference: Equation (A.20) from IEEE Std 1855 -->
+			<xs:enumeration value="NILMIN"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="andMethodType">
+		<xs:union memberTypes="standardTnormType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="standardTconormType">
+		<xs:restriction base="xs:string">
+			<!-- MAX reference: Equation (A.21) from IEEE Std 1855 -->
+			<xs:enumeration value="MAX"></xs:enumeration>
+			<!-- PROBOR reference: Equation (A.22) from IEEE Std 1855 -->
+			<xs:enumeration value="PROBOR"></xs:enumeration>
+			<!-- BSUM reference: Equation (A.23) from IEEE Std 1855 -->
+			<xs:enumeration value="BSUM"></xs:enumeration>
+			<!-- DRS reference: Equation (A.24) from IEEE Std 1855 -->
+			<xs:enumeration value="DRS"></xs:enumeration>
+			<!-- ESUM reference: Equation (A.25) from IEEE Std 1855 -->
+			<xs:enumeration value="ESUM"></xs:enumeration>
+			<!-- HSUM reference: Equation (A.26) from IEEE Std 1855 -->
+			<xs:enumeration value="HSUM"></xs:enumeration>
+			<!-- NILMAX reference: Equation (A.27) from IEEE Std 1855 -->
+			<xs:enumeration value="NILMAX"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="orMethodType">
+		<xs:union memberTypes="standardTconormType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="connectorType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="and|AND|OR|or" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="standardModifierType">
+		<xs:restriction base="xs:string">
+			<!-- above reference: Equation (A.1) from IEEE Std 1855 -->
+			<xs:enumeration value="above"></xs:enumeration>
+			<!-- any reference: Equation (A.2) from IEEE Std 1855 -->
+			<xs:enumeration value="any"></xs:enumeration>
+			<!-- below reference: Equation (A.3) from IEEE Std 1855 -->
+			<xs:enumeration value="below"></xs:enumeration>
+			<!-- extremely reference: Equation (A.4) from IEEE Std 1855 -->
+			<xs:enumeration value="extremely"></xs:enumeration>
+			<!-- intensify reference: Equation (A.5) from IEEE Std 1855 -->
+			<xs:enumeration value="intensify"></xs:enumeration>
+			<!-- more_or_less reference: Equation (A.6) from IEEE Std 1855 -->
+			<xs:enumeration value="more_or_less"></xs:enumeration>
+			<!-- norm reference: Equation (A.7) from IEEE Std 1855 -->
+			<xs:enumeration value="norm"></xs:enumeration>
+			<!-- not reference: Equation (A.8) from IEEE Std 1855 -->
+			<xs:enumeration value="not"></xs:enumeration>
+			<!-- plus reference: Equation (A.9) from IEEE Std 1855 -->
+			<xs:enumeration value="plus"></xs:enumeration>
+			<!-- seldom reference: Equation (A.10) from IEEE Std 1855 -->
+			<xs:enumeration value="seldom"></xs:enumeration>
+			<!-- slightly reference: Equation (A.11) from IEEE Std 1855 -->
+			<xs:enumeration value="slightly"></xs:enumeration>
+			<!-- somewhat reference: Equation (A.12) from IEEE Std 1855 -->
+			<xs:enumeration value="somewhat"></xs:enumeration>
+			<!-- very reference: Equation (A.13) from IEEE Std 1855 -->
+			<xs:enumeration value="very"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="modifierType">
+		<xs:union memberTypes="standardModifierType customLabelType" />
+	</xs:simpleType>
+	<xs:simpleType name="weightType">
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="1.0" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="interpolationMethodType">
+		<xs:restriction base="xs:string">
+			<!-- Linear reference: [B11] from IEEE Std 1855 -->
+			<xs:enumeration value="linear"></xs:enumeration>
+			<!-- Lagrange reference: [B10] from IEEE Std 1855 -->
+			<xs:enumeration value="lagrange"></xs:enumeration>
+			<!-- Spline reference: [B12] from IEEE Std 1855 -->
+			<xs:enumeration value="spline"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="monotonicInterpolationMethodType">
+		<xs:restriction base="xs:string">
+			<!-- Linear reference: [B11] from IEEE Std 1855 -->
+			<xs:enumeration value="linear"></xs:enumeration>
+			<!-- Cubic reference: [B9] from IEEE Std 1855 -->
+			<xs:enumeration value="cubic"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="networkAddressType">
+		<xs:union
+			memberTypes="InetAddressIPv4 InetAddressIPv6 macAddressType
+hostnameType" />
+	</xs:simpleType>
+	<xs:simpleType name="InetAddressIPv4">
+		<xs:annotation>
+			<xs:documentation>
+				InetAddressIPv4 as defined in [B18] at pages 7 – 8 from IEEE Std 1855.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])" />
+			<xs:minLength value="7" />
+			<xs:maxLength value="15" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InetAddressIPv6">
+		<xs:annotation>
+			<xs:documentation>
+				InetAddressIPv6 as defined in [B18] at page 8 from IEEE Std 1855.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="(([0-9a-fA-F]{1,4}:){6})(([0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="macAddressType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostnameType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255" />
+			<xs:pattern
+				value="[A-Za-z]([A-Za-z0-9-]*[A-Za-z0-9])?(\.[A-Za-z]([A-Za-z0-9-]*[A-Zaz0-9])?)*" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

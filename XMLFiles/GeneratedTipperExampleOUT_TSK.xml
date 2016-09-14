@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="tipper - TSK">
+    <knowledgeBase>
+        <fuzzyVariable name="food" scale="" domainleft="0.0" domainright="10.0" type="input">
+            <fuzzyTerm name="delicious" complement="false">
+                <rightLinearShape param1="5.5" param2="10.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="rancid" complement="false">
+                <triangularShape param1="0.0" param2="2.0" param3="5.5"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="service" scale="" domainleft="0.0" domainright="10.0" type="input">
+            <fuzzyTerm name="excellent" complement="false">
+                <rightGaussianShape param1="10.0" param2="2.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="good" complement="false">
+                <gaussianShape param1="5.0" param2="2.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="poor" complement="false">
+                <leftGaussianShape param1="0.0" param2="2.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <tskVariable name="tip" scale="" type="output" combination="WA" defaultValue="0.0">
+            <tskTerm name="average" order="0">
+                <tskValue>1.6</tskValue>
+            </tskTerm>
+            <tskTerm name="cheap" order="1">
+                <tskValue>1.9</tskValue>
+                <tskValue>5.6</tskValue>
+                <tskValue>6.0</tskValue>
+            </tskTerm>
+            <tskTerm name="generous" order="1">
+                <tskValue>0.6</tskValue>
+                <tskValue>1.3</tskValue>
+                <tskValue>1.0</tskValue>
+            </tskTerm>
+        </tskVariable>
+    </knowledgeBase>
+    <tskRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <tskRule name="reg1" orMethod="MAX" connector="or" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>food</variable>
+                    <term>rancid</term>
+                </clause>
+                <clause>
+                    <variable>service</variable>
+                    <term>poor</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>tip</variable>
+                        <term>cheap</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="reg2" orMethod="MAX" connector="or" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>service</variable>
+                    <term>good</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>tip</variable>
+                        <term>average</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="reg3" orMethod="MAX" connector="or" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>service</variable>
+                    <term>excellent</term>
+                </clause>
+                <clause>
+                    <variable>food</variable>
+                    <term>delicious</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>tip</variable>
+                        <term>generous</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+    </tskRuleBase>
+</fuzzySystem>
