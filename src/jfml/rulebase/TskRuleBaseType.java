@@ -251,6 +251,13 @@ public class TskRuleBaseType extends FuzzySystemRuleBase {
 	public void evaluate() {
 		// evaluate each rule
 		for (TskFuzzyRuleType r : getTskRules()) {
+			//if rule r has not defined and / or method, set the rule base and/or method
+			if(!r.isAndMethodDefined())
+				r.setAndMethod(getAndMethod());
+			
+			if(!r.isOrMethodDefined())
+				r.setOrMethod(getOrMethod());
+			
 			float w = Float.NaN;
 			// evaluate antecedents
 			w = evaluateAntecedents(r);

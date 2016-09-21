@@ -278,6 +278,20 @@ public class TskFuzzyRuleType extends Rule{
     public void setOrMethod(String value) {
         this.orMethod = value;
     }
+    
+    public boolean isAndMethodDefined(){
+    	if(andMethod == null)
+    		return false;
+    	else
+    		return true;
+    }
+    
+    public boolean isOrMethodDefined(){
+    	if(orMethod == null)
+    		return false;
+    	else
+    		return true;
+    }
 
     /**
      * Gets the value of the property connector.

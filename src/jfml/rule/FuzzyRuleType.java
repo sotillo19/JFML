@@ -238,6 +238,20 @@ public class FuzzyRuleType extends Rule{
             return andMethod;
         }
     }
+    
+    public boolean isAndMethodDefined(){
+    	if(andMethod == null)
+    		return false;
+    	else
+    		return true;
+    }
+    
+    public boolean isOrMethodDefined(){
+    	if(orMethod == null)
+    		return false;
+    	else
+    		return true;
+    }
 
     /**
      * Sets the value of the property andMethod.

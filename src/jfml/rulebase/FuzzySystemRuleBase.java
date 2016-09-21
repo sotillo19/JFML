@@ -96,7 +96,7 @@ public abstract class FuzzySystemRuleBase {
 		else if (act.equals(StandardActivationMethodType.NILMIN.value()))
 			return nilmin(x, y);
 		else if (act.contains("custom"))
-			return custom(x, y);
+			return custom_activation(x, y, act);
 		else
 			return min(x, y);
 	}
@@ -108,7 +108,7 @@ public abstract class FuzzySystemRuleBase {
 	 * @param y
 	 * @return
 	 */
-	private float custom(float x, float y) {
+	private float custom_activation(float x, float y, String act) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

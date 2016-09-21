@@ -56,7 +56,7 @@ public abstract class Rule {
 		else if(andMethod.equals(StandardAndMethodType.NILMIN.value()))
 			return nilmin(degrees);
 		else if(andMethod.contains("custom"))
-			return custom_and(degrees);
+			return custom_and(degrees, andMethod);
 		else
 			return and(degrees);
 	}
@@ -65,9 +65,10 @@ public abstract class Rule {
 	/**
 	 * custom_\S* for a custom method for operator and.
 	 * @param degrees
+	 * @param andMethod 
 	 * @return
 	 */
-	private float custom_and(float[] degrees) {
+	private float custom_and(float[] degrees, String andMethod) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -249,13 +250,13 @@ public abstract class Rule {
 		else if(orMethod.equals(StandardOrMethodType.NILMAX.value()))
 			return nilmax(degrees);
 		else if(orMethod.contains("custom"))
-			return custom_or(degrees);
+			return custom_or(degrees,orMethod);
 		else 
 			return or(degrees);
 	
 	}
 	
-	private float custom_or(float[] degrees) {
+	private float custom_or(float[] degrees, String orMethod) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

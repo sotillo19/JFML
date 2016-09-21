@@ -266,6 +266,13 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 	public void evaluate() {
 		//evaluate each rule
 		for(FuzzyRuleType r : getRules()){
+			//if rule r has not defined and / or method, set the rule base and/or method
+			if(!r.isAndMethodDefined())
+				r.setAndMethod(getAndMethod());
+			
+			if(!r.isOrMethodDefined())
+				r.setOrMethod(getOrMethod());
+			
 			float value = Float.NaN;
 			//evaluate antecedents
 			value = evaluateAntecedents(r);

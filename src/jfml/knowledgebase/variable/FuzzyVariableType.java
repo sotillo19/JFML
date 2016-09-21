@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jfml.defuzzifier.Defuzzifier;
 import jfml.defuzzifier.DefuzzifierCenterOfArea;
 import jfml.defuzzifier.DefuzzifierCenterOfGravity;
+import jfml.defuzzifier.DefuzzifierCenterOfGravitySingletons;
 import jfml.defuzzifier.DefuzzifierLeftMostMax;
 import jfml.defuzzifier.DefuzzifierMeanMax;
 import jfml.defuzzifier.DefuzzifierRightMostMax;
@@ -400,16 +401,6 @@ public class FuzzyVariableType extends FuzzyVariable{
     	return b;
     }
     
-
-    /*
-    @Override
-	public float getDefuzzifierValue() {
-    	if(this.getDefuzzifier()!=null && value!=Float.NaN)
-    		return getDefuzzifier().defuzzify();
-    	else
-    		return value;
-	}*/
-    
     /**
      *  If the variable is input type, return value setter. 
      *  If the variable is output, return the deffuzifier value or the calculated tsk value
@@ -466,15 +457,29 @@ public class FuzzyVariableType extends FuzzyVariable{
 			else if(acc.equals(StandardAccumulationType.NILMAX.value()))
 				return nilmax(x,y);
 			else if(acc.contains("custom"))
-				return custom_accumulation(x,y);
+				return custom_accumulation(x,y, acc);
 			else 
 				return max(x,y);
 		
 	}
 	
-	private float custom_accumulation(float x, float y) {
+	/**
+	 * This functions implements custom accumulation methods
+	 * @param x
+	 * @param y
+	 * @param acc String a short name of the accumulation method.
+	 * @return accumulation value
+	 */
+	private float custom_accumulation(float x, float y, String acc) {
 		// TODO Auto-generated method stub
-		return 0;
+		float res = max(x,y);
+		if(acc.contains("custom")){
+			if(acc.contains("NSUM"))
+				res = (float) (( x +y )  / Math.max(1.0, x + y));
+			//else if(acc.contains("OTHER"))
+				//res = other
+		}
+		return res;
 	}
 
 	private float max(float a, float b) {
@@ -535,10 +540,29 @@ public class FuzzyVariableType extends FuzzyVariable{
 				defuzzifier = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
 			else if(def.equals(StandardDefuzzifierType.COA.value()))
 				defuzzifier = new DefuzzifierCenterOfArea(getDomainleft(), getDomainright());
+			else if(def.contains("custom"))
+				defuzzifier = custom_Defuzzifier(def);
 			else
 				defuzzifier= new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
 		}
 		return defuzzifier;
+	}
+
+	/**
+	 * This function implements custom defuzzifier
+	 * @param def String with a short name of the custom defuzzifier
+	 * @return a instance of defuzzifier
+	 */
+	private Defuzzifier custom_Defuzzifier(String def) {
+		//TODO implements custom defuzzifiers
+		Defuzzifier df = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
+		if(def.contains("custom")){
+			if(def.contains("COGS"))
+				df = new DefuzzifierCenterOfGravitySingletons(getDomainleft(), getDomainright());
+			//else if(def.contains("OTHER"))
+				//df = new OtherDefuzzifier();
+		}
+		return df;
 	}
 
 	@Override
