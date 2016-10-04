@@ -1,9 +1,13 @@
 package jfml.rulebase;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import jfml.enumeration.StandardActivationMethodType;
+import jfml.rule.FuzzyRuleType;
+import jfml.rule.Rule;
 
 @XmlAccessorType(XmlAccessType.NONE) // This is needed to ignore class
 										// attributes as xml tags in XML files

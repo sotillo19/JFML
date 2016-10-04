@@ -45,5 +45,7 @@ public abstract class TskTerm {
 	
 	
 	public abstract void evaluateTskTerm(List<FuzzyVariable> kbv);
+	
+	public abstract String getName();
 
 }

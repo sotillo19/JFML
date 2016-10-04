@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -17,7 +18,17 @@ import jfml.jaxb.FuzzySystemType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TsukamotoVariableType;
+import jfml.rule.AnYaRuleType;
+import jfml.rule.ClauseType;
+import jfml.rule.FuzzyRuleType;
+import jfml.rule.TskClauseType;
+import jfml.rule.TskFuzzyRuleType;
+import jfml.rulebase.AnYaRuleBaseType;
+import jfml.rulebase.FuzzySystemRuleBase;
+import jfml.rulebase.RuleBaseType;
+import jfml.rulebase.TskRuleBaseType;
 import jfml.term.FuzzyTerm;
+import jfml.term.TskTerm;
 
 public class JFML {
 
@@ -41,6 +52,10 @@ public class JFML {
 			fst = (JAXBElement<FuzzySystemType>) u.unmarshal(input);
 
 			/**
+			 * Check Terms with the same name
+			 */
+			checkingTerms(fst.getValue().getRuleBase());
+			/**
 			 * initialize membership functions -- reading from XML file they are not
 			 * initialized
 			 */
@@ -59,6 +74,104 @@ public class JFML {
 		}
 
 		return fst;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private static void checkingTerms(List<Object> ruleBase) {
+		for(Object o : ruleBase){
+			FuzzySystemRuleBase rb = null;
+			if(((JAXBElement) o).getValue() instanceof FuzzySystemRuleBase){
+				rb = (FuzzySystemRuleBase) ((JAXBElement) o).getValue();
+				if(rb instanceof RuleBaseType){
+					for(FuzzyRuleType r : ((RuleBaseType) rb).getRules()){
+						for(ClauseType c : r.getAntecedent().getClauses()){
+							FuzzyTerm t = (FuzzyTerm) c.getTerm();
+							KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+							for(Object ft : v.getTerms()){
+								if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									c.setTerm(ft);
+							}
+						}
+						if(r.getConsequent().getThen()!=null){
+							for(ClauseType c : r.getConsequent().getThen().getClause()){
+								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+								for(Object ft : v.getTerms()){
+									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+										c.setTerm(ft);
+								}
+							}
+						}
+						if(r.getConsequent().getElse()!=null){
+							for(ClauseType c : r.getConsequent().getElse().getClause()){
+								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+								for(Object ft : v.getTerms()){
+									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+										c.setTerm(ft);
+								}
+							}
+						}
+					}
+				}
+				else if(rb instanceof TskRuleBaseType){
+					for(TskFuzzyRuleType r : ((TskRuleBaseType) rb).getTskRules()){
+						for(ClauseType c : r.getAntecedent().getClauses()){
+							FuzzyTerm t = (FuzzyTerm) c.getTerm();
+							KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+							for(Object ft : v.getTerms()){
+								if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									c.setTerm(ft);
+							}
+						}
+						if(r.getTskConsequent().getTskThen()!=null){
+							for(TskClauseType c : r.getTskConsequent().getTskThen().getTskClause()){
+								TskTerm t = (TskTerm) c.getTerm();
+								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+								for(Object ft : v.getTerms()){
+									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+										c.setTerm(ft);
+								}
+							}
+						}
+						if(r.getTskConsequent().getTskElse()!=null){
+							for(TskClauseType c : r.getTskConsequent().getTskElse().getTskClause()){
+								TskTerm t = (TskTerm) c.getTerm();
+								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+								for(Object ft : v.getTerms()){
+									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+										c.setTerm(ft);
+								}
+							}
+						}
+					}
+				}
+				else if(rb instanceof AnYaRuleBaseType){
+					for(AnYaRuleType r : ((AnYaRuleBaseType) rb).getAnYaRules()){
+						if(r.getConsequent().getThen()!=null){
+							for(ClauseType c : r.getConsequent().getThen().getClause()){
+								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+								for(Object ft : v.getTerms()){
+									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+										c.setTerm(ft);
+								}
+							}
+						}
+						if(r.getConsequent().getElse()!=null){
+							for(ClauseType c : r.getConsequent().getElse().getClause()){
+								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
+								for(Object ft : v.getTerms()){
+									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+										c.setTerm(ft);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -142,6 +255,7 @@ public class JFML {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static void removePrefixNS(File file, String prefix){
 		BufferedReader bf = null;
 		String s;

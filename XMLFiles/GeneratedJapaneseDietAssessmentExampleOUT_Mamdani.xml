@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="japaneseDietAssessment - MAMDANI">
+    <knowledgeBase>
+        <fuzzyVariable name="PCC" scale="" domainleft="0.0" domainright="100.0" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="55.0" param4="60.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <trapezoidShape param1="55.0" param2="60.0" param3="65.0" param4="70.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="65.0" param2="70.0" param3="100.0" param4="100.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="PCP" scale="" domainleft="0.0" domainright="100.0" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="10.0" param4="15.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <trapezoidShape param1="10.0" param2="15.0" param3="18.0" param4="21.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="18.0" param2="21.0" param3="100.0" param4="100.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="PCF" scale="" domainleft="0.0" domainright="100.0" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="15.0" param4="20.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <trapezoidShape param1="15.0" param2="20.0" param3="24.0" param4="30.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="24.0" param2="30.0" param3="100.0" param4="100.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="PCR" scale="" domainleft="0.0" domainright="200.0" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="85.0" param4="95.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <trapezoidShape param1="85.0" param2="95.0" param3="105.0" param4="115.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="105.0" param2="115.0" param3="200.0" param4="200.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="FGB" scale="" domainleft="0.0" domainright="7.0" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="1.0" param4="3.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <trapezoidShape param1="1.0" param2="3.0" param3="4.0" param4="6.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="4.0" param2="6.0" param3="7.0" param4="7.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="DHL" scale="" domainleft="0.0" domainright="10.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
+            <fuzzyTerm name="very low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="1.5" param4="2.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="1.5" param2="2.5" param3="3.5" param4="4.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <trapezoidShape param1="3.5" param2="4.5" param3="5.5" param4="6.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="5.5" param2="6.5" param3="7.5" param4="8.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very high" complement="false">
+                <trapezoidShape param1="7.5" param2="8.5" param3="10.0" param4="10.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+    </knowledgeBase>
+    <mamdaniRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <rule name="rule1" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>PCC</variable>
+                    <term>low</term>
+                </clause>
+                <clause>
+                    <variable>PCP</variable>
+                    <term>low</term>
+                </clause>
+                <clause>
+                    <variable>PCF</variable>
+                    <term>low</term>
+                </clause>
+                <clause>
+                    <variable>PCR</variable>
+                    <term>low</term>
+                </clause>
+                <clause>
+                    <variable>FGB</variable>
+                    <term>low</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>DHL</variable>
+                        <term>very low</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule243" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>PCC</variable>
+                    <term>high</term>
+                </clause>
+                <clause>
+                    <variable>PCP</variable>
+                    <term>high</term>
+                </clause>
+                <clause>
+                    <variable>PCF</variable>
+                    <term>high</term>
+                </clause>
+                <clause>
+                    <variable>PCR</variable>
+                    <term>high</term>
+                </clause>
+                <clause>
+                    <variable>FGB</variable>
+                    <term>high</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>DHL</variable>
+                        <term>low</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+    </mamdaniRuleBase>
+</fuzzySystem>

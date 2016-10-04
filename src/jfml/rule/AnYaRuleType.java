@@ -1,5 +1,7 @@
 package jfml.rule;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -9,6 +11,9 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.term.FuzzyTerm;
 
 
 /**
@@ -41,7 +46,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "consequent",
     "tskConsequent"
 })
-public class AnYaRuleType {
+public class AnYaRuleType extends Rule{
 
     @XmlElement(required = true)
     protected AnYaAntecedentType anYaAntecedent;
@@ -208,5 +213,70 @@ public class AnYaRuleType {
     public void setNetworkAddress(String value) {
         this.networkAddress = value;
     }
+
+	@Override
+	public float aggregation(float[] degrees) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		String b = getName() +" - ("+getEvaluation()+") IF ";
+		
+		//ANTECEDENTS
+		/*List<ClauseType> clauses = getAntecedent().getClauses();
+		for(int i=0;i<clauses.size();i++){
+			ClauseType c= clauses.get(i);
+			
+			FuzzyTerm t=(FuzzyTerm) c.getTerm();
+			KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
+			
+			String modifier = c.getModifier();
+			if(modifier!=null)
+				modifier += " ";
+			else
+				modifier="";
+			
+			b += v.getName() +" IS "+ modifier + t.getName();
+			if(i<clauses.size()-1)
+				b += " "+getConnector().toUpperCase() + " ";
+		}*/
+		
+		//CONSEQUENTS
+		ConsequentClausesType then = getConsequent().getThen();
+		ConsequentClausesType _else = getConsequent().getElse();
+		if(then!=null){
+			b += " THEN ";
+			for(ClauseType c : then.getClause()){
+				FuzzyTerm t=(FuzzyTerm) c.getTerm();
+				KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
+	
+				String modifier = c.getModifier();
+				if(modifier!=null)
+					modifier += " ";
+				else
+					modifier="";
+				
+				b += v.getName() +" IS "+ modifier + t.getName() + " ";
+			}
+			
+			if(_else!=null){
+				b += " ELSE ";
+				for(ClauseType c : _else.getClause()){
+					FuzzyTerm t=(FuzzyTerm) c.getTerm();
+					KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
+					
+					String modifier = c.getModifier();
+					if(modifier!=null)
+						modifier += " ";
+					b += v.getName() +" IS "+ modifier + t.getName() + " ";
+				}
+			}	
+			
+			b += "[weight="+getWeight()+"]";
+		}
+		return b;
+	}
 
 }

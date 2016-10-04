@@ -54,30 +54,11 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
      * Gets the value of the datum property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the datum property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getDatum().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Double }
      * 
      * 
      */
-    /*public List<Double> getDatum() {
-        if (datum == null) {
-            datum = new ArrayList<Double>();
-        }
-        return this.datum;
-    }*/
     public List<Double> getTerms() {
         if (datum == null) {
             datum = new ArrayList<Double>();
@@ -142,41 +123,29 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 		this.value = Float.NaN;
 	}
 
-    /*
-	@Override
-	public float getDefuzzifierValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
-
 	@Override
 	public float getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.value;
 	}
 
 	@Override
 	public void setValue(float x) {
-		// TODO Auto-generated method stub
-		
+		this.value=x;
 	}
 
-	/*@Override
-	protected Defuzzifier getDefuzzifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+	
 
 	@Override
 	public boolean isOutput() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		String s = name + " - [";
+		for(Double d : datum)
+			s +=d + ", ";
+		return s.substring(0, s.length()-2) + "]";
 	}
 
 }

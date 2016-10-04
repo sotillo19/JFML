@@ -356,8 +356,7 @@ public class FuzzySystemType {
 	}
 
 	private void evaluateAnYa(AnYaRuleBaseType r) {
-		// TODO Auto-generated method stub
-
+		r.evaluate();
 	}
 
 	private void evaluateTsk(TskRuleBaseType r) {

@@ -17,9 +17,11 @@ public class EvaluateTipperExample {
 	public static void main(String[] args) {
 		//File xml = new File("./XMLFiles/TipperExample_Mamdani.xml");
 		//File xml = new File("./XMLFiles/TipperExample_TSK.xml");
-		File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani2.xml");
+		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani3.xml");
 		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
 		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Tsukamoto2.xml");
+		//File xml = new File("./XMLFiles/TipperExampleFuzzySystemOUTANYA1.xml");
+		File xml = new File("./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_Mamdani.xml");
 		
 		
 		//loading Fuzzy System from an XML file according the standard IEEE 1855
