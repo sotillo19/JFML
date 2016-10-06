@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 public class CustomMembershipFunction extends MembershipFunction {
@@ -31,6 +33,12 @@ public class CustomMembershipFunction extends MembershipFunction {
 
 	@Override
 	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
 		// TODO Auto-generated method stub
 		return null;
 	}

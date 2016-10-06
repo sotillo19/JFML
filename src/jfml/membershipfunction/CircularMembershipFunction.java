@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 public class CircularMembershipFunction extends MembershipFunction {
 
 	String name ="circular";
@@ -26,6 +28,12 @@ public class CircularMembershipFunction extends MembershipFunction {
 
 	@Override
 	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
 		// TODO Auto-generated method stub
 		return null;
 	}

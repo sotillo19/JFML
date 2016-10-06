@@ -16,11 +16,14 @@ import jfml.defuzzifier.Defuzzifier;
 import jfml.defuzzifier.DefuzzifierCenterOfArea;
 import jfml.defuzzifier.DefuzzifierCenterOfGravity;
 import jfml.defuzzifier.DefuzzifierCenterOfGravitySingletons;
+import jfml.defuzzifier.DefuzzifierDiscrete;
 import jfml.defuzzifier.DefuzzifierLeftMostMax;
 import jfml.defuzzifier.DefuzzifierMeanMax;
 import jfml.defuzzifier.DefuzzifierRightMostMax;
 import jfml.enumeration.StandardAccumulationType;
 import jfml.enumeration.StandardDefuzzifierType;
+import jfml.membershipfunction.MembershipFunction;
+import jfml.membershipfunction.SingletonMembershipFunction;
 import jfml.term.FuzzyTermType;
 
 
@@ -528,22 +531,22 @@ public class FuzzyVariableType extends FuzzyVariable{
 	 */
 	@Override
 	public Defuzzifier getDefuzzifier() {
-		if(defuzzifier==null){
+		if(defuzzifier==null && isOutput()){
 			String def = getDefuzzifierName();
 			if(def.equals(StandardDefuzzifierType.MOM.value()))
-				defuzzifier = new DefuzzifierMeanMax(getDomainleft(), getDomainright());
+				defuzzifier = new DefuzzifierMeanMax(getDomainleft(), getDomainright(),getTerms());
 			else if(def.equals(StandardDefuzzifierType.LM.value()))
-				defuzzifier = new DefuzzifierLeftMostMax(getDomainleft(), getDomainright());
+				defuzzifier = new DefuzzifierLeftMostMax(getDomainleft(), getDomainright(),getTerms());
 			else if(def.equals(StandardDefuzzifierType.RM.value()))
-				defuzzifier = new DefuzzifierRightMostMax(getDomainleft(), getDomainright());
+				defuzzifier = new DefuzzifierRightMostMax(getDomainleft(), getDomainright(),getTerms());
 			else if(def.equals(StandardDefuzzifierType.COG.value()))
-				defuzzifier = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
+				defuzzifier = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright(),getTerms());
 			else if(def.equals(StandardDefuzzifierType.COA.value()))
-				defuzzifier = new DefuzzifierCenterOfArea(getDomainleft(), getDomainright());
+				defuzzifier = new DefuzzifierCenterOfArea(getDomainleft(), getDomainright(),getTerms());
 			else if(def.contains("custom"))
 				defuzzifier = custom_Defuzzifier(def);
 			else
-				defuzzifier= new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
+				defuzzifier= new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright(),getTerms());
 		}
 		return defuzzifier;
 	}
@@ -555,10 +558,18 @@ public class FuzzyVariableType extends FuzzyVariable{
 	 */
 	private Defuzzifier custom_Defuzzifier(String def) {
 		//TODO implements custom defuzzifiers
-		Defuzzifier df = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright());
+		Defuzzifier df = new DefuzzifierCenterOfGravity(getDomainleft(), getDomainright(),getTerms());
 		if(def.contains("custom")){
-			if(def.contains("COGS"))
+			if(def.contains("COGS")){
 				df = new DefuzzifierCenterOfGravitySingletons(getDomainleft(), getDomainright());
+				for(FuzzyTermType t : getTerms()){
+					MembershipFunction mf = t.getMembershipFunction();
+					if(mf instanceof SingletonMembershipFunction){
+						((DefuzzifierDiscrete) df).setPoint(((SingletonMembershipFunction) mf).getFi(0),0);
+					}
+					else throw new RuntimeException("MembershipFunction is not Singleton.\n");
+				}
+			}
 			//else if(def.contains("OTHER"))
 				//df = new OtherDefuzzifier();
 		}
@@ -576,5 +587,6 @@ public class FuzzyVariableType extends FuzzyVariable{
 	@Override
 	public void reset() {
 		this.value = Float.NaN;
+		this.defuzzifier = null;
 	}
 }

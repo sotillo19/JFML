@@ -1,6 +1,7 @@
 package jfml.rulebase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,10 +13,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import jfml.defuzzifier.Defuzzifier;
 import jfml.defuzzifier.DefuzzifierContinuous;
+import jfml.defuzzifier.DefuzzifierDiscrete;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TsukamotoVariableType;
+import jfml.membershipfunction.SingletonMembershipFunction;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentClausesType;
 import jfml.rule.FuzzyRuleType;
@@ -311,25 +315,62 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 	}
 
 	private void activationMamdani(FuzzyVariableType v, FuzzyTerm t, float ant_evaluation) {
-		DefuzzifierContinuous defuzzifier = (DefuzzifierContinuous) v.getDefuzzifier();
-		float membership, y, x, aggregated = 0;
+		if(v.getDefuzzifier() instanceof DefuzzifierContinuous){
+			DefuzzifierContinuous defuzzifier = (DefuzzifierContinuous) v.getDefuzzifier();
+			float membership, y, x, aggregated = 0;
+			
+			// Add membership degree to defuzzifier
+			Iterator<Float> it = defuzzifier.iterator();
+			while(it.hasNext()){
+				x = it.next();
+				membership = t.getMembershipValue(x);
 
-		x = defuzzifier.getMin();
-		double step = defuzzifier.getStepSize();
+				//IMPLICATION (activation process)
+				y = activation(ant_evaluation, membership); 
 
-		int i, length = defuzzifier.getLength();
-
-		// Add membership degrees function to deffuzifier
-		for (i = 0; i < length; i++, x += step) {
-			membership = t.getMembershipValue(x);
-
-			//IMPLICATION (activation process)
-			y = activation(ant_evaluation, membership);
-
-			// ACCUMULATION
-			aggregated = v.accumulation(defuzzifier.getValue(i), y);
-			defuzzifier.setValue(i, aggregated);
+				//ACCUMULATION
+				aggregated = v.accumulation(defuzzifier.getValueY(x), y);
+				defuzzifier.setPoint(x, aggregated);
+			}
+			/*x = defuzzifier.getMin();
+			double step = defuzzifier.getStepSize();
+			int i, length = defuzzifier.getLength();
+	
+			// Add membership degrees to defuzzifier
+			for (i = 0; i < length; i++, x += step) {
+				membership = t.getMembershipValue(x);
+				
+				if(membership==1)
+					System.out.println(x);
+	
+				//IMPLICATION (activation process)
+				y = activation(ant_evaluation, membership);
+	
+				//ACCUMULATION
+				aggregated = v.accumulation(defuzzifier.getValue(i), y);
+				defuzzifier.setValue(i, aggregated);
+			}*/
 		}
+		/*else{
+			DefuzzifierDiscrete defuzzifierDiscrete = (DefuzzifierDiscrete) v.getDefuzzifier();
+			float membership, y, x, aggregated = 0;
+			
+			if(t.getMembershipFunction() instanceof SingletonMembershipFunction == false)
+				throw new RuntimeException("MembershipFunction is not Singleton.\n");
+
+			// Add membership degree to defuzzifier
+			Iterator<Float> it = defuzzifierDiscrete.iterator();
+			while(it.hasNext()){
+				x = it.next();
+				membership = t.getMembershipValue(x);
+
+				y = activation(ant_evaluation, membership); 
+
+				// Aggregate value
+				aggregated = v.accumulation(defuzzifierDiscrete.getDiscreteValue(x), y);
+				defuzzifierDiscrete.setPoint(x, aggregated);
+			}
+		}*/
 	}
 	
 	

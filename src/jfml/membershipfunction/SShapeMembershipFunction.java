@@ -1,8 +1,10 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
-public class SShapeMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction{
+public class SShapeMembershipFunction extends MembershipFunction implements Monotonical{
 
 	float a,b;
 	
@@ -53,6 +55,11 @@ public class SShapeMembershipFunction extends MembershipFunction implements Mono
 	           return (float) (b - (Math.sqrt((1.0 - y) / 2.0) * (b - a)));
 	       else
 	           return (float) ((Math.sqrt(y / 2.0) * (b - a)) + a);
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		return new ArrayList<>();
 	}
 
 }

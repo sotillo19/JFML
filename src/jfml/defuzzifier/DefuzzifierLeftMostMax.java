@@ -1,14 +1,37 @@
 package jfml.defuzzifier;
 
+import java.util.List;
+import java.util.Map;
+
+import jfml.term.FuzzyTermType;
 
 public class DefuzzifierLeftMostMax extends DefuzzifierContinuous {
 
-	public DefuzzifierLeftMostMax(float leftDomain, float rightDomain) {
-		super(leftDomain,rightDomain);
+	public DefuzzifierLeftMostMax(float domainleft, float domainright, List<FuzzyTermType> terms) {
+		super(domainleft,domainright,terms);
+	}
+	
+	@Override
+	public float defuzzify() {
+		float max = 0, maxX = 0;
+		float x,y;
+		for (Map.Entry<Float, Float> entry : discreteValues.entrySet()){
+			y = entry.getValue();
+			x = entry.getKey();
+			if(y > max){
+				max = y;
+				maxX = x;
+			}
+		}
+
+		// No max? => this variable has no active antecedent
+		if( max <= 0 ) return Float.NaN;
+
+		return maxX;
+
 	}
 
-	/** Deffuzification function */
-	public float defuzzify() {
+	/*public float defuzzify() {
 		float max = 0, maxX = 0;
 
 		// Find first max
@@ -23,5 +46,5 @@ public class DefuzzifierLeftMostMax extends DefuzzifierContinuous {
 		if( max <= 0 ) return Float.NaN;
 
 		return maxX;
-	}
+	}*/
 }

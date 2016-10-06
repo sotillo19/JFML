@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 public class RectangularMembershipFunction extends MembershipFunction {
@@ -38,5 +40,15 @@ public class RectangularMembershipFunction extends MembershipFunction {
 	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+"]";
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(a);
+		v.add(b);
+		
+		return v;
 	}
 }

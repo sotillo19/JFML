@@ -35,7 +35,7 @@ import jfml.enumeration.MonotonicInterpolationMethodType;
 @XmlType(name = "pointSetMonotonicShapeType", propOrder = {
     "point"
 })
-public class PointSetMonotonicShapeType extends MembershipFunction implements MonotonicalMembershipFunction{
+public class PointSetMonotonicShapeType extends MembershipFunction implements Monotonical{
 
     @XmlElement(required = true)
     protected List<PointType> point;
@@ -325,6 +325,16 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 	private float getFiLinear(float y) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		for(PointType p : getPoints())
+			v.add(p.getX());
+		
+		return v;
 	}
 
 }

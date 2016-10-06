@@ -1,8 +1,10 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
-public class LeftLinearMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction{
+public class LeftLinearMembershipFunction extends MembershipFunction implements Monotonical{
 
 	float a,b;
 	
@@ -45,6 +47,16 @@ public class LeftLinearMembershipFunction extends MembershipFunction implements 
 	@Override
 	public float getFi(float y) {
 		return (b - y*(b-a));
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(a);
+		v.add(b);
+		
+		return v;
 	}
 
 }

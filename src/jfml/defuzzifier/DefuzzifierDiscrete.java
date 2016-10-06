@@ -3,7 +3,7 @@ package jfml.defuzzifier;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public abstract class DefuzzifierDiscrete extends Defuzzifier implements Iterable<Double> {
+public abstract class DefuzzifierDiscrete extends Defuzzifier implements Iterable<Float> {
 
 	/** 
 	 * Function values: A generic discrete function 
@@ -12,31 +12,31 @@ public abstract class DefuzzifierDiscrete extends Defuzzifier implements Iterabl
 	 * 			y_i = f[x_i]
 	 * Values are stored in 'discreteValues' hash
 	 */
-	protected HashMap<Double, Double> discreteValues;
+	protected HashMap<Float, Float> discreteValues;
 
 	public DefuzzifierDiscrete(float leftDomain, float rightDomain) {
 		super();
 		discrete = true;
 		min=leftDomain;
 		max=rightDomain;
-		discreteValues = new HashMap<Double, Double>();
+		discreteValues = new HashMap<Float, Float>();
 	}
 
 
-	/** Deffuzification function */
+	/** Defuzzification function */
 	@Override
 	public abstract float defuzzify();
 
 	/** Get a point's 'y' value */
-	public double getDiscreteValue(double x) {
-		Double y = discreteValues.get(x);
+	public float getDiscreteValue(float x) {
+		Float y = discreteValues.get(x);
 		if( y == null ) return 0;
-		return y;
+		return y.floatValue();
 	}
 
 	/** Get an iterator (on discreteValues' keys) */
 	@Override
-	public Iterator<Double> iterator() {
+	public Iterator<Float> iterator() {
 		return discreteValues.keySet().iterator();
 	}
 
@@ -44,15 +44,16 @@ public abstract class DefuzzifierDiscrete extends Defuzzifier implements Iterabl
 	@Override
 	public void reset() {
 		if( discreteValues != null ) { // Set all values to 0
-			for( Double key : this )
-				discreteValues.put(key, 0.0);
+			for( Float key : this )
+				discreteValues.put(key, 0.0f);
 		}
 	}
 
 	/** Set a point */
-	public void setPoint(double x, double y) {
+	public void setPoint(float x, float y) {
 		discreteValues.put(x, y);
 	}
+	
 
 	/** How many points are there in this defuzzifier */
 	public int size() {

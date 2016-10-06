@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 public class GaussianMembershipFunction extends MembershipFunction {
@@ -43,6 +45,15 @@ public class GaussianMembershipFunction extends MembershipFunction {
 	@Override
 	public String toString() {
 		return name + " [c: " + c + ", sigma: "+sigma+"]";
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(c);
+		
+		return v;
 	}
 
 }

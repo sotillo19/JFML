@@ -1,8 +1,10 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
-public class SingletonMembershipFunction extends MembershipFunction {
+public class SingletonMembershipFunction extends MembershipFunction implements Monotonical{
 
 	float a;
 	
@@ -36,5 +38,19 @@ public class SingletonMembershipFunction extends MembershipFunction {
 	@Override
 	public String toString() {
 		return name + " [a: "+a+"]";
+	}
+
+	@Override
+	public float getFi(float y) {
+		return a;
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(a);
+		
+		return v;
 	}
 }

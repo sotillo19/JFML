@@ -1,9 +1,11 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 import jfml.parameter.TwoParamType;
 
-public class RightLinearMembershipFunction extends MembershipFunction implements MonotonicalMembershipFunction {
+public class RightLinearMembershipFunction extends MembershipFunction implements Monotonical {
 
 	float a,b;
 	
@@ -45,6 +47,16 @@ public class RightLinearMembershipFunction extends MembershipFunction implements
 	@Override
 	public float getFi(float y) {
 		return (a + y*(b-a));
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(a);
+		v.add(b);
+		
+		return v;
 	}
 
 }

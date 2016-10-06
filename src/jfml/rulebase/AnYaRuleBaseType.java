@@ -230,7 +230,7 @@ public class AnYaRuleBaseType extends FuzzySystemRuleBase {
 			y = activation(ant_evaluation, membership);
 
 			// ACCUMULATION
-			aggregated = v.accumulation(defuzzifier.getValue(i), y);
+			aggregated = v.accumulation(defuzzifier.getValueY(i), y);
 			defuzzifier.setValue(i, aggregated);
 		}
 	}

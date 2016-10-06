@@ -1,63 +1,40 @@
 package jfml.defuzzifier;
 
-/**
- * Generic continuous defuzzifier (a defuzzifier for continuous membership functions)
- * @author pcingola@users.sourceforge.net
- */
-public abstract class DefuzzifierContinuous extends Defuzzifier {
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-	/** Default number of points for 'values[]' */
+import jfml.term.FuzzyTermType;
+
+public abstract class DefuzzifierContinuous extends Defuzzifier implements Iterable<Float>{
+
 	public static int DEFAULT_NUMBER_OF_POINTS = 1000;
 
-	/** 
-	 * Step size between each element in 'values[]'
-	 * 			stepSize = (max - min) / values.length 
-	 */
 	protected float stepSize;
-	/** 
-	 * Funcion values: A generic continuous function
-	 * 			y = f(x)
-	 * where x : [min, max] 
-	 * Values are stored in 'values[]' array.
-	 * Array's index is calculated as: 
-	 * 			index = (x - min) / (max - min) * (values.length)
-	 */
-	protected float values[];
+	
+	protected TreeMap<Float, Float> discreteValues; 
 
-	public DefuzzifierContinuous(float leftDomain, float rightDomain) {
+	public DefuzzifierContinuous(float domainleft, float domainright, List<FuzzyTermType> terms) {
 		super();
 		discrete = false;
-		min=leftDomain;
-		max=rightDomain;
-		init(leftDomain, rightDomain, DEFAULT_NUMBER_OF_POINTS);
+		min=domainleft;
+		max=domainright;
+		init(domainleft, domainright, DEFAULT_NUMBER_OF_POINTS,terms);
 	}
 
-	public void addValue(int index, float value) {
-		values[index] += value;
-	}
-
-
-	/** Deffuzification function */
-	@Override
-	public abstract float defuzzify();
-
-	/** Calculate function's area */
 	public float getArea() {
-		float sum = 0;
-		for (int i = 0; i < values.length; i++)
-			sum += values[i];
-		return sum * stepSize;
-	}
-
-	/** Get 'values[]' index */
-	public int getIndex(float d) {
-		if ((d < min) || (d > max)) throw new RuntimeException("Value out of range: " + d);
-		return (int) ((d - min) / stepSize);
+		float sumX = getMin(), area=0;
+		
+		for (Map.Entry<Float, Float> entry : discreteValues.entrySet()){
+			area += entry.getValue() * (entry.getKey()-sumX);
+			sumX = entry.getKey();
+		}
+		return area;
 	}
 
 	public int getLength() {
-		if (values != null) return values.length;
-		return 0;
+		return discreteValues.size();
 	}
 
 	public float getMax() {
@@ -72,27 +49,20 @@ public abstract class DefuzzifierContinuous extends Defuzzifier {
 		return stepSize;
 	}
 
-	/** Get a value from 'values[]' using a float as index */
-	public float getValue(float x) {
-		return values[getIndex(x)];
-	}
-
-	public float getValue(int index) {
-		return values[index];
-	}
-
-	public float[] getValues() {
-		return values;
+	public float getValueY(float x) {
+		Float y = discreteValues.get(x);
+		if( y == null ) return 0;
+		return y.floatValue();
 	}
 
 	/**
-	 * Initialize
+	 * Initialize defuzzifier
 	 * @param min : Minimum
 	 * @param max : Maximum
 	 * @param numberOfPoints
 	 */
-	private void init(float min, float max, int numberOfPoints) {
-		values = new float[numberOfPoints];
+	private void init(float min, float max, int numberOfPoints, List<FuzzyTermType> terms) {
+		discreteValues = new TreeMap<Float, Float>();
 
 		// Go on only if min & max are setted
 		if (Float.isNaN(min) || Float.isNaN(max)) return;
@@ -104,6 +74,23 @@ public abstract class DefuzzifierContinuous extends Defuzzifier {
 		this.min = min;
 		this.max = max;
 		stepSize = (max - min) / numberOfPoints;
+		
+		
+		float x = getMin();
+		float step = getStepSize();
+
+		//adding x values from the variable x domain
+		while(x<getMax()){
+			discreteValues.put(x, 0f);
+			x += step;
+		}
+		
+		//adding x values from membership functions
+		for(FuzzyTermType t : terms){
+			for(Float xDef : t.getXValuesDefuzzifier())
+				discreteValues.put(xDef, 0f);
+		}
+		
 		reset();
 	}
 
@@ -111,13 +98,13 @@ public abstract class DefuzzifierContinuous extends Defuzzifier {
 	public boolean isDiscrete() {
 		return discrete;
 	}
-
-	/** Reset values (in 'values[] array) */
+	
+	/** Reset values */
 	@Override
 	public void reset() {
-		if (values != null) {
-			for (int i = 0; i < values.length; i++)
-				values[i] = 0;
+		if( discreteValues != null ) { // Set all values to 0
+			for( Float key : discreteValues.keySet() )
+				discreteValues.put(key, 0.0f);
 		}
 	}
 
@@ -139,14 +126,21 @@ public abstract class DefuzzifierContinuous extends Defuzzifier {
 	}
 
 	public void setValue(float valueX, float valueY) {
-		values[getIndex(valueX)] = valueY;
+		discreteValues.put(valueX, valueY);
 	}
 
-	public void setValue(int index, float value) {
-		values[index] = value;
+	public Iterator<Float> iterator() {
+		return discreteValues.keySet().iterator();
 	}
 
-	public void setValues(float[] values) {
-		this.values = values;
+	public void setPoint(float x, float y) {
+		discreteValues.put(x, y);
 	}
+	
+	public int size() {
+		return discreteValues.size();
+	}
+	
+	@Override
+	public abstract float defuzzify();
 }

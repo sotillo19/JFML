@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 public class TrapezoidMembershipFunction extends MembershipFunction {
@@ -73,6 +75,18 @@ public class TrapezoidMembershipFunction extends MembershipFunction {
 	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+", c: "+c+ ", d: "+d+"]";
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(a);
+		v.add(b);
+		v.add(c);
+		v.add(d);
+		
+		return v;
 	}
 
 }

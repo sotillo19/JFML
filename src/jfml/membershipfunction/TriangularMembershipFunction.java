@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 public class TriangularMembershipFunction extends MembershipFunction {
@@ -66,6 +68,17 @@ public class TriangularMembershipFunction extends MembershipFunction {
 	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+", c: "+c+"]";
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		ArrayList<Float> v = new ArrayList<>();
+		
+		v.add(a);
+		v.add(b);
+		v.add(c);
+		
+		return v;
 	}
 
 }

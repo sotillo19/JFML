@@ -1,24 +1,17 @@
 package jfml.defuzzifier;
 
-/**
- * 
- * @author pcingola@users.sourceforge.net
- */
 public abstract class Defuzzifier{
 
-	/** Discrete defuzzifier (e.g. for singletons) */
 	protected boolean discrete;
 	
 	protected float max; // Where function ends 
 	protected float min; // Where function begins
 
 	/** 
-	 * Deffuzification function 
-	 * Note: Has to return -1 if no rule inferred this variable 
+	 * @return NaN if no rule inferred this variable 
 	 */
 	public abstract float defuzzify();
 
-	/** Short name */
 	public String getName() {
 		String str = this.getClass().getName();
 		String dfStr = "Defuzzifier";
@@ -41,7 +34,6 @@ public abstract class Defuzzifier{
 	/** Reset defuzzifier values, this method is invoked on every rule */
 	public abstract void reset();
 
-	
 
 	@Override
 	public String toString() {

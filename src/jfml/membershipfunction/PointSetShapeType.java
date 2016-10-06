@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import jfml.enumeration.InterpolationMethodType;
-import jfml.enumeration.MonotonicInterpolationMethodType;
 
 
 /**
@@ -233,6 +232,16 @@ public class PointSetShapeType extends MembershipFunction{
 			b += "("+p.getX() + " ," + p.getY()+") ,";
 		
 		return b.substring(0, b.length()-2) + "]";
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+ArrayList<Float> v = new ArrayList<>();
+		
+		for(PointType p : getPoints())
+			v.add(p.getX());
+		
+		return v;
 	}
 
 }

@@ -1,5 +1,7 @@
 package jfml.term;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -39,6 +41,13 @@ public abstract class FuzzyTerm {
 	
 	public MembershipFunction getMembershipFunction(){
 		return this.mf;
+	}
+	
+	public ArrayList<Float> getXValuesDefuzzifier(){
+		if(mf !=null)
+			return mf.getXValuesDefuzzifier();
+		else
+			return new ArrayList<>();
 	}
 
 	public void initializeMembershipFunction(float domainLeft, float domainRight){
@@ -161,8 +170,8 @@ public abstract class FuzzyTerm {
 		float d = 0;
 		MembershipFunction mf = getMembershipFunction();
 		
-		if(mf!=null && mf instanceof MonotonicalMembershipFunction)
-			d = ((MonotonicalMembershipFunction) mf).getFi(y);
+		if(mf!=null && mf instanceof Monotonical)
+			d = ((Monotonical) mf).getFi(y);
 		
 		if (getComplement().equals("true") || getComplement().equals("TRUE") || getComplement().equals("True"))
 			d = 1 - d;

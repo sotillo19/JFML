@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 public class PiShapedMembershipFunction extends MembershipFunction {
@@ -52,6 +54,11 @@ public class PiShapedMembershipFunction extends MembershipFunction {
 	@Override
 	public String toString() {
 		return name + " [a: "+a+ ", b: "+b+"]";
+	}
+
+	@Override
+	public ArrayList<Float> getXValuesDefuzzifier() {
+		return new ArrayList<>();
 	}
 
 }

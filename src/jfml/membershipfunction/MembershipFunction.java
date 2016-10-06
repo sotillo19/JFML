@@ -1,5 +1,7 @@
 package jfml.membershipfunction;
 
+import java.util.ArrayList;
+
 import jfml.parameter.Parameter;
 
 /**
@@ -86,4 +88,10 @@ public abstract class MembershipFunction {
 
 	@Override
 	public abstract String toString();
+
+	/**
+	 * This function returns an array with values [x1, x2, x3, ...] which represents points in the x domain of the function needed by defuzzifer
+	 * @return an ArrayList with floats
+	 */
+	public abstract ArrayList<Float> getXValuesDefuzzifier();
 }

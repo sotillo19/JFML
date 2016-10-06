@@ -6,12 +6,11 @@ public class DefuzzifierCenterOfGravitySingletons extends DefuzzifierDiscrete {
 		super(leftDomain,rightDomain);
 	}
 
-	/** Deffuzification function */
 	@Override
 	public float defuzzify() {
-		Double x;
+		Float x;
 		float y, sum = 0, sumWeight = 0;
-		for( Double xD : this ) {
+		for( Float xD : this ) {
 			y = (float) getDiscreteValue(xD);
 			x = xD;
 			sumWeight += x * y;
