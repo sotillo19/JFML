@@ -281,6 +281,120 @@ public class FuzzyTermType extends FuzzyTerm{
     	this.type=FuzzyTerm.TYPE_customShape;
     	setCustomShape(c);
     }
+    
+    public float[] getParam(){
+    	float[] param = null;
+    	TwoParamType two;
+    	ThreeParamType three;
+    	FourParamType four;
+    	
+    	
+    	switch (type) {
+		case FuzzyTerm.TYPE_rightLinearShape:
+			two =getRightLinearShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_leftLinearShape:
+			two =getLeftLinearShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_piShape:
+			two =getPiShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_triangularShape:
+			three =getTriangularShape();
+			if(three!=null){
+				param = new float[3];
+				param[0] = three.getParam1();
+				param[1] = three.getParam2();
+				param[2] = three.getParam3();
+			}
+			break;	
+		case FuzzyTerm.TYPE_gaussianShape:
+			two =getGaussianShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_rightGaussianShape:
+			two =getRightGaussianShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_leftGaussianShape:
+			two =getLeftGaussianShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_trapezoidShape:
+			four =getTrapezoidShape();
+			if(four!=null){
+				param = new float[2];
+				param[0] = four.getParam1();
+				param[1] = four.getParam2();
+				param[2] = four.getParam3();
+				param[3] = four.getParam4();
+			}
+			break;
+		case FuzzyTerm.TYPE_singletonShape:
+			OneParamType one = getSingletonShape();
+			if(one!=null){
+				param = new float[1];
+				param[0] = one.getParam1();
+			}
+			break;	
+		case FuzzyTerm.TYPE_rectangularShape:
+			two =getRectangularShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_zShape:
+			two =getZShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_sShape:
+			two =getSShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;			
+			
+		default:
+			break;
+		}
+    	
+    	return param;
+    }
 
 	/**
      * Gets the value of the property rightLinearShape.
@@ -732,4 +846,23 @@ public class FuzzyTermType extends FuzzyTerm{
 		
     	return b;
     }
+
+
+	@Override
+	public FuzzyTerm copy() {
+		FuzzyTerm t = null;
+		if(this.type == TYPE_circularDefinition)
+			t = new FuzzyTermType(new String(getName()), getCircularDefinition().copy());
+		else if(this.type == TYPE_pointSetShape)
+			t = new FuzzyTermType(new String(getName()), getPointSetShape().copy());
+		else if(this.type == TYPE_customShape)
+			t = new FuzzyTermType(new String(getName()), getCustomShape().copy());
+		else
+			t = new FuzzyTermType(new String(getName()), this.type, this.getParam());
+		
+		t.initializeMembershipFunction(leftDomain, rightDomain);
+		((FuzzyTermType) t).setComplement(new String(getComplement()));
+		
+		return t;
+	}
 }

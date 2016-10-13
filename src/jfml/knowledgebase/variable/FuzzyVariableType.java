@@ -526,7 +526,7 @@ public class FuzzyVariableType extends FuzzyVariable{
 		- LM for the defuzzifier method named leftmost maximum as defined from Equation (A.43);
 		- RM for the defuzzifier method named rightmost maximum as defined from Equation (A.44);
 		- COG for the defuzzifier method named center of gravity as defined from Equation (A.45);
-		- COA for the defuzzifier method nmed center of area as defined from Equation (A.46);
+		- COA for the defuzzifier method named center of area as defined from Equation (A.46);
 		- custom_\S* for a custom defuzzifier method.
 	 */
 	@Override
@@ -588,5 +588,34 @@ public class FuzzyVariableType extends FuzzyVariable{
 	public void reset() {
 		this.value = Float.NaN;
 		this.defuzzifier = null;
+	}
+
+	@Override
+	public boolean hasTerm(String name) {
+		for(FuzzyTermType t : getTerms())
+			if(t.getName().equals(name))
+				return true;
+		return false;
+	}
+
+	@Override
+	public KnowledgeBaseVariable copy() {
+		FuzzyVariableType fv = new FuzzyVariableType(new String(getName()), getDomainleft(), getDomainright());
+		
+		fv.setType(new String(getType()));
+		fv.setAccumulation(new String(getAccumulation()));
+		fv.setDefuzzifierName(new String(getDefuzzifierName()));
+		fv.setNetworkAddress(new String(getNetworkAddress()));
+		fv.setScale(new String(getScale()));
+		fv.setValue(getValue());
+		
+		//setting defuzzifier
+		fv.setDefuzzifier(fv.getDefuzzifier());
+		
+		//setting terms
+		for(FuzzyTermType t : getTerms())
+			fv.addFuzzyTerm((FuzzyTermType) t.copy());
+		
+		return fv;
 	}
 }

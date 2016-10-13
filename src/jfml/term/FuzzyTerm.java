@@ -26,6 +26,8 @@ public abstract class FuzzyTerm {
 	public static final int TYPE_circularDefinition = 14;
 	public static final int TYPE_customShape = 15;
 	public static final int TYPE_customMonotonicShape = 16;
+	
+	protected float leftDomain, rightDomain;
 
 	protected int type = -1;
 
@@ -51,6 +53,8 @@ public abstract class FuzzyTerm {
 	}
 
 	public void initializeMembershipFunction(float domainLeft, float domainRight){
+		leftDomain = domainLeft;
+		rightDomain = domainRight;
 		if (this instanceof FuzzyTermType) {
 			FuzzyTermType t = (FuzzyTermType) this;
 			
@@ -180,5 +184,7 @@ public abstract class FuzzyTerm {
 	}
 
 	public abstract String getName();
+	
+	public abstract FuzzyTerm copy();
 
 }

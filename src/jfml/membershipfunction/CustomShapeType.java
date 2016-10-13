@@ -77,4 +77,9 @@ public class CustomShapeType {
         this.name = value;
     }
 
+	public PointSetShapeType copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

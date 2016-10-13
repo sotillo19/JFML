@@ -235,7 +235,7 @@ public class FuzzySystemType {
 	 *            allowed object is {@link float }
 	 */
 	public void setVariableValue(String var, float value) {
-		KnowledgeBaseVariable v = getVariable(getKnowledgeBase().getVariables(), var);
+		KnowledgeBaseVariable v = getKnowledgeBase().getVariable(var);
 		if (v != null)
 			v.setValue(value);
 	}
@@ -243,28 +243,12 @@ public class FuzzySystemType {
 	/**
 	 * Return a variable instance identifies by its name
 	 * 
-	 * @param var
+	 * @param name
 	 *            allowed object is {@link String }
 	 * @return allowed object is {@link KnowledgeBaseVariable }
 	 */
-	public KnowledgeBaseVariable getVariable(String var) {
-		return getVariable(getKnowledgeBase().getVariables(), var);
-	}
-
-	@SuppressWarnings("rawtypes")
-	private KnowledgeBaseVariable getVariable(List<Object> var, String cad) {
-		Iterator<Object> it = var.iterator();
-
-		while (it.hasNext()) {
-			Object v = it.next();
-			if (((JAXBElement) v).getValue() instanceof KnowledgeBaseVariable) {
-				KnowledgeBaseVariable kbvar = (KnowledgeBaseVariable) ((JAXBElement) v).getValue();
-				if (kbvar.getName().equals(cad))
-					return kbvar;
-			}
-		}
-		return null;
-
+	public KnowledgeBaseVariable getVariable(String name) {
+		return getKnowledgeBase().getVariable(name);
 	}
 
 	/**

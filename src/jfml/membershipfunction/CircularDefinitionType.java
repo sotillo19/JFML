@@ -84,4 +84,9 @@ public class CircularDefinitionType {
         this.or = value;
     }
 
+	public PointSetShapeType copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

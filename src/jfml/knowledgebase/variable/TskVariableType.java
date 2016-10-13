@@ -17,6 +17,7 @@ import jfml.defuzzifier.Defuzzifier;
 import jfml.enumeration.StandardCombinationType;
 import jfml.term.FuzzyTermType;
 import jfml.term.TskTermType;
+import jfml.term.TsukamotoTermType;
 
 
 /**
@@ -378,5 +379,30 @@ public class TskVariableType extends KnowledgeBaseVariable {
 		this.z=new ArrayList<>();
 		for(TskTermType t : getTerms())
 			t.reset();
+	}
+
+	@Override
+	public boolean hasTerm(String name) {
+		for(TskTermType t : getTerms())
+			if(t.getName().equals(name))
+				return true;
+		return false;
+	}
+
+	@Override
+	public KnowledgeBaseVariable copy() {
+		TskVariableType fv = new TskVariableType(new String(getName()));
+		
+		fv.setType(new String(getType()));
+		fv.setNetworkAddress(new String(getNetworkAddress()));
+		fv.setScale(new String(getScale()));
+		fv.setCombination(new String(getCombination()));
+		fv.setValue(getValue());
+			
+		//setting terms
+		for(TskTermType t : getTerms())
+			fv.addTskTerm((TskTermType) t.copy());
+		
+		return fv;
 	}
 }

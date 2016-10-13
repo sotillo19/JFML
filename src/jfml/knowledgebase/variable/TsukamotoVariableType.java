@@ -416,4 +416,29 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
 		this.value = Float.NaN;
 	}
 
+	@Override
+	public boolean hasTerm(String name) {
+		for(TsukamotoTermType t : getTerms())
+			if(t.getName().equals(name))
+				return true;
+		return false;
+	}
+
+	@Override
+	public KnowledgeBaseVariable copy() {
+		TsukamotoVariableType fv = new TsukamotoVariableType(new String(getName()), getDomainleft(), getDomainright());
+		
+		fv.setType(new String(getType()));
+		fv.setNetworkAddress(new String(getNetworkAddress()));
+		fv.setScale(new String(getScale()));
+		fv.setCombination(new String(getCombination()));
+		fv.setValue(getValue());
+			
+		//setting terms
+		for(TsukamotoTermType t : getTerms())
+			fv.addTsukamotoTerm((TsukamotoTermType) t.copy());
+		
+		return fv;
+	}
+
 }

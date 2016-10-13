@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.defuzzifier.Defuzzifier;
 import jfml.term.AggregatedFuzzyTermType;
+import jfml.term.FuzzyTermType;
 
 
 /**
@@ -76,12 +77,6 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
      * 
      * 
      */
-    /*public List<AggregatedFuzzyTermType> getAggregatedFuzzyTerm() {
-        if (aggregatedFuzzyTerm == null) {
-            aggregatedFuzzyTerm = new ArrayList<AggregatedFuzzyTermType>();
-        }
-        return this.aggregatedFuzzyTerm;
-    }*/
     public List<AggregatedFuzzyTermType> getTerms() {
         if (aggregatedFuzzyTerm == null) {
             aggregatedFuzzyTerm = new ArrayList<AggregatedFuzzyTermType>();
@@ -209,6 +204,20 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
 
 	@Override
 	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasTerm(String name) {
+		for(AggregatedFuzzyTermType t : getTerms())
+			if(t.getName().equals(name))
+				return true;
+		return false;
+	}
+
+	@Override
+	public KnowledgeBaseVariable copy() {
 		// TODO Auto-generated method stub
 		return null;
 	}

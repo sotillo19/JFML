@@ -19,6 +19,8 @@ public abstract class KnowledgeBaseVariable {
 	
 	public abstract List<?> getTerms();
 	
+	//public abstract Term getTerm(String name);
+	
 	public abstract boolean isOutput();
 	
 	public boolean isInput(){
@@ -31,4 +33,8 @@ public abstract class KnowledgeBaseVariable {
 	public abstract String toString();
 
 	public abstract String getName(); 
+	
+	public abstract boolean hasTerm(String name);
+	
+	public abstract KnowledgeBaseVariable copy();
 }

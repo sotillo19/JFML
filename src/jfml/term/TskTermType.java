@@ -152,4 +152,12 @@ public class TskTermType extends TskTerm{
 		return res;
 	}
 
+	public TskTermType copy() {
+		float[] coeff = new float[getTskValue().size()];
+		for(int i=0;i<coeff.length;i++)
+			coeff[i] = getTskValue().get(i);
+			
+		return new TskTermType(new String(name),order,coeff);
+	}
+
 }

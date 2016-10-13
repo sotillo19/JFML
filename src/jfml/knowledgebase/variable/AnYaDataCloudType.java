@@ -12,8 +12,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import jfml.defuzzifier.Defuzzifier;
-
 
 /**
  * <p>Java class for anYaDataCloudType complex type.
@@ -50,7 +48,16 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
     @XmlAttribute(name = "networkAddress")
     protected String networkAddress;
 
-    /**
+    public AnYaDataCloudType() {
+    	
+    }
+    
+    public AnYaDataCloudType(String name) {
+		super();
+		setName(name);
+	}
+
+	/**
      * Gets the value of the datum property.
      * 
      * <p>
@@ -64,6 +71,11 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
             datum = new ArrayList<Double>();
         }
         return this.datum;
+    }
+    
+    public void setTerms(List<Double> datum) {
+        if (datum != null) 
+            this.datum = datum;
     }
 
     /**
@@ -134,7 +146,6 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 	}
 
 	
-
 	@Override
 	public boolean isOutput() {
 		return false;
@@ -146,6 +157,28 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 		for(Double d : datum)
 			s +=d + ", ";
 		return s.substring(0, s.length()-2) + "]";
+	}
+
+	@Override
+	public boolean hasTerm(String name) {
+		return false;
+	}
+
+	@Override
+	public KnowledgeBaseVariable copy() {
+		AnYaDataCloudType fv = new AnYaDataCloudType(new String(getName()));
+	
+		fv.setNetworkAddress(new String(getNetworkAddress()));
+		fv.setValue(getValue());
+			
+		//setting terms
+		List<Double> datum = new ArrayList<>();
+		for(Double t : getTerms())
+			datum.add(new Double(t));
+		
+		fv.setTerms(datum);
+		
+		return fv;
 	}
 
 }

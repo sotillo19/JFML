@@ -244,4 +244,9 @@ ArrayList<Float> v = new ArrayList<>();
 		return v;
 	}
 
+	public PointSetShapeType copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

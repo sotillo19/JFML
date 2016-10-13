@@ -1,6 +1,7 @@
 package jfml.knowledgebase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -84,6 +85,25 @@ public class KnowledgeBaseType {
             variable = new ArrayList<Object>();
         }
         return this.variable;
+    }
+    
+    /**
+     * Return a KnowledgeBaseVariable instance identifies by its name 
+     * @param name
+     * @return the KnowledgeBaseVariable or null if the param name no match
+     */
+    public KnowledgeBaseVariable getVariable(String name){
+    	Iterator<Object> it = getVariables().iterator();
+
+		while (it.hasNext()) {
+			Object v = it.next();
+			if (((JAXBElement) v).getValue() instanceof KnowledgeBaseVariable) {
+				KnowledgeBaseVariable kbvar = (KnowledgeBaseVariable) ((JAXBElement) v).getValue();
+				if (kbvar.getName().equals(name))
+					return kbvar;
+			}
+		}
+		return null;
     }
     
     /**

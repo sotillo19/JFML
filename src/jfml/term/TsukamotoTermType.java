@@ -177,7 +177,6 @@ public class TsukamotoTermType extends FuzzyTerm{
     public TsukamotoTermType(String name, int type, List<PointType> param) {
     	super();
     	this.setName(name);
-    	this.setComplement("false");
     	this.type=type;
     	
     	switch (type) {
@@ -199,7 +198,6 @@ public class TsukamotoTermType extends FuzzyTerm{
     public TsukamotoTermType(String name, PointSetMonotonicShapeType psm) {
     	super();
     	this.setName(name);
-    	this.setComplement("false");
     	this.type=FuzzyTerm.TYPE_pointSetMonotonicShape;
     	setPointSetMonotonicShape(psm);
 	}
@@ -473,6 +471,83 @@ public class TsukamotoTermType extends FuzzyTerm{
     		b += " - "+ mf.toString();
 		
     	return b;
+    }
+
+
+	@Override
+	public FuzzyTerm copy() {
+		FuzzyTerm t;
+		
+		if(this.type == TYPE_pointSetMonotonicShape)
+			t = new TsukamotoTermType(new String(getName()), this.type, this.getPointSetMonotonicShape().getPoints());
+		else
+			t = new TsukamotoTermType(new String(getName()), this.type, this.getParam());
+		
+		t.initializeMembershipFunction(leftDomain, rightDomain);
+		((TsukamotoTermType) t).setComplement(new String(getComplement()));
+		
+		return t;
+	}
+	
+	public float[] getParam(){
+    	float[] param = null;
+    	TwoParamType two;
+    	
+    	switch (type) {
+		case FuzzyTerm.TYPE_rightLinearShape:
+			two =getRightLinearShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_leftLinearShape:
+			two =getLeftLinearShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_rightGaussianShape:
+			two =getRightGaussianShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_leftGaussianShape:
+			two =getLeftGaussianShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_zShape:
+			two =getZShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;
+		case FuzzyTerm.TYPE_sShape:
+			two =getSShape();
+			if(two!=null){
+				param = new float[2];
+				param[0] = two.getParam1();
+				param[1] = two.getParam2();
+			}
+			break;			
+			
+		default:
+			break;
+		}
+    	
+    	return param;
     }
 
 }
