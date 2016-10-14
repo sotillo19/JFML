@@ -32,13 +32,21 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "circularTermType", propOrder = {
     "value"
 })
-public class CircularTermType {
+public class CircularTermType{
 
     @XmlValue
     protected String value;
     @XmlAttribute(name = "complement")
     protected String complement;
 
+    public CircularTermType(){
+    	
+    }
+    
+    public CircularTermType(String name){
+    	this.value=name;
+    }
+    
     /**
      * Gets the value of the property value.
      * 

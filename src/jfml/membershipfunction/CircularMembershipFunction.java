@@ -5,31 +5,32 @@ import java.util.ArrayList;
 public class CircularMembershipFunction extends MembershipFunction {
 
 	String name ="circular";
+	CircularDefinitionType p;
 	
 	public CircularMembershipFunction() {
 		
 	}
 
 	public CircularMembershipFunction(CircularDefinitionType p) {
-		// TODO Auto-generated constructor stub
+		super();
+		this.p = p;
 	}
 
 	public CircularMembershipFunction(CircularDefinitionType p, float domainLeft, float domainRight) {
-		this(p);
+		super();
+		this.p = p;
 		this.domainLeft=domainLeft;
 		this.domainRight=domainRight;
 	}
 
 	@Override
 	public float getMembershipDegree(float x) {
-		// TODO Auto-generated method stub
-		return 0;
+		return p.getMembershipDegree(x);
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return p.toString();
 	}
 
 	@Override

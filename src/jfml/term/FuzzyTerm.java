@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import jfml.membershipfunction.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class FuzzyTerm {
+public abstract class FuzzyTerm extends Term{
 	public static final int TYPE_rightLinearShape = 0;
 	public static final int TYPE_leftLinearShape = 1;
 	public static final int TYPE_piShape = 2;
@@ -111,7 +111,7 @@ public abstract class FuzzyTerm {
 				t.setType(TYPE_pointSetShape);
 			}
 			else if (t.getCircularDefinition() != null){
-				mf = new CircularMembershipFunction(t.getCircularDefinition(),domainLeft,domainRight);
+				mf = new CircularMembershipFunction(t.getCircularDefinition());
 				t.setType(TYPE_circularDefinition);
 			}
 			else if (t.getCustomShape() != null){

@@ -2,10 +2,8 @@ package jfml.knowledgebase.variable;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import jfml.defuzzifier.Defuzzifier;
-
+import jfml.term.Term;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 
 @XmlAccessorType(XmlAccessType.NONE) //This is needed to ignore class attributes as xml tags in XML files
@@ -19,7 +17,7 @@ public abstract class KnowledgeBaseVariable {
 	
 	public abstract List<?> getTerms();
 	
-	//public abstract Term getTerm(String name);
+	public abstract Term getTerm(String name);
 	
 	public abstract boolean isOutput();
 	
@@ -29,7 +27,6 @@ public abstract class KnowledgeBaseVariable {
 
 	public abstract void reset();
 	
-	@Override
 	public abstract String toString();
 
 	public abstract String getName(); 

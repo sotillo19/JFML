@@ -9,7 +9,7 @@ import jfml.knowledgebase.variable.FuzzyVariable;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class TskTerm {
+public abstract class TskTerm extends Term{
 	
 	public static final int _ORDER_0 = 0;
 	public static final int _ORDER_1 = 1;

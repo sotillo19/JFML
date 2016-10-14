@@ -25,6 +25,8 @@ import jfml.enumeration.StandardDefuzzifierType;
 import jfml.membershipfunction.MembershipFunction;
 import jfml.membershipfunction.SingletonMembershipFunction;
 import jfml.term.FuzzyTermType;
+import jfml.term.Term;
+import jfml.term.TsukamotoTermType;
 
 
 /**
@@ -617,5 +619,14 @@ public class FuzzyVariableType extends FuzzyVariable{
 			fv.addFuzzyTerm((FuzzyTermType) t.copy());
 		
 		return fv;
+	}
+
+	@Override
+	public Term getTerm(String name) {
+		for(FuzzyTermType t : getTerms())
+			if(t.getName().equals(name))
+				return t;
+		
+		return null;
 	}
 }

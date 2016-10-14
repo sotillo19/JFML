@@ -160,4 +160,9 @@ public class TskTermType extends TskTerm{
 		return new TskTermType(new String(name),order,coeff);
 	}
 
+	@Override
+	public float getMembershipValue(float x) {
+		return 0;
+	}
+
 }

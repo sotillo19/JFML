@@ -74,7 +74,7 @@ public class EvaluateExample {
 		    }
 		    if (mainf!=null) {
 		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
 		        this.xml = mainf+infOpt+".xml";
 		      }
 		    }

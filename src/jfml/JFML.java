@@ -18,6 +18,7 @@ import jfml.jaxb.FuzzySystemType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TsukamotoVariableType;
+import jfml.membershipfunction.CircularDefinitionType;
 import jfml.rule.AnYaRuleType;
 import jfml.rule.ClauseType;
 import jfml.rule.FuzzyRuleType;
@@ -28,6 +29,7 @@ import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
 import jfml.rulebase.TskRuleBaseType;
 import jfml.term.FuzzyTerm;
+import jfml.term.FuzzyTermType;
 import jfml.term.TskTerm;
 
 public class JFML {
@@ -193,7 +195,11 @@ public class JFML {
 						}
 
 						((FuzzyTerm) t).initializeMembershipFunction(d_left, d_right);
+						
+						if(t instanceof FuzzyTermType && ((FuzzyTermType) t).getCircularDefinition()!=null)
+							((FuzzyTermType) t).getCircularDefinition().setVariable(var);
 					}
+					
 					// TODO initialize other terms
 				}
 			}

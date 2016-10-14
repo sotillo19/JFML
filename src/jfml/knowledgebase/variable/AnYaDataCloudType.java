@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import jfml.term.Term;
+
 
 /**
  * <p>Java class for anYaDataCloudType complex type.
@@ -179,6 +181,11 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 		fv.setTerms(datum);
 		
 		return fv;
+	}
+
+	@Override
+	public Term getTerm(String name) {
+		return null;
 	}
 
 }

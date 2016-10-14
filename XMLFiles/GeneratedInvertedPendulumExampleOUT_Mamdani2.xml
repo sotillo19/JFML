@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="invertedPendulum - MAMDANI">
+    <knowledgeBase>
+        <fuzzyVariable name="Angle" scale="" domainleft="0.0" domainright="255.0" type="input">
+            <fuzzyTerm name="very negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="48.0" param4="88.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="negative" complement="false">
+                <triangularShape param1="48.0" param2="88.0" param3="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="zero" complement="false">
+                <triangularShape param1="88.0" param2="128.0" param3="168.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive" complement="false">
+                <triangularShape param1="128.0" param2="168.0" param3="208.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very positive" complement="false">
+                <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="VN or (zero AND positive)" complement="false">
+                <circularDefinition>
+                    <or t-conorm="BSUM">
+                        <termName>very negative</termName>
+                        <and t-norm="MIN">
+                            <termName>zero</termName>
+                            <termName>positive</termName>
+                        </and>
+                    </or>
+                </circularDefinition>
+            </fuzzyTerm>
+            <fuzzyTerm name="P or VP" complement="false">
+                <circularDefinition>
+                    <or t-conorm="MAX">
+                        <termName>positive</termName>
+                        <termName>very positive</termName>
+                    </or>
+                </circularDefinition>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="ChangeAngle" scale="" domainleft="0.0" domainright="255.0" type="input">
+            <fuzzyTerm name="very negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="48.0" param4="88.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="negative" complement="false">
+                <triangularShape param1="48.0" param2="88.0" param3="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="zero" complement="false">
+                <triangularShape param1="88.0" param2="128.0" param3="168.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive" complement="false">
+                <triangularShape param1="128.0" param2="168.0" param3="208.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very positive" complement="false">
+                <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very negative or negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="88.0" param4="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive or very positive" complement="false">
+                <trapezoidShape param1="128.0" param2="168.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Force" scale="" domainleft="0.0" domainright="255.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
+            <fuzzyTerm name="very negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="48.0" param4="88.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="negative" complement="false">
+                <triangularShape param1="48.0" param2="88.0" param3="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="zero" complement="false">
+                <triangularShape param1="88.0" param2="128.0" param3="168.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive" complement="false">
+                <triangularShape param1="128.0" param2="168.0" param3="208.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very positive" complement="false">
+                <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+    </knowledgeBase>
+    <mamdaniRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <rule name="rule1" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>VN or (zero AND positive)</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative or negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>very negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule2" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>very negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule3" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule4" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule5" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule6" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule7" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule8" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>very negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule9" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule10" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule11" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule12" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>very positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule13" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule14" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule15" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule16" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule17" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>negative</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule18" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>very positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule19" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>P or VP</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive or very positive</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Force</variable>
+                        <term>very positive</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+    </mamdaniRuleBase>
+</fuzzySystem>

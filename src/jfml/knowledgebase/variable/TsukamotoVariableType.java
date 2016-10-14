@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jfml.defuzzifier.Defuzzifier;
 import jfml.enumeration.StandardCombinationType;
 import jfml.term.FuzzyTermType;
+import jfml.term.Term;
 import jfml.term.TskTermType;
 import jfml.term.TsukamotoTermType;
 
@@ -439,6 +440,15 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
 			fv.addTsukamotoTerm((TsukamotoTermType) t.copy());
 		
 		return fv;
+	}
+
+	@Override
+	public Term getTerm(String name) {
+		for(TsukamotoTermType t : getTerms())
+			if(t.getName().equals(name))
+				return t;
+		
+		return null;
 	}
 
 }

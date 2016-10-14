@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jfml.defuzzifier.Defuzzifier;
 import jfml.term.AggregatedFuzzyTermType;
 import jfml.term.FuzzyTermType;
+import jfml.term.Term;
 
 
 /**
@@ -218,6 +219,12 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
 
 	@Override
 	public KnowledgeBaseVariable copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Term getTerm(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
