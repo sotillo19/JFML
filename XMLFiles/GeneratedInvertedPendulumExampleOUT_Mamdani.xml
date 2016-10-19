@@ -47,7 +47,7 @@
                 <trapezoidShape param1="128.0" param2="168.0" param3="255.0" param4="255.0"/>
             </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="Force" scale="" domainleft="0.0" domainright="255.0" type="output" accumulation="MAX" defuzzifier="RM" defaultValue="0.0">
+        <fuzzyVariable name="Force" scale="" domainleft="0.0" domainright="255.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
             <fuzzyTerm name="very negative" complement="false">
                 <trapezoidShape param1="0.0" param2="0.0" param3="48.0" param4="88.0"/>
             </fuzzyTerm>

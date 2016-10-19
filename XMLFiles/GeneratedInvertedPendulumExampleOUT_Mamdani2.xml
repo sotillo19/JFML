@@ -17,20 +17,17 @@
             <fuzzyTerm name="very positive" complement="false">
                 <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
             </fuzzyTerm>
-            <fuzzyTerm name="VN or (zero AND positive)" complement="false">
+            <fuzzyTerm name="very negative or negative" complement="false">
                 <circularDefinition>
                     <or t-conorm="BSUM">
                         <termName>very negative</termName>
-                        <and t-norm="MIN">
-                            <termName>zero</termName>
-                            <termName>positive</termName>
-                        </and>
+                        <termName>negative</termName>
                     </or>
                 </circularDefinition>
             </fuzzyTerm>
-            <fuzzyTerm name="P or VP" complement="false">
+            <fuzzyTerm name="positive or very positive" complement="false">
                 <circularDefinition>
-                    <or t-conorm="MAX">
+                    <or t-conorm="BSUM">
                         <termName>positive</termName>
                         <termName>very positive</termName>
                     </or>
@@ -54,10 +51,20 @@
                 <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
             </fuzzyTerm>
             <fuzzyTerm name="very negative or negative" complement="false">
-                <trapezoidShape param1="0.0" param2="0.0" param3="88.0" param4="128.0"/>
+                <circularDefinition>
+                    <or t-conorm="BSUM">
+                        <termName>very negative</termName>
+                        <termName>negative</termName>
+                    </or>
+                </circularDefinition>
             </fuzzyTerm>
             <fuzzyTerm name="positive or very positive" complement="false">
-                <trapezoidShape param1="128.0" param2="168.0" param3="255.0" param4="255.0"/>
+                <circularDefinition>
+                    <or t-conorm="BSUM">
+                        <termName>positive</termName>
+                        <termName>very positive</termName>
+                    </or>
+                </circularDefinition>
             </fuzzyTerm>
         </fuzzyVariable>
         <fuzzyVariable name="Force" scale="" domainleft="0.0" domainright="255.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
@@ -83,7 +90,7 @@
             <antecedent>
                 <clause>
                     <variable>Angle</variable>
-                    <term>VN or (zero AND positive)</term>
+                    <term>very negative or negative</term>
                 </clause>
                 <clause>
                     <variable>ChangeAngle</variable>
@@ -443,7 +450,7 @@
             <antecedent>
                 <clause>
                     <variable>Angle</variable>
-                    <term>P or VP</term>
+                    <term>positive or very positive</term>
                 </clause>
                 <clause>
                     <variable>ChangeAngle</variable>
