@@ -74,7 +74,7 @@ public class EvaluateExample {
 		    }
 		    if (mainf!=null) {
 		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
 		        this.xml = mainf+infOpt+".xml";
 		      }
 		    }
@@ -94,7 +94,7 @@ public class EvaluateExample {
 		      System.out.println("Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
 		      System.out.println("Options: JapaneseDietAssessment Mamdani test-data-file");
 		      System.out.println("Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("Options: InvertedPendulum Mamdani test-data-file");
+		      System.out.println("Options: InvertedPendulum [Mamdani | Mamdani2 | TSK] test-data-file");
 			  System.out.println("Notice that the program has 3 arguments (ProblemName InferenceExample DataFile) but brackets are not required");
 		    }
 		  }
@@ -179,14 +179,7 @@ public class EvaluateExample {
 		        }
 		        //printing results
 		        System.out.println("RESULTS");
-				int lim=-1;
-			    if ( (this.exOpt.equals("Tipper")) || (this.exOpt.equals("InvertedPendulum")) ) {
-				    lim=2;
-				} else if (this.exOpt.equals("JapaneseDietAssessment")) {
-				    lim=5;
-				} else if (this.exOpt.equals("Iris")) {
-				    lim=1;
-				}
+				int lim= this.NbInputs;
 				if (lim > 0) {
                     System.out.print(" (INPUT): ");
 				    for (int n=0; n<lim; n++) {
@@ -215,7 +208,7 @@ public class EvaluateExample {
 		      System.out.println("Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
 		      System.out.println("Options: JapaneseDietAssessment Mamdani test-data-file");
 		      System.out.println("Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("Options: InvertedPendulum Mamdani test-data-file");
+		      System.out.println("Options: InvertedPendulum [Mamdani | Mamdani2 | TSK] test-data-file");
 			  System.out.println("Notice that the program has 3 arguments (ProblemName InferenceExample DataFile) but brackets are not required");
         }
 

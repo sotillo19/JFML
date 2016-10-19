@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="invertedPendulum - TSK">
+    <knowledgeBase>
+        <fuzzyVariable name="Angle" scale="" domainleft="0.0" domainright="255.0" type="input">
+            <fuzzyTerm name="very negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="48.0" param4="88.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="negative" complement="false">
+                <triangularShape param1="48.0" param2="88.0" param3="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="zero" complement="false">
+                <triangularShape param1="88.0" param2="128.0" param3="168.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive" complement="false">
+                <triangularShape param1="128.0" param2="168.0" param3="208.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very positive" complement="false">
+                <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very negative or negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="88.0" param4="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive or very positive" complement="false">
+                <trapezoidShape param1="128.0" param2="168.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="ChangeAngle" scale="" domainleft="0.0" domainright="255.0" type="input">
+            <fuzzyTerm name="very negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="48.0" param4="88.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="negative" complement="false">
+                <triangularShape param1="48.0" param2="88.0" param3="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="zero" complement="false">
+                <triangularShape param1="88.0" param2="128.0" param3="168.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive" complement="false">
+                <triangularShape param1="128.0" param2="168.0" param3="208.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very positive" complement="false">
+                <trapezoidShape param1="168.0" param2="208.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="very negative or negative" complement="false">
+                <trapezoidShape param1="0.0" param2="0.0" param3="88.0" param4="128.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="positive or very positive" complement="false">
+                <trapezoidShape param1="128.0" param2="168.0" param3="255.0" param4="255.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <tskVariable name="Force" scale="" type="output" combination="WA" defaultValue="0.0">
+            <tskTerm name="very negative" order="0">
+                <tskValue>48.0</tskValue>
+            </tskTerm>
+            <tskTerm name="negative" order="0">
+                <tskValue>88.0</tskValue>
+            </tskTerm>
+            <tskTerm name="zero" order="0">
+                <tskValue>128.0</tskValue>
+            </tskTerm>
+            <tskTerm name="positive" order="0">
+                <tskValue>168.0</tskValue>
+            </tskTerm>
+            <tskTerm name="very positive" order="0">
+                <tskValue>208.0</tskValue>
+            </tskTerm>
+        </tskVariable>
+    </knowledgeBase>
+    <tskRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <tskRule name="rule1" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative or negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative or negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>very negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule2" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>very negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule3" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule4" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule5" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule6" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule7" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>negative</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule8" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>very negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule9" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule10" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule11" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule12" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>zero</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>very positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule13" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>negative</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule14" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule15" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule16" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>very negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>zero</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule17" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>negative</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule18" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>zero</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>very positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+        <tskRule name="rule19" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Angle</variable>
+                    <term>positive or very positive</term>
+                </clause>
+                <clause>
+                    <variable>ChangeAngle</variable>
+                    <term>positive or very positive</term>
+                </clause>
+            </antecedent>
+            <tskConsequent>
+                <tskThen>
+                    <tskClause>
+                        <variable>Force</variable>
+                        <term>very positive</term>
+                    </tskClause>
+                </tskThen>
+            </tskConsequent>
+        </tskRule>
+    </tskRuleBase>
+</fuzzySystem>

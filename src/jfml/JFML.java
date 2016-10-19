@@ -30,6 +30,7 @@ import jfml.rulebase.RuleBaseType;
 import jfml.rulebase.TskRuleBaseType;
 import jfml.term.FuzzyTerm;
 import jfml.term.FuzzyTermType;
+import jfml.term.Term;
 import jfml.term.TskTerm;
 
 public class JFML {
@@ -87,29 +88,29 @@ public class JFML {
 				if(rb instanceof RuleBaseType){
 					for(FuzzyRuleType r : ((RuleBaseType) rb).getRules()){
 						for(ClauseType c : r.getAntecedent().getClauses()){
-							FuzzyTerm t = (FuzzyTerm) c.getTerm();
+							Term t = (Term) c.getTerm();
 							KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 							for(Object ft : v.getTerms()){
-								if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+								if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 									c.setTerm(ft);
 							}
 						}
 						if(r.getConsequent().getThen()!=null){
 							for(ClauseType c : r.getConsequent().getThen().getClause()){
-								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								Term t = (Term) c.getTerm();
 								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 								for(Object ft : v.getTerms()){
-									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 										c.setTerm(ft);
 								}
 							}
 						}
 						if(r.getConsequent().getElse()!=null){
 							for(ClauseType c : r.getConsequent().getElse().getClause()){
-								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								Term t = (FuzzyTerm) c.getTerm();
 								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 								for(Object ft : v.getTerms()){
-									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 										c.setTerm(ft);
 								}
 							}
@@ -119,29 +120,29 @@ public class JFML {
 				else if(rb instanceof TskRuleBaseType){
 					for(TskFuzzyRuleType r : ((TskRuleBaseType) rb).getTskRules()){
 						for(ClauseType c : r.getAntecedent().getClauses()){
-							FuzzyTerm t = (FuzzyTerm) c.getTerm();
+							Term t = (Term) c.getTerm();
 							KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 							for(Object ft : v.getTerms()){
-								if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+								if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 									c.setTerm(ft);
 							}
 						}
 						if(r.getTskConsequent().getTskThen()!=null){
 							for(TskClauseType c : r.getTskConsequent().getTskThen().getTskClause()){
-								TskTerm t = (TskTerm) c.getTerm();
+								Term t = (Term) c.getTerm();
 								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 								for(Object ft : v.getTerms()){
-									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 										c.setTerm(ft);
 								}
 							}
 						}
 						if(r.getTskConsequent().getTskElse()!=null){
 							for(TskClauseType c : r.getTskConsequent().getTskElse().getTskClause()){
-								TskTerm t = (TskTerm) c.getTerm();
+								Term t = (Term) c.getTerm();
 								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 								for(Object ft : v.getTerms()){
-									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 										c.setTerm(ft);
 								}
 							}
@@ -152,20 +153,20 @@ public class JFML {
 					for(AnYaRuleType r : ((AnYaRuleBaseType) rb).getAnYaRules()){
 						if(r.getConsequent().getThen()!=null){
 							for(ClauseType c : r.getConsequent().getThen().getClause()){
-								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								Term t = (Term) c.getTerm();
 								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 								for(Object ft : v.getTerms()){
-									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 										c.setTerm(ft);
 								}
 							}
 						}
 						if(r.getConsequent().getElse()!=null){
 							for(ClauseType c : r.getConsequent().getElse().getClause()){
-								FuzzyTerm t = (FuzzyTerm) c.getTerm();
+								Term t = (Term) c.getTerm();
 								KnowledgeBaseVariable v = (KnowledgeBaseVariable) c.getVariable();
 								for(Object ft : v.getTerms()){
-									if(ft instanceof FuzzyTerm && ((FuzzyTerm) ft).getName().equals(t.getName()) && !t.equals(ft))
+									if(ft instanceof Term && ((Term) ft).getName().equals(t.getName()) && !t.equals(ft))
 										c.setTerm(ft);
 								}
 							}

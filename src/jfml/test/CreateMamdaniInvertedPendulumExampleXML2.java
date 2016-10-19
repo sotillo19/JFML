@@ -17,7 +17,7 @@ import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.CircularTermType;
 import jfml.term.FuzzyTermType;
 
-public class CreateMamdaniInvertedPendulumExampleXML {
+public class CreateMamdaniInvertedPendulumExampleXML2 {
 
 	public static void main(String[] args) {
 
@@ -51,11 +51,23 @@ public class CreateMamdaniInvertedPendulumExampleXML {
 				(new float[] { 168f, 208f, 255f, 255f }));
 		ang.addFuzzyTerm(ang_vpos);
 		//  FUZZY TERM VNEG OR NEG
-		FuzzyTermType ang_vneg_or_neg = new FuzzyTermType("very negative or negative", FuzzyTermType.TYPE_trapezoidShape, (new float[] { 0f, 0f, 88f, 128f }));
+		//FuzzyTermType ang_vneg_or_neg = new FuzzyTermType("very negative or negative", FuzzyTermType.TYPE_trapezoidShape, (new float[] { 0f, 0f, 88f, 128f }));
+		//AndLogicalType and1 = new AndLogicalType("MIN", "zero", "positive");
+		//OrLogicalType or1 = new OrLogicalType("BSUM", "very negative", and1);
+		//CircularDefinitionType c1 = new CircularDefinitionType(or1, ang);
+		//FuzzyTermType ang_vneg_or_neg = new FuzzyTermType("VN or (zero AND positive)", c1);
+		//ang.addFuzzyTerm(ang_vneg_or_neg);
+		OrLogicalType ang_or1 = new OrLogicalType("BSUM", "very negative", "negative");
+		CircularDefinitionType ang_c1 = new CircularDefinitionType(ang_or1, ang);
+        FuzzyTermType ang_vneg_or_neg = new FuzzyTermType("very negative or negative", ang_c1);
 		ang.addFuzzyTerm(ang_vneg_or_neg);
 		
 		//  FUZZY TERM POS OR VPOS
-		FuzzyTermType ang_pos_or_vpos = new FuzzyTermType("positive or very positive", FuzzyTermType.TYPE_trapezoidShape,(new float[] { 128f, 168f, 255f, 255f }));
+		//FuzzyTermType ang_pos_or_vpos = new FuzzyTermType("positive or very positive", FuzzyTermType.TYPE_trapezoidShape,(new float[] { 128f, 168f, 255f, 255f }));
+		//OrLogicalType or2 = new OrLogicalType("MAX", "positive", "very positive");
+		OrLogicalType ang_or2 = new OrLogicalType("BSUM", "positive", "very positive");
+		CircularDefinitionType ang_c2 = new CircularDefinitionType(ang_or2, ang);
+		FuzzyTermType ang_pos_or_vpos = new FuzzyTermType("positive or very positive", ang_c2);
 		ang.addFuzzyTerm(ang_pos_or_vpos);
 
 		kb.addVariable(ang);
@@ -84,10 +96,16 @@ public class CreateMamdaniInvertedPendulumExampleXML {
 				(new float[] { 168f, 208f, 255f, 255f }));
 		ca.addFuzzyTerm(ca_vpos);
 		//  FUZZY TERM VNEG OR NEG
-		FuzzyTermType ca_vneg_or_neg = new FuzzyTermType("very negative or negative", FuzzyTermType.TYPE_trapezoidShape, (new float[] { 0f, 0f, 88f, 128f }));
+		//FuzzyTermType ca_vneg_or_neg = new FuzzyTermType("very negative or negative", FuzzyTermType.TYPE_trapezoidShape, (new float[] { 0f, 0f, 88f, 128f }));
+		OrLogicalType ca_or1 = new OrLogicalType("BSUM", "very negative", "negative");
+		CircularDefinitionType ca_c1 = new CircularDefinitionType(ca_or1, ca);
+        FuzzyTermType ca_vneg_or_neg = new FuzzyTermType("very negative or negative", ca_c1);
 		ca.addFuzzyTerm(ca_vneg_or_neg);
 		//  FUZZY TERM POS OR VPOS
-		FuzzyTermType ca_pos_or_vpos = new FuzzyTermType("positive or very positive", FuzzyTermType.TYPE_trapezoidShape, (new float[] { 128f, 168f, 255f, 255f }));
+		//FuzzyTermType ca_pos_or_vpos = new FuzzyTermType("positive or very positive", FuzzyTermType.TYPE_trapezoidShape, (new float[] { 128f, 168f, 255f, 255f }));
+		OrLogicalType ca_or2 = new OrLogicalType("BSUM", "positive", "very positive");
+		CircularDefinitionType ca_c2 = new CircularDefinitionType(ca_or2, ang);
+		FuzzyTermType ca_pos_or_vpos = new FuzzyTermType("positive or very positive", ca_c2);
 		ca.addFuzzyTerm(ca_pos_or_vpos);
 
 		kb.addVariable(ca);
@@ -224,6 +242,7 @@ public class CreateMamdaniInvertedPendulumExampleXML {
 		r9.setConsequent(con9);
 		rb.addRule(r9);
 
+
 		// RULE 10
 		FuzzyRuleType r10 = new FuzzyRuleType("rule10", "and", "MIN", 1.0f);
 		AntecedentType ant10 = new AntecedentType();
@@ -337,7 +356,7 @@ public class CreateMamdaniInvertedPendulumExampleXML {
 		invertedPendulum.addRuleBase(rb);
 
 		// WRITTING INVERTED PENDULUM EXAMPLE INTO AN XML FILE
-		File invertedPendulumXMLFile = new File("./XMLFiles/GeneratedInvertedPendulumExampleOUT_Mamdani.xml");
+		File invertedPendulumXMLFile = new File("./XMLFiles/GeneratedInvertedPendulumExampleOUT_Mamdani2.xml");
 		JFML.writeFSTtoXML(invertedPendulum, invertedPendulumXMLFile);
 	}
 
