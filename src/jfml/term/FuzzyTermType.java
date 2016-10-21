@@ -850,7 +850,7 @@ public class FuzzyTermType extends FuzzyTerm{
     	String b = name;
     
     	if(mf!=null){
-    		if(getComplement().toLowerCase().equals("false"))
+    		if(getComplement().toLowerCase().equals("true"))
         		b += " - NOT "+ mf.toString();
     		else    			
     			b += " -  "+ mf.toString();

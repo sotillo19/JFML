@@ -327,7 +327,19 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 	}
 
 	private float getFiLinear(float y) {
-		// TODO Auto-generated method stub
+		Collections.sort(getPoints(),new PointType());
+		PointType p0 = getPoints().get(0);
+		if(y==p0.getY())
+			return p0.getX();
+		else{
+			for(int i=1;i<getPoints().size();i++){
+				PointType p1 = getPoints().get(i);
+				if(y<=p0.getY()){
+					p0 = getPoints().get(i-1);
+					return p0.getX() + (p1.getX()-p0.getX())*(y-p0.getY())/(p1.getY()-p0.getY());
+				}	
+			}
+		}
 		return 0;
 	}
 

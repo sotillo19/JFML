@@ -68,20 +68,26 @@
             </fuzzyTerm>
         </fuzzyVariable>
         <tskVariable name="Force" scale="" type="output" combination="WA" defaultValue="0.0">
-            <tskTerm name="very negative" order="0">
+            <tskTerm name="very negative" order="1">
                 <tskValue>48.0</tskValue>
+                <tskValue>0.01</tskValue>
+                <tskValue>0.02</tskValue>
             </tskTerm>
             <tskTerm name="negative" order="0">
                 <tskValue>88.0</tskValue>
             </tskTerm>
-            <tskTerm name="zero" order="0">
+            <tskTerm name="zero" order="1">
                 <tskValue>128.0</tskValue>
+                <tskValue>0.05</tskValue>
+                <tskValue>0.05</tskValue>
             </tskTerm>
             <tskTerm name="positive" order="0">
                 <tskValue>168.0</tskValue>
             </tskTerm>
-            <tskTerm name="very positive" order="0">
+            <tskTerm name="very positive" order="1">
                 <tskValue>208.0</tskValue>
+                <tskValue>0.05</tskValue>
+                <tskValue>0.03</tskValue>
             </tskTerm>
         </tskVariable>
     </knowledgeBase>
