@@ -467,8 +467,12 @@ public class TsukamotoTermType extends FuzzyTerm{
     @Override
     public String toString(){
     	String b = name;
-    	if(mf!=null)
-    		b += " - "+ mf.toString();
+    	if(mf!=null){
+    		if(getComplement().toLowerCase().equals("false"))
+        		b += " - NOT "+ mf.toString();
+    		else    			
+    			b += " -  "+ mf.toString();
+    	}
 		
     	return b;
     }

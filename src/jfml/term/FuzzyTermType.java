@@ -99,14 +99,11 @@ public class FuzzyTermType extends FuzzyTerm{
     protected String name;
     @XmlAttribute(name = "complement")
     protected String complement;
-
-    /**
-     * Default constructor
-     */
-    public FuzzyTermType(){
-    	super();
-    }
     
+    //Default constructor
+    public FuzzyTermType(){
+    	
+    }
     
     /**
      * 
@@ -282,7 +279,17 @@ public class FuzzyTermType extends FuzzyTerm{
     	setCustomShape(c);
     }
     
-    public float[] getParam(){
+    public FuzzyTermType(String name, String complement, CircularDefinitionType circular) {
+		this(name, circular);
+		this.setComplement(complement);
+	}
+
+	public FuzzyTermType(String name, String complement, PointSetShapeType point) {
+		this(name, point);
+		this.setComplement(complement);
+	}
+
+	public float[] getParam(){
     	float[] param = null;
     	TwoParamType two;
     	ThreeParamType three;
@@ -841,8 +848,13 @@ public class FuzzyTermType extends FuzzyTerm{
     @Override
     public String toString(){
     	String b = name;
-    	if(mf!=null)
-    		b += " - "+ mf.toString();
+    
+    	if(mf!=null){
+    		if(getComplement().toLowerCase().equals("false"))
+        		b += " - NOT "+ mf.toString();
+    		else    			
+    			b += " -  "+ mf.toString();
+    	}
 		
     	return b;
     }

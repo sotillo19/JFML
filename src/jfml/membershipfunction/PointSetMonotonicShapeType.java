@@ -287,9 +287,13 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 		Collections.sort(getPoints(),new PointType());
 		
 		for(int i=0;i<getPoints().size();i++){
-			PointType p0 = getPoints().get(i);
-			if(p0.getX()>x && i+1<getPoints().size()){
-				PointType p1 = getPoints().get(i+1);
+			PointType p1 = getPoints().get(i);
+			if(x<=p1.getX() && i==0)
+				return p1.getY();
+			else if(x>=p1.getX() && i==getPoints().size()-1)
+				return p1.getY();
+			else if(p1.getX()>=x){
+				PointType p0 = getPoints().get(i-1);
 				return p0.getY() + (p1.getY()-p0.getY())*((x-p0.getX())/(p1.getX()-p0.getX()));
 			}	
 		}
@@ -301,7 +305,7 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 		String b = name + " [";
 		
 		for(PointType p : getPoints())
-			b += "("+p.getX() + " ," + p.getY()+") ,";
+			b += "("+p.getX() + ", " + p.getY()+"), ";
 		
 		return b.substring(0, b.length()-2) + "]";
 	}
