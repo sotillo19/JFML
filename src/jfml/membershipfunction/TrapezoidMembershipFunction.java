@@ -32,44 +32,11 @@ public class TrapezoidMembershipFunction extends MembershipFunction {
 
 	@Override
 	public float getMembershipDegree(float x) {
-		if (a <= b && a <= c) {
-			if (x < a)
-				return 0;
-			else {
-				if (a <= x && x <= b) {
-					if (a == b)
-						return 1;
-					else
-						return ((x - a) / (b - a));
-				} else {
-					if (b <= x && x <= c)
-						return 1;
-					else {
-						if (c <= x && x <= d) {
-							if (c == d)
-								return 1;
-							else
-								return ((d - x) / (d - c));
-						} else
-							return 0;
-					}
-				}
-
-			}
-		} else {
-			if (a <= x && x <= b) {
-				return ((x - a) / (b - a));
-			} else {
-				if (x > b || x <= c)
-					return 1;
-				else {
-					if (x > c && x < d)
-						return ((d - x) / (d - c));
-					else
-						return 0;
-				}
-			}
-		}
+		if ((x >= b) && (x <= c)) return 1.0f;
+		else if (x <= a) return 0f;
+		else if (x >= d) return 0f;
+		else if (x < b)  return (float) (x - a) / (b - a);
+		else  return (float) (d - x) / (d - c);
 	}
 	
 	@Override

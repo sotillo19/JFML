@@ -31,38 +31,11 @@ public class TriangularMembershipFunction extends MembershipFunction {
 
 	@Override
 	public float getMembershipDegree(float x) {
-		if (a == b && b <= c) {
-			if (a < x)
-				return 0f;
-			if (a == x)
-				return 1f;
-			if (b <= x && x <= c)
-				return (float) (c - x) / (c - b);
-			if (x > c)
-				return 0f;
-		}
-
-		if (b == c && a <= b) {
-			if (a < x)
-				return 0f;
-			if (b == x)
-				return 1f;
-			if (a <= x && x <= b)
-				return (float) (x - a) / (b - a);
-			if (x > c)
-				return 0f;
-		}
-
-		if (x <= a)
-			return 0f;
-		if (a < x && x <= b)
-			return (float) (x - a) / (b - a);
-		if (b < x && x < c)
-			return (float) (c - x) / (c - b);
-		if (c <= x)
-			return 0f;
-
-		return 0f;
+		if (x == b) return 1.0f;
+		else if (x <= a) return 0f;
+		else if (x >= c) return 0f;
+		else if (x < b)  return (float) (x - a) / (b - a);
+		else  return (float) (c - x) / (c - b);
 	}
 	
 	@Override
