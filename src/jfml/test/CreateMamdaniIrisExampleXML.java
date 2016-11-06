@@ -28,7 +28,7 @@ public class CreateMamdaniIrisExampleXML {
 		
 		//  FUZZY TERM low
 		FuzzyTermType pw_low = new FuzzyTermType("low", FuzzyTermType.TYPE_trapezoidShape,
-				(new float[] { 0f, 0.1f, 0.244f, 1.087f }));
+				(new float[] { 0.1f, 0.1f, 0.244f, 1.087f }));
 		pw.addFuzzyTerm(pw_low);
 		//  FUZZY TERM medium
 		FuzzyTermType pw_medium = new FuzzyTermType("medium", FuzzyTermType.TYPE_trapezoidShape,
@@ -101,7 +101,7 @@ public class CreateMamdaniIrisExampleXML {
 
 		iris.addRuleBase(rb);
 
-		// WRITTING JAPANESE DIET ASSESSMENT EXAMPLE INTO AN XML FILE
+		// WRITTING IRIS EXAMPLE INTO AN XML FILE
 		File irisXMLFile = new File("./XMLFiles/GeneratedIrisExampleOUT_Mamdani.xml");
 		JFML.writeFSTtoXML(iris, irisXMLFile);
 	}

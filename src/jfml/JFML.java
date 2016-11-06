@@ -73,6 +73,7 @@ public class JFML {
 			}
 
 		} catch (JAXBException e) {
+			System.out.println("An error occurred while reading the xml file.");
 			e.printStackTrace();
 		}
 
@@ -224,6 +225,7 @@ public class JFML {
 			//removePrefixNS(output, "ns2");
 
 		} catch (JAXBException e) {
+			System.out.println("An error occurred while writing the xml file.");
 			e.printStackTrace();
 		}
 	}

@@ -1,3 +1,4 @@
+tip
 food;service
 2;3
 6;8

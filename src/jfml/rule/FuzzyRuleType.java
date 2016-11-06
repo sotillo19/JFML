@@ -423,7 +423,7 @@ public class FuzzyRuleType extends Rule{
 				else
 					modifier="";
 				
-				b += v.getName() +" IS "+ modifier + t.getName() + " ";
+				b += v.getName() +" IS "+ modifier + t.getName() + ", ";
 			}
 			
 			if(_else!=null){
@@ -435,11 +435,13 @@ public class FuzzyRuleType extends Rule{
 					String modifier = c.getModifier();
 					if(modifier!=null)
 						modifier += " ";
-					b += v.getName() +" IS "+ modifier + t.getName() + " ";
+					b += v.getName() +" IS "+ modifier + t.getName() + ", ";
 				}
-			}	
+			}
 			
-			b += "[weight="+getWeight()+"]";
+			b = b.substring(0, b.length()-2);
+			
+			b += " [weight="+getWeight()+"]";
 		}
 		return b;
 	}

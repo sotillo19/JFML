@@ -16,7 +16,8 @@ import jfml.knowledgebase.variable.KnowledgeBaseVariable;
  * 2) the Japanese Diet Assessment System Example
  * 3) IRIS classification problem Example
  * 4) InvertedPendulum control problem Example
- * @author joseAlonso
+ * 5) Robot problem Example
+ * @author Jose Alonso
  */
 public class EvaluateExample {
     private String xml= null;
@@ -24,7 +25,9 @@ public class EvaluateExample {
 	private String exOpt= null;
 	private int NbData= -1;
 	private int NbInputs= -1;
+	private int NbOutputs= -1;
     private String[] inputNames= null;
+    private String[] outputNames= null;
 	private float[][] data= null;
 
 	public EvaluateExample() {
@@ -32,14 +35,191 @@ public class EvaluateExample {
           this.xml= "jfmlTest/XMLFiles/GeneratedTipperExampleOUT_Mamdani.xml";
 	}
 
-    public EvaluateExample(String example, String infOpt, String dataFile) {
+	public EvaluateExample(String[] aa) {
 	      boolean warning= false;
-	      if (dataFile != null) {
+          String example= aa[0];
+		  String infOpt= aa[1];
+		  this.NbOutputs=0;
+		  boolean end= false;
+		  if (example.endsWith(".xml")) {
+			  File f= new File(example);
+			  if (!f.exists()) {
+			      warning= true;
+			      System.out.println("WRONG XML FILE PATH. FILE DOES NOT EXIST");
+			  } else {
+		          end=true;
+			      //System.out.println("XML FILE PATH EXISTS");
+				  this.exOpt= "USERXML";
+				  this.NbOutputs= (new Integer(infOpt)).intValue();
+				  this.outputNames= new String[this.NbOutputs];
+				  for (int i=0; i<this.NbOutputs; i++) {
+				       this.outputNames[i]= aa[2+i];
+				  }
+			  }
+		  }
+		  this.NbData= 1;
+		  int lim= aa.length;
+		  this.NbInputs= (lim - 2 - this.NbOutputs)/2;
+		  this.inputNames= new String[this.NbInputs];
+		  this.data= new float[this.NbData][this.NbInputs];
+		  int i=2 + this.NbOutputs;
+          //System.out.println("NbInputs="+this.NbInputs);
+          //System.out.println("NbOutputs="+this.NbOutputs);
+	      for (int m= 0; m<this.NbInputs; m++) {
+			   this.inputNames[m]= aa[i+m];
+			   Float ff= null;
+			   try {
+			       ff= new Float(aa[i+m+1]);
+			   } catch (Exception ex) {
+			       System.out.println("WRONG NUMBER OF OUTPUTS");
+				   warning = true;
+				   break;
+			   }
+			   if (ff!=null) {
+			       this.data[0][m]= ff.floatValue();
+			   }
+			   i++;
+		  }
+	        /*for (int m= 0; m<this.NbInputs; m++) {
+               System.out.println("V"+m+": "+this.inputNames[m]);
+               System.out.println("D"+m+": "+this.data[0][m]);
+		    }*/
+		  if (!end && !warning) {
+		    String mainf=null;
+	        if (example.equals("Tipper")) {
+		      mainf= "./XMLFiles/GeneratedTipperExampleOUT_";
+		      this.NbOutputs=1;
+		    } else if (example.equals("JapaneseDietAssessment")) {
+		      mainf= "./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_";
+		      this.NbOutputs=1;
+		    } else if (example.equals("Iris")) {
+		      mainf= "./XMLFiles/GeneratedIrisExampleOUT_";
+		      this.NbOutputs=1;
+		    } else if (example.equals("InvertedPendulum")) {
+		      mainf= "./XMLFiles/GeneratedInvertedPendulumExampleOUT_";
+		      this.NbOutputs=1;
+		    } else if (example.equals("Robot")) {
+		      mainf= "./XMLFiles/GeneratedRobotExampleOUT_";
+		      this.NbOutputs=2;
+		    }
+		    if (mainf!=null) {
+		      this.exOpt= example;
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
+		        this.xml = mainf+infOpt+".xml";
+		      }
+		    }
+            //System.out.println("XML="+this.xml);
+            if ( (this.xml!=null) && (this.xml.endsWith(".xml")) ) {
+		      boolean res= this.loadFIS();
+			  if (res) {
+			      for (int n=0; n<this.NbData; n++) {
+                       float[] v= this.makeInference(n);
+					   for (int k=0; k<this.NbOutputs; k++) {
+					     if (v[k] == -1) {
+					       warning= true;
+  		                   System.out.println("ERROR: WRONG INFERENCE");
+                           break;						   
+					     }
+					   }
+				  }
+				  //printing the FuzzySystem
+		          System.out.println("4) Fuzzy System Description");
+		          System.out.println(fs.toString());
+			  } else { 
+		          warning=true;
+			      System.out.println("ERROR loading FIS from XML");
+			  }
+          } else {
+		      warning=true;
+              System.out.println("ERROR: WRONG XML FILE");
+		  }
+		}
+		if (end && !warning) {
+		    this.xml= example;
+		    boolean res= this.loadFIS();
+			//System.out.println("res="+res);
+	        this.exOpt= "USERXML";
+			if (res) {
+			      for (int n=0; n<this.NbData; n++) {
+                       float[] v= this.makeInference(n);
+					   for (int k=0; k<this.NbOutputs; k++) {
+					     if (v[k] == -1) {
+					       warning= true;
+  		                   System.out.println("ERROR: WRONG INFERENCE");
+                           break;						   
+					     }
+					   }
+				  }
+				  if (!warning) {
+				    //printing the FuzzySystem
+		            System.out.println("4) Fuzzy System Description");
+		            System.out.println(fs.toString());
+				  }
+			} else { 
+			    System.out.println("ERROR loading FIS from XML");
+			    warning= true;
+			}
+		}
+		if (warning) {
+		      System.out.println("Please, check the arguments given to the program");
+			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
+		      System.out.println("  Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
+		      System.out.println("  Options: Iris [Mamdani | Mamdani2] test-data-file");
+		      System.out.println("  Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
+		      System.out.println("  Options: Robot Mamdani test-data-file");
+			  System.out.println("You can also call the program with a specific instance as follows:");
+			  System.out.println("  Options: ProblemName InferenceExample V1 D1 V2 D2 ... ");
+			  System.out.println("  ProblemName: Tipper, JapaneseDietAssessment, etc.");
+			  System.out.println("  InferenceExample; Mamdani, Mamdani2, TSK, etc.");
+			  System.out.println("  Notice that the combination of ProblemName and InferenceExample must be in accordance with the name of an XML file in the folder ./XMLFiles");
+			  System.out.println("  You must be also sure of providing the entire list of pairs variable name (Vi, as it is in the XML file) and numerical value (Di) for evaluation");
+			  System.out.println("  Example:");
+			  System.out.println("> Iris Mamdani2 SepalLength 5.1 SepalWidth 3.5 PetalLength 1.4 PetalWidth 0.2");
+			  System.out.println("You can also call the program with a specific instance, for your own XML file, as follows:");
+			  System.out.println("  Options: XMLfilePath NbOutputs ON1 ON2 ... V1 D1 V2 D2 ... ");
+		}
+	}
+
+    public EvaluateExample(String example, String infOpt, String dataFile) {
+          String mainf=null;
+		  this.NbOutputs=1;
+	      if (example.equals("Tipper")) {
+		      mainf= "./XMLFiles/GeneratedTipperExampleOUT_";
+		  } else if (example.equals("JapaneseDietAssessment")) {
+		      mainf= "./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_";
+		  } else if (example.equals("Iris")) {
+		      mainf= "./XMLFiles/GeneratedIrisExampleOUT_";
+		  } else if (example.equals("InvertedPendulum")) {
+		      mainf= "./XMLFiles/GeneratedInvertedPendulumExampleOUT_";
+		  } else if (example.equals("Robot")) {
+		      mainf= "./XMLFiles/GeneratedRobotExampleOUT_";
+			  this.NbOutputs=2;
+		  }
+		  if (mainf!=null) {
+		      this.exOpt= example;
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
+		        this.xml = mainf+infOpt+".xml";
+		      }
+		  }
+		  this.Evaluate(this.xml,dataFile);
+	}
+
+    public EvaluateExample(String xmlfile, String dataFile) {
+       this.Evaluate(xmlfile, dataFile);
+    }
+    
+    private void Evaluate(String xmlfile, String dataFile) {
+	      boolean warning= false;
+		  File faux= new File(dataFile);
+	      if (faux.exists()) {
 	        try{
 	          LineNumberReader lnr= new LineNumberReader(new InputStreamReader(new FileInputStream(dataFile)));
 			  Vector<String> v= new Vector<String>();
               String l= lnr.readLine();
-			  this.inputNames= l.split(";");
+			  this.outputNames= l.split(";");
+              l= lnr.readLine();
+              this.inputNames= l.split(";");
               while ((l= lnr.readLine())!=null) {
 		        //System.out.println(l);
 			    v.add(l);
@@ -48,58 +228,72 @@ public class EvaluateExample {
 			  //System.out.println("rows="+obj.length+"  cols="+ins.length);
 			  this.NbData= obj.length;
 			  this.NbInputs= this.inputNames.length;
-			  data= new float[this.NbData][this.NbInputs];
+			  this.data= new float[this.NbData][this.NbInputs];
 			  for (int n= 0; n<this.NbData; n++) {
 			    String[] aux= ((String)obj[n]).split(";");
 			    for (int m= 0; m<this.NbInputs; m++) {
-			        data[n][m]= (new Float(aux[m])).floatValue();
+			        this.data[n][m]= (new Float(aux[m])).floatValue();
 			    }
 			  }
 		      lnr.close();
 		    } catch (Exception ex) {
-		        System.out.println("ERROR reading data file");
+		        System.out.println("ERROR reading DATA file");
 				warning= true;
 		    }
+		  } else {
+		      System.out.println("ERROR: DATA file DOES NOT exist");
+		      warning=true;
 		  }
 		  if (!warning) {
-            String mainf=null;
-	        if (example.equals("Tipper")) {
-		      mainf= "./XMLFiles/GeneratedTipperExampleOUT_";
-		    } else if (example.equals("JapaneseDietAssessment")) {
-		      mainf= "./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_";
-		    } else if (example.equals("Iris")) {
-		      mainf= "./XMLFiles/GeneratedIrisExampleOUT_";
-		    } else if (example.equals("InvertedPendulum")) {
-		      mainf= "./XMLFiles/GeneratedInvertedPendulumExampleOUT_";
-		    }
-		    if (mainf!=null) {
-		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
-		        this.xml = mainf+infOpt+".xml";
-		      }
-		    }
-            if ( (xml!=null) && (this.xml.endsWith(".xml")) ) {
+		    this.xml= xmlfile;
+            if ( (this.xml!=null) && (this.xml.endsWith(".xml")) ) {
 		      boolean res= this.loadFIS();
 			  if (res) {
 			      for (int n=0; n<this.NbData; n++) {
-                       this.makeInference(n);
+                       float[] v= this.makeInference(n);
+					   for (int k=0; k<this.NbOutputs; k++) {
+					     if (v[k] == -1) {
+					       warning= true;
+  		                   System.out.println("ERROR: WRONG INFERENCE");
+                           break;						   
+					     }
+					   }
 				  }
-				  //printing the FuzzySystem
-		          System.out.println("4) Fuzzy System Description");
-		          System.out.println(fs.toString());
+				  if (!warning) {
+				    //printing the FuzzySystem
+		            System.out.println("4) Fuzzy System Description");
+		            System.out.println(fs.toString());
+				  }
 			  } else { 
-			      System.out.println("Error loading FIS from XML");
+			      System.out.println("ERROR loading FIS from XML");
+			      warning= true;
 			  }
             } else {
-		      System.out.println("Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
-		      System.out.println("Options: JapaneseDietAssessment Mamdani test-data-file");
-		      System.out.println("Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
-			  System.out.println("Notice that the program has 3 arguments (ProblemName InferenceExample DataFile) but brackets are not required");
+  		        System.out.println("ERROR: WRONG XML FILE");
+			    warning= true;
 		    }
 		  }
+		  if (warning) {
+		      System.out.println("Please, check the arguments given to the program");
+			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
+		      System.out.println("  Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
+		      System.out.println("  Options: Iris [Mamdani | Mamdani2] test-data-file");
+		      System.out.println("  Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
+		      System.out.println("  Options: Robot Mamdani test-data-file");
+			  System.out.println("You can also call the program with a specific instance as follows:");
+			  System.out.println("  Options: ProblemName InferenceExample V1 D1 V2 D2 ... ");
+			  System.out.println("  ProblemName: Tipper, JapaneseDietAssessment, etc.");
+			  System.out.println("  InferenceExample; Mamdani, Mamdani2, TSK, etc.");
+			  System.out.println("  Notice that the combination of ProblemName and InferenceExample must be in accordance with the name of an XML file in the folder ./XMLFiles");
+			  System.out.println("  You must be also sure of providing the entire list of pairs variable name (Vi, as it is in the XML file) and numerical value (Di) for evaluation");
+			  System.out.println("  Example:");
+			  System.out.println("> Iris Mamdani2 SepalLength 5.1 SepalWidth 3.5 PetalLength 1.4 PetalWidth 0.2");
+			  System.out.println("You can also call the program with a specific instance, for your own XML file, as follows:");
+			  System.out.println("  Options: XMLfilePath NbOutputs ON1 ON2 ... V1 D1 V2 D2 ... ");
+          }		  
 	}
-
+	
     public void setExOption(String eo) {
 	        this.exOpt= eo;
 	}
@@ -115,42 +309,72 @@ public class EvaluateExample {
     public boolean loadFIS(String x) {
 		    //loading Fuzzy System from an XML file according the standard IEEE 1855
 		    System.out.println("1) Loading Fuzzy System from an XML file according the standard IEEE 1855");
-		    this.fs = JFML.load(new File(x));
-		    System.out.println();
-            if (this.fs!=null) {
-			    return true;
+            System.out.println();
+			File faux= new File(x);
+			if (faux.exists()) {
+		      this.fs = JFML.load(faux);
+              if (this.fs!=null) {
+			    int nbv= this.fs.getKnowledgeBase().getVariables().size();
+			    if (this.NbOutputs==-1) {
+			    	this.NbOutputs= nbv - this.NbInputs;
+			    	this.exOpt= "USERXML";
+			    }
+				//System.out.println("nbv="+nbv);
+				//System.out.println("NbInputs="+NbInputs);
+				//System.out.println("NbOutputs="+NbOutputs);
+				if (this.NbInputs+this.NbOutputs!=nbv) {
+				    System.out.println("ERROR: WRONG NUMBER OF INPUTS AND/OR OUTPUTS");
+				    return false;
+				} else {
+			        return true;
+				}
+			  } else {
+				  System.out.println("ERROR: NULL FIS OBJECT");
+			      return false;
+              }
 			} else {
+				System.out.println("ERROR: XML file DOES NOT exist");
 			    return false;
-            }			
+            }
   		    //printing the FuzzySystem
 		    //System.out.println(fs.toString());
 	}
 
-    public float makeInference(int d) {
-	        float value= -1; // no inference
-			//System.out.println("OUT="+value);
+    public float[] makeInference(int d) {
+	        float[] value= new float[this.NbOutputs];
+			for (int k=0; k<this.NbOutputs; k++) {
+			     value[k]=-1; // no inference
+			}
 		    // set inputs values
 			if (this.exOpt != null) {
 			  boolean warning= false;
 			  KnowledgeBaseVariable[] kbv= null;
-			  if (d>=0)
+			  if (d>=0) {
 		          System.out.print("2."+d+") Setting input variables: ");
-			  else
+			  } else {
 		          System.out.print("2) Setting input variables: ");
-				  
-			  if ( (this.exOpt.equals("Tipper")) || (this.exOpt.equals("JapaneseDietAssessment")) || (this.exOpt.equals("Iris")) || (this.exOpt.equals("InvertedPendulum")) ) {
+			  }
+			  if ( (this.exOpt.equals("USERXML")) || (this.exOpt.equals("Tipper")) || (this.exOpt.equals("JapaneseDietAssessment")) || (this.exOpt.equals("Iris")) || (this.exOpt.equals("InvertedPendulum")) || (this.exOpt.equals("Robot")) ) {
 				  kbv = new KnowledgeBaseVariable[this.NbInputs];
 				  for (int m=0; m<this.NbInputs; m++) {
 		            kbv[m] = this.fs.getVariable(this.inputNames[m]);
-		            kbv[m].setValue(data[d][m]);
-		            System.out.print(this.inputNames[m]+"="+data[d][m]);
-					if (m<this.NbInputs-1)
+					if (kbv[m]!=null) {
+		              kbv[m].setValue(data[d][m]);
+		              System.out.print(this.inputNames[m]+"="+data[d][m]);
+					  if (m<this.NbInputs-1)
 					    System.out.print(", ");
-					else
+					  else
 					    System.out.println();
+					} else {
+					    System.out.println();
+			            System.out.println("ERROR: WRONG INPUT NAME");
+				        warning= true;
+					    break;
+					}
 				  }
+			    System.out.println();
 			  } else {
-			      System.out.println("Unknown example option");
+			      System.out.println("UNKNOWN EXAMPLE OPTION");
 				  warning= true;
 			  }
 			  if (!warning) {
@@ -163,24 +387,42 @@ public class EvaluateExample {
 
 			    this.fs.evaluate();
 		
-		        // get output
-				KnowledgeBaseVariable output= null;
+                //System.out.println("GET OUT");
+			    // get output
+				KnowledgeBaseVariable[] output= new KnowledgeBaseVariable[this.NbOutputs];
 			    if (this.exOpt.equals("Tipper")) {
-		            output =  this.fs.getVariable("tip");
+		            output[0] =  this.fs.getVariable("tip");
 				} else if (this.exOpt.equals("JapaneseDietAssessment")) {
-		            output =  this.fs.getVariable("DHL");
+		            output[0] =  this.fs.getVariable("DHL");
 				} else if (this.exOpt.equals("Iris")) {
-		            output =  this.fs.getVariable("irisClass");
+		            output[0] =  this.fs.getVariable("irisClass");
 				} else if (this.exOpt.equals("InvertedPendulum")) {
-		            output =  this.fs.getVariable("Force");
+		            output[0] =  this.fs.getVariable("Force");
+				} else if (this.exOpt.equals("Robot")) {
+		            output[0] =  this.fs.getVariable("la");
+		            output[1] =  this.fs.getVariable("av");
+				} else if (this.exOpt.equals("USERXML")) {
+				    for (int k=0; k<this.NbOutputs; k++) {
+		                 output[k] =  this.fs.getVariable(this.outputNames[k]);
+					}
 				}
+				boolean end= false;
 				if (output != null) {
-	                value = output.getValue();
-		        }
-		        //printing results
-		        System.out.println("RESULTS");
-				int lim= this.NbInputs;
-				if (lim > 0) {
+				    for (int k=0; k<this.NbOutputs; k++) {
+					  if (output[k]!=null) {
+	                      value[k] = output[k].getValue();
+					  } else {
+				          System.out.println("WRONG output NAME");
+					      end= true;
+						  break;
+					  }
+					}
+				}
+				if (!end) {
+		          //printing results
+		          System.out.println("RESULTS");
+				  int lim= this.NbInputs;
+				  if (lim > 0) {
                     System.out.print(" (INPUT): ");
 				    for (int n=0; n<lim; n++) {
 			             System.out.print(kbv[n].getName()+"="+kbv[n].getValue());
@@ -188,13 +430,17 @@ public class EvaluateExample {
 						     System.out.print(", ");
 					}
 					System.out.println();
+				  }
+				  System.out.print(" (OUTPUT): ");
+				  for (int k=0; k<this.NbOutputs; k++) {
+		            System.out.print(output[k].getName()+"="+ value[k] +" ");
+				  }
+		          System.out.println();
+			      System.out.println();
+		          //printing the FuzzySystem
+		          //System.out.println("4) Fuzzy System Description");
+		          //System.out.println(fs.toString());
 				}
-		        System.out.println(" (OUTPUT): "+output.getName()+"="+ value);
-		        System.out.println();
-		
-		        //printing the FuzzySystem
-		        //System.out.println("4) Fuzzy System Description");
-		        //System.out.println(fs.toString());
 			  }
 			}
 			return value;
@@ -202,14 +448,46 @@ public class EvaluateExample {
 
 	public static void main(String[] args) {
 
-		if (args!=null && args.length == 3) {
+	    boolean warning= false;
+		if (args!=null) {
+		  if (args.length == 2) {
+              new EvaluateExample(args[0], args[1]);
+		  } else if (args.length == 3) {
               new EvaluateExample(args[0], args[1], args[2]);
+		  } else if (args.length >= 4) {
+			  new EvaluateExample(args);
+              /*if ((args.length % 2) == 0) {
+			    //System.out.println("EVEN NUMBER of args");
+				new EvaluateExample(args);
+ 			  } else {
+			    //System.out.println("ODD NUMBER of args");
+				warning= true;
+			  }*/
+		  } else {
+		      warning= true;
+		  }
 		} else {
-		      System.out.println("Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
-		      System.out.println("Options: JapaneseDietAssessment Mamdani test-data-file");
-		      System.out.println("Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
-			  System.out.println("Notice that the program has 3 arguments (ProblemName InferenceExample DataFile) but brackets are not required");
+		    warning= true;
+		}
+		if (warning) {
+		      System.out.println("ERROR: WRONG ARGUMENTS");
+		      System.out.println("Please, check the arguments given to the program");
+			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
+		      System.out.println("  Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
+		      System.out.println("  Options: Iris [Mamdani | Mamdani2] test-data-file");
+		      System.out.println("  Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
+		      System.out.println("  Options: Robot Mamdani test-data-file");
+			  System.out.println("You can also call the program with a specific instance, for one of the given examples, as follows:");
+			  System.out.println("  Options: ProblemName InferenceExample V1 D1 V2 D2 ... ");
+			  System.out.println("  ProblemName: Tipper, JapaneseDietAssessment, etc.");
+			  System.out.println("  InferenceExample; Mamdani, Mamdani2, TSK, etc.");
+			  System.out.println("  Notice that the combination of ProblemName and InferenceExample must be in accordance with the name of an XML file in the folder ./XMLFiles");
+			  System.out.println("  You must be also sure of providing the entire list of pairs variable name (Vi, as it is in the XML file) and numerical value (Di) for evaluation");
+			  System.out.println("  Example:");
+			  System.out.println("> Iris Mamdani2 SepalLength 5.1 SepalWidth 3.5 PetalLength 1.4 PetalWidth 0.2");
+			  System.out.println("You can also call the program with a specific instance, for your own XML file, as follows:");
+			  System.out.println("  Options: XMLfilePath NbOutputs ON1 ON2 ... V1 D1 V2 D2 ... ");
         }
 
 	}
