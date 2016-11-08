@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fuzzySystem xmlns="http://www.ieee1855.org" name="iris - MAMDANI">
     <knowledgeBase>
-        <fuzzyVariable name="PetalWidth" scale="" domainleft="0.1" domainright="2.5" type="input">
+        <fuzzyVariable name="PetalWidth" scale="" domainleft="0.0" domainright="2.5" type="input">
             <fuzzyTerm name="lowLIN" complement="false">
                 <leftLinearShape param1="0.0" param2="0.8"/>
             </fuzzyTerm>
@@ -9,7 +9,7 @@
                 <leftGaussianShape param1="0.5" param2="0.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="lowPi" complement="false">
-                <piShape param1="1" param2="2"/>
+                <piShape param1="1" param2="1.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="lowZ" complement="false">
                 <sShape param1="1" param2="0.2"/>
@@ -88,7 +88,7 @@
             <antecedent>
                 <clause>
                     <variable>PetalWidth</variable>
-                    <term>lowGAU</term>
+                    <term>lowPi</term>
                 </clause>
             </antecedent>
             <consequent>

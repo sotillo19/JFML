@@ -431,6 +431,10 @@ public class FuzzyVariableType extends FuzzyVariable{
 	public void setValue(float x) {
 		if(x >= getDomainleft() && x<= getDomainright())
 			this.value = x;
+		else
+			//System.err.println("The value " + x + " is out of range domain ["+getDomainleft()+ ", "+getDomainright()+"]");
+			throw new RuntimeException("The value " + x + " in variable "+getName()+" is out of range domain ["+getDomainleft()+ ", "+getDomainright()+"]");
+			
 	}
 
 	/**
