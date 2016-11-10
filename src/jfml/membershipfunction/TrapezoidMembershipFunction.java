@@ -14,6 +14,10 @@ public class TrapezoidMembershipFunction extends MembershipFunction {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param p Parameter p->a, p->b, p->c and p->d. a<=b<=c<=d
+	 */
 	public TrapezoidMembershipFunction(Parameter p) {
 		super(p);
 		if(p!=null){
@@ -22,6 +26,9 @@ public class TrapezoidMembershipFunction extends MembershipFunction {
 			c = p.getParameter(3);
 			d = p.getParameter(4);
 		}
+		if(a>b || b>c || c>d)
+			throw new RuntimeException("Parameter ERROR: parameters must satisfy a <= b <= c <= d");
+		
 	}
 
 	public TrapezoidMembershipFunction(Parameter p, float domainLeft, float domainRight) {

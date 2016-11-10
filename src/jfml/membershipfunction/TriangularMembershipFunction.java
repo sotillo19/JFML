@@ -14,6 +14,10 @@ public class TriangularMembershipFunction extends MembershipFunction {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param p Parameter p->a, p->b, p->c. a<=b<=c<=d
+	 */
 	public TriangularMembershipFunction(Parameter p) {
 		super(p);
 		if(p!=null){
@@ -21,6 +25,8 @@ public class TriangularMembershipFunction extends MembershipFunction {
 			b = p.getParameter(2);
 			c = p.getParameter(3);
 		}
+		if(a>b || b>c)
+			throw new RuntimeException("Parameter ERROR: parameters must satisfy a <= b <= c");
 	}
 
 	public TriangularMembershipFunction(Parameter p, float domainLeft, float domainRight) {

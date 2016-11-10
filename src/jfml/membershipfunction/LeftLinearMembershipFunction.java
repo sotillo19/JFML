@@ -14,12 +14,19 @@ public class LeftLinearMembershipFunction extends MembershipFunction implements 
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param parameter p -> a and b. a<b
+	 */
 	public LeftLinearMembershipFunction(Parameter p) {
 		super(p);
 		if(p!=null){
 			a = p.getParameter(1);
 			b = p.getParameter(2);
 		}
+		if(a>b)
+			throw new RuntimeException("Parameter ERROR: parameters must satisfy a<=b");
+
 	}
 
 	public LeftLinearMembershipFunction(Parameter p, float domainLeft, float domainRight) {
