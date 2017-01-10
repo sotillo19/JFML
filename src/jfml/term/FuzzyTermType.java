@@ -55,7 +55,7 @@ import jfml.parameter.TwoParamType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fuzzyTermType", propOrder = {
@@ -100,16 +100,18 @@ public class FuzzyTermType extends FuzzyTerm{
     @XmlAttribute(name = "complement")
     protected String complement;
     
-    //Default constructor
+    /**
+     * Default constructor
+     */
     public FuzzyTermType(){
     	
     }
     
     /**
-     * 
-     * @param name
-     * @param type
-     * @param param
+     * Constructor using the name, the type of fuzzy term and an array of parameters
+     * @param name the name of the fuzzy term
+     * @param type the type (see static variables in {@link FuzzyTerm})
+     * @param param an array of parameters
      */
     public FuzzyTermType(String name, int type, float[] param) {
     	super();
@@ -226,6 +228,12 @@ public class FuzzyTermType extends FuzzyTerm{
 		}
 	}
     
+    /**
+     * Constructor of a PointSet term using the name and a list of PointType
+     * @param name the name of the Fuzzy Term
+     * @param type type must be the static value FuzzyTerm.TYPE_pointSetShape
+     * @param points the list of PointType
+     */
     public FuzzyTermType(String name, int type, List<PointType> points) {
     	super();
     	this.setName(name);
@@ -241,9 +249,9 @@ public class FuzzyTermType extends FuzzyTerm{
     }
     
     /**
-     * 
-     * @param name
-     * @param p
+     * Constructor using the name and an instance of PointSetShapeType
+     * @param name the name of the fuzzy term
+     * @param p an instance of PointSetShapeType
      */
     public FuzzyTermType(String name, PointSetShapeType p) {
     	super();
@@ -254,9 +262,9 @@ public class FuzzyTermType extends FuzzyTerm{
     }
     
     /**
-     * 
-     * @param name
-     * @param c
+     * Constructor using the name and an instance of CircularDefinitionType
+     * @param name the name of the fuzzy term
+     * @param c an instance of CircularDefinitionType
      */
     public FuzzyTermType(String name, CircularDefinitionType c) {
     	super();
@@ -267,9 +275,9 @@ public class FuzzyTermType extends FuzzyTerm{
     }
     
     /**
-     * 
-     * @param name
-     * @param c
+     * Constructor using the name and an instance of CustomShapeType
+     * @param name the name of the fuzzy term
+     * @param c an instance of CustomShapeType
      */
     public FuzzyTermType(String name, CustomShapeType c) {
     	super();
@@ -279,23 +287,38 @@ public class FuzzyTermType extends FuzzyTerm{
     	setCustomShape(c);
     }
     
+    /**
+     * Constructor using the name, the complement and a CircularDefinitionType
+     * @param name the name of the fuzzy term
+     * @param complement the complement (true or false)
+     * @param circular an instance of CircularDefinitionType
+     */
     public FuzzyTermType(String name, String complement, CircularDefinitionType circular) {
 		this(name, circular);
 		this.setComplement(complement);
 	}
 
+    /**
+     * Constructor using the name, the complement and a PointSetShapeType
+     * @param name the name of the fuzzy term
+     * @param complement the complement (true or false)
+     * @param circular an instance of PointSetShapeType
+     */
 	public FuzzyTermType(String name, String complement, PointSetShapeType point) {
 		this(name, point);
 		this.setComplement(complement);
 	}
 
+	/**
+	 * Gets an array of floats with the parameters of this fuzzy term
+	 * @return an array of floats with the parameters of this fuzzy term
+	 */
 	public float[] getParam(){
     	float[] param = null;
     	TwoParamType two;
     	ThreeParamType three;
     	FourParamType four;
-    	
-    	
+
     	switch (type) {
 		case FuzzyTerm.TYPE_rightLinearShape:
 			two =getRightLinearShape();

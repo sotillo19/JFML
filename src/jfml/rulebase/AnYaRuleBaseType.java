@@ -42,7 +42,7 @@ import jfml.term.FuzzyTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "anYaRuleBaseType", propOrder = { "anYaRule" })
@@ -60,6 +60,9 @@ public class AnYaRuleBaseType extends FuzzySystemRuleBase {
 	@XmlAttribute(name = "networkAddress")
 	protected String networkAddress;
 
+	/**
+	 * Default constructor
+	 */
 	public AnYaRuleBaseType() {
 		setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_ANYA);
 	}

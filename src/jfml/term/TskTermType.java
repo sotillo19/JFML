@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.knowledgebase.variable.FuzzyVariable;
-import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 
 
 /**
@@ -33,7 +32,7 @@ import jfml.knowledgebase.variable.KnowledgeBaseVariable;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskTermType", propOrder = {
@@ -51,10 +50,19 @@ public class TskTermType extends TskTerm{
     @XmlAttribute(name = "order", required = true)
     protected int order;
     
+    /**
+     * Default constructor
+     */
     public TskTermType(){
     	
     }
 
+    /**
+     * Constructor using the name, the order and a list of coefficients
+     * @param name the name of the TSK term
+     * @param order the order of the TSK term (0 or 1)
+     * @param coeff a list of coefficients
+     */
     public TskTermType(String name, int order, float[] coeff) {
 		super();
 		this.name=name;

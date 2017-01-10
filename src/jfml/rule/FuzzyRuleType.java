@@ -12,10 +12,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.term.FuzzyTerm;
-import jfml.term.FuzzyTermType;
 
 /**
  * <p>Java class for fuzzyRuleType complex type.
@@ -40,7 +38,7 @@ import jfml.term.FuzzyTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fuzzyRuleType", propOrder = {
@@ -78,7 +76,7 @@ public class FuzzyRuleType extends Rule{
     
     /**
      * Constructor with parameters by default
-     * @param name
+     * @param name of the Fuzzy Rule
      */
     public FuzzyRuleType(String name){
     	super();
@@ -90,8 +88,10 @@ public class FuzzyRuleType extends Rule{
     }
     
     /**
-     * Constructor with parameters by default
-     * @param name
+     * Constructor using the name of the FuzzyRule, the Antecedent {@link AntecedentType } and the Consequent {@link ConsequentType }
+     * @param name the name of the FuzzyRule
+     * @param ant the Antecedent {@link AntecedentType }
+     * @param con the Consequent {@link ConsequentType }
      */
     public FuzzyRuleType(String name, AntecedentType ant, ConsequentType con){
     	super();
@@ -105,13 +105,13 @@ public class FuzzyRuleType extends Rule{
     }
     
     /**
-	 * @param name
-	 * @param connector
-	 * @param andMethod
-	 * @param orMethod
-	 * @param weight
-	 * @param networkAddress
-	 */
+     * Constructor using the name of the FuzzyRule, the connector, the AndMethod, the OrMethod and the weight
+     * @param name name of the fuzzy rule
+     * @param connector the connector used to define the logical operator aimed at connecting the different clauses in antecedent part (and/or)
+     * @param andMethod the attribute andMethod is used to define the and algorithm to be used if the chosen connector is and
+     * @param orMethod the attribute orMethod is used to define the or algorithm to be used if the chosen connector is or.
+     * @param weight the attribute weight is used to define the importance of the rule to be used by the inference engine.
+     */
 	public FuzzyRuleType(String name, String connector, String andMethod, String orMethod, Float weight) {
 		super();
 		this.name = name;
@@ -122,12 +122,11 @@ public class FuzzyRuleType extends Rule{
 	}
 	
 	/**
-	 * @param name
-	 * @param connector
-	 * @param andMethod
-	 * @param orMethod
-	 * @param weight
-	 * @param networkAddress
+	 * Constructor using the name of the fuzzy rule, the connector (and / or), the connector method and the weight of the fuzzy rule
+	 * @param name name of the Fuzzy rule
+	 * @param connector the connector used to define the logical operator aimed at connecting the different clauses in antecedent part (and/or)
+	 * @param connectorMethod the and algorithm to be used if the chosen connector is and or the or algorithm to be used if the chosen connector is or.
+	 * @param weight the importance of the rule to be used by the inference engine.
 	 */
 	public FuzzyRuleType(String name, String connector, String connectorMethod, Float weight) {
 		super();
@@ -141,9 +140,9 @@ public class FuzzyRuleType extends Rule{
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @param weight
+	 * Constructor using the name and the weight of the Fuzzy Rule
+	 * @param name name of the Fuzzy rule
+	 * @param weight the importance of the rule to be used by the inference engine.
 	 */
 	public FuzzyRuleType(String name, Float weight) {
 		super();
@@ -239,6 +238,10 @@ public class FuzzyRuleType extends Rule{
         }
     }
     
+    /**
+     * Return true if the And method is defined; false otherwise
+     * @return true if the And method is defined; false otherwise
+     */
     public boolean isAndMethodDefined(){
     	if(andMethod == null)
     		return false;
@@ -246,6 +249,10 @@ public class FuzzyRuleType extends Rule{
     		return true;
     }
     
+    /**
+     * Return true if the Or method is defined; false otherwise
+     * @return true if the Or method is defined; false otherwise
+     */
     public boolean isOrMethodDefined(){
     	if(orMethod == null)
     		return false;

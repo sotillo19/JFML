@@ -1,4 +1,4 @@
-package jfml.term;
+package jfml.aggregated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,10 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlType;
 
+import jfml.enumeration.StandardAndMethodType;
+import jfml.jaxb.ObjectFactory;
+import jfml.operator.AndLogicalType;
+import jfml.operator.OrLogicalType;
 import jfml.rule.ClauseType;
 
 
@@ -38,13 +42,13 @@ import jfml.rule.ClauseType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "andAggregatedType", propOrder = {
     "content"
 })
-public class AndAggregatedType {
+public class AndAggregatedType extends AggregatedType{
 
     @XmlElementRefs({
         @XmlElementRef(name = "or", namespace = "http://www.ieee1855.org", type = JAXBElement.class, required = false),
@@ -54,6 +58,175 @@ public class AndAggregatedType {
     protected List<JAXBElement<?>> content;
     @XmlAttribute(name = "t-norm")
     protected String tNorm;
+    
+    /**
+     * Default constructor
+     */
+    public AndAggregatedType(){
+    	
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param c1 {@link String} with the name of term1
+     * @param c2 {@link String} with the name of term2
+     */
+    public AndAggregatedType(ClauseType c1, ClauseType c2){
+    	this.tNorm="MIN";
+    	new AndAggregatedType(tNorm,c1,c2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param c1 
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public AndAggregatedType(ClauseType c1, AndAggregatedType term2){
+    	this.tNorm="MIN";
+    	new AndAggregatedType(tNorm,c1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public AndAggregatedType(AndAggregatedType term1, AndAggregatedType term2){
+    	this.tNorm="MIN";
+    	new AndAggregatedType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public AndAggregatedType(AndAggregatedType term1, OrAggregatedType term2){
+    	this.tNorm="MIN";
+    	new AndAggregatedType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public AndAggregatedType(OrAggregatedType term1, AndAggregatedType term2){
+    	this.tNorm="MIN";
+    	new AndAggregatedType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public AndAggregatedType(OrAggregatedType term1, OrAggregatedType term2){
+    	this.tNorm="MIN";
+    	new AndAggregatedType(tNorm,term1,term2);
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param c1 
+     * @param c2
+     */
+    public AndAggregatedType(String tNorm, ClauseType c1, ClauseType c2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeClause(c1));
+    	content.add(ob.createAndAggregatedTypeClause(c2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param c1 
+     * @param term2
+     */
+    public AndAggregatedType(String tNorm, ClauseType c1, AndAggregatedType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeClause(c1));
+    	content.add(ob.createAndAggregatedTypeAnd(term2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
+    public AndAggregatedType(String tNorm, AndAggregatedType term1, AndAggregatedType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeAnd(term1));
+    	content.add(ob.createAndAggregatedTypeAnd(term2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
+    public AndAggregatedType(String tNorm, AndAggregatedType term1, OrAggregatedType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeAnd(term1));
+    	content.add(ob.createAndAggregatedTypeOr(term2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
+    public AndAggregatedType(String tNorm, OrAggregatedType term1, AndAggregatedType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeOr(term1));
+    	content.add(ob.createAndAggregatedTypeAnd(term2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
+    public AndAggregatedType(String tNorm, OrAggregatedType term1, OrAggregatedType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeOr(term1));
+    	content.add(ob.createAndAggregatedTypeOr(term2));
+    }
 
     /**
      * 
@@ -99,5 +272,142 @@ public class AndAggregatedType {
     public void setTNorm(String value) {
         this.tNorm = value;
     }
+
+	@Override
+	public String getOperator() {
+		return getTNorm();
+	}
+
+	@Override
+	public Object getContent(int i) {
+		if(i==0 || i==1)
+			return getContent().get(i).getValue();
+		else
+			return null;
+	}
+
+	@Override
+	public float operate(float degree1, float degree2) {
+		String op = getOperator();
+		if (op.equals(StandardAndMethodType.MIN.value()))
+			return min(degree1, degree2);
+		else if (op.equals(StandardAndMethodType.PROD.value()))
+			return prod(degree1, degree2);
+		else if (op.equals(StandardAndMethodType.BDIF.value()))
+			return bdif(degree1, degree2);
+		else if (op.equals(StandardAndMethodType.DRP.value()))
+			return drp(degree1, degree2);
+		else if (op.equals(StandardAndMethodType.EPROD.value()))
+			return eprod(degree1, degree2);
+		else if (op.equals(StandardAndMethodType.HPROD.value()))
+			return hprod(degree1, degree2);
+		else if (op.equals(StandardAndMethodType.NILMIN.value()))
+			return nilmin(degree1, degree2);
+		else if (op.contains("custom"))
+			return custom_and(degree1, degree2, op);
+		else
+			return min(degree1, degree2);
+	}
+
+	/**
+	 * - custom_\S* for a custom method.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float custom_and(float x, float y, String act) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/**
+	 * - NILMIN for implementing the operator and with the Nilpotent minimum as defined from Equation (A.20);
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float nilmin(float x, float y) {
+		if (x + y > 1)
+			return Math.min(x, y);
+		else
+			return 0;
+	}
+
+	/**
+	 * - HPROD for implementing the operator and with the Hamacher product as defined from Equation (A.19); 
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float hprod(float x, float y) {
+		return (x + y) / (x + y - (x * y));
+	}
+
+	/**
+	 * 	 
+	 * - EPROD for implementing the operator and with the Einstein product as defined from Equation (A.18);
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float eprod(float x, float y) {
+		return (x + y) / (2 - (x + y - (x * y)));
+	}
+
+	/**
+	 * 
+	 * - DRP for implementing the operator and with the drastic product as defined from Equation (A.17);
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float drp(float x, float y) {
+		if (y == 1)
+			return x;
+		if (x == 1)
+			return y;
+		else
+			return 0;
+	}
+
+	/**
+	 * 
+	 * - BDIF for implementing the operator and with bounded difference as defined from Equation (A.16);
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float bdif(float x, float y) {
+		return Math.max(0, (x + y - 1));
+	}
+
+	/**
+	 * 
+	 * - PROD for implementing the operator and with the product as defined from Equation (A.15);
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float prod(float x, float y) {
+		return x * y;
+	}
+
+	/**
+	 * - MIN for implementing the operator and with the minimum as defined from Equation (A.14);
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private float min(float x, float y) {
+		return Math.min(x, y);
+	}
 
 }

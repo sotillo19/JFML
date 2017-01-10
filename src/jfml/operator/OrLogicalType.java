@@ -40,7 +40,7 @@ import jfml.term.CircularTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "orLogicalType", propOrder = {
@@ -57,10 +57,79 @@ public class OrLogicalType extends LogicalType {
     @XmlAttribute(name = "t-conorm")
     protected String tConorm;
     
+    /**
+     * Default constructor
+     */
     public OrLogicalType(){
     	
     }
-
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link String} with the name of term2
+     */
+    public OrLogicalType(String term1, String term2){
+    	this.tConorm="MAX";
+    	new OrLogicalType(tConorm,term1,term2);
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public OrLogicalType(String term1, AndLogicalType term2){
+    	this.tConorm="MAX";
+    	new OrLogicalType(tConorm,term1,term2);
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public OrLogicalType(AndLogicalType term1, AndLogicalType term2){
+    	this.tConorm="MAX";
+    	new OrLogicalType(tConorm,term1,term2);
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public OrLogicalType(AndLogicalType term1, OrLogicalType term2){
+    	this.tConorm="MAX";
+    	new OrLogicalType(tConorm,term1,term2);
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public OrLogicalType(OrLogicalType term1, AndLogicalType term2){
+    	this.tConorm="MAX";
+    	new OrLogicalType(tConorm,term1,term2);
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public OrLogicalType(OrLogicalType term1, OrLogicalType term2){
+    	this.tConorm="MAX";
+    	new OrLogicalType(tConorm,term1,term2);
+    }
+    
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link String} with the name of term2
+     */
     public OrLogicalType(String tConorm, String term1, String term2){
     	super();
     	this.tConorm = tConorm;
@@ -72,6 +141,12 @@ public class OrLogicalType extends LogicalType {
     	content.add(ob.createOrLogicalTypeTermName(new CircularTermType(term2)));
     }
     
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link AndLogicalType} term2
+     */
     public OrLogicalType(String tConorm, String term1, AndLogicalType term2){
     	super();
     	this.tConorm = tConorm;
@@ -83,6 +158,12 @@ public class OrLogicalType extends LogicalType {
     	content.add(ob.createOrLogicalTypeAnd(term2));
     }
     
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
     public OrLogicalType(String tConorm, AndLogicalType term1, AndLogicalType term2){
     	super();
     	this.tConorm = tConorm;
@@ -94,6 +175,12 @@ public class OrLogicalType extends LogicalType {
     	content.add(ob.createOrLogicalTypeAnd(term2));
     }
     
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
     public OrLogicalType(String tConorm, AndLogicalType term1, OrLogicalType term2){
     	super();
     	this.tConorm = tConorm;
@@ -105,6 +192,12 @@ public class OrLogicalType extends LogicalType {
     	content.add(ob.createOrLogicalTypeOr(term2));
     }
     
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
     public OrLogicalType(String tConorm, OrLogicalType term1, AndLogicalType term2){
     	super();
     	this.tConorm = tConorm;
@@ -116,6 +209,12 @@ public class OrLogicalType extends LogicalType {
     	content.add(ob.createOrLogicalTypeAnd(term2));
     }
     
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
     public OrLogicalType(String tConorm, OrLogicalType term1, OrLogicalType term2){
     	super();
     	this.tConorm = tConorm;
@@ -187,7 +286,8 @@ public class OrLogicalType extends LogicalType {
 	
 	/**
 	 * 
-	 * @param orMethod
+	 * @param x value1
+	 * @param y value2
 	 * 	- MAX for implementing the connector or with the maximum as defined from Equation (A.21);
 		- PROBOR for implementing the connector or with the probabilistic sum as defined from Equation (A.22);
 		- BSUM for implementing the operator or with the bounded sum as defined from Equation (A.23);
@@ -196,7 +296,7 @@ public class OrLogicalType extends LogicalType {
 		- HSUM for implementing the operator or with the Hamacher sum as defined from Equation (A.26);
 		- NILMAX for implementing the operator or with the Nilpotent maximum as defined from Equation (A.27);
 		- custom_\S* for a custom method for implementing the connector or.
-	 * @return
+	 * @return result of orMethod
 	 */
 	@Override
 	public float operate(float x, float y){
@@ -223,6 +323,13 @@ public class OrLogicalType extends LogicalType {
 	}
 	
 
+	/**
+	 * custom or method
+	 * @param x value1
+	 * @param y value2
+	 * @param orMethod
+	 * @return custom or method
+	 */
 	private float custom_or(float x, float y, String orMethod) {
 		// TODO Auto-generated method stub
 		return 0;

@@ -29,7 +29,7 @@ import jfml.enumeration.MonotonicInterpolationMethodType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "pointSetMonotonicShapeType", propOrder = {

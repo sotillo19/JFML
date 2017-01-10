@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
+ * @author sotillo19
  */
 @XmlType(name = "standardTconormType")
 @XmlEnum

@@ -10,10 +10,17 @@ public class PiShapedMembershipFunction extends MembershipFunction {
 	
 	String name="pi-Shaped";
 	
+	/**
+	 * Default constructor
+	 */
 	public PiShapedMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
+	/**
+	 * Constructor with a Parameter instance with the parameters
+	 * @param p a Parameter
+	 */
 	public PiShapedMembershipFunction(Parameter p) {
 		super(p);
 		if(p!=null){
@@ -25,6 +32,12 @@ public class PiShapedMembershipFunction extends MembershipFunction {
 		}
 	}
 
+	/**
+	 * Constructor with a Parameter instance with the parameters and the right and left domain
+	 * @param p a Parameter
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public PiShapedMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;

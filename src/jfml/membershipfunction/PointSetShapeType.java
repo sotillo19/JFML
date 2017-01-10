@@ -30,7 +30,7 @@ import jfml.enumeration.InterpolationMethodType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "pointSetShapeType", propOrder = {
@@ -51,16 +51,30 @@ public class PointSetShapeType extends MembershipFunction{
     @XmlTransient
     float[] mM;
     
+    /**
+     * Default constructor
+     */
     public PointSetShapeType() {
     	
 	}
 	
+    /**
+     * Constructor with left and right domain
+     * @param domainLeft left domain
+     * @param domainRight right domain
+     */
 	public PointSetShapeType(float domainLeft, float domainRight) {
 	    super();
 	    this.domainLeft=domainLeft;
 		this.domainRight=domainRight;
 	}
 	
+	/**
+	 * Constructor with left and right domain and a list of PointType
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 * @param points list of PointType
+	 */
 	public PointSetShapeType(float domainLeft, float domainRight, List<PointType> points) {
 	    super();
 	    this.domainLeft=domainLeft;
@@ -68,6 +82,10 @@ public class PointSetShapeType extends MembershipFunction{
 		this.point = points;
 	}
 	
+	/**
+	 * Constructor with a list of PointType
+	 * @param points a list of PointType
+	 */
 	public PointSetShapeType(List<PointType> points) {
 	    super();
 		this.point = points;
@@ -249,6 +267,10 @@ public class PointSetShapeType extends MembershipFunction{
 	}
 
 
+	/**
+	 * Copy a PointSetShapeType
+	 * @return
+	 */
 	public PointSetShapeType copy() {
 		PointSetShapeType copy = null;
 		List<PointType> points = new ArrayList<>();

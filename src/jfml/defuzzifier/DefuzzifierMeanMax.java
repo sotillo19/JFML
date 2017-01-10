@@ -43,29 +43,4 @@ public class DefuzzifierMeanMax extends DefuzzifierContinuous {
 		return mom.get(0)+(sum / 2);
 
 	}
-	
-	/*public float defuzzify1() {
-		float max = 0, maxX = 0;
-		int count = 0;
-
-		// Calculate max
-		for( int i = 0; i < values.length; i++ ) {
-			if( values[i] >= max ) max = values[i];
-		}
-
-		// No max? => this variable has no active antecedent
-		if( max <= 0 ) return Float.NaN;
-
-		// Calculate mean of max
-		for( int i = 0; i < values.length; i++ ) {
-			if( values[i] == max ) {
-				maxX = min + stepSize * i;
-				count++;
-			}
-		}
-
-		// Return mean of max
-		return maxX / count;
-
-	}*/
 }

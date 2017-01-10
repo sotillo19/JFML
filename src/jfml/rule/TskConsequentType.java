@@ -26,7 +26,7 @@ import jfml.term.TskTerm;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskConsequentType", propOrder = {
@@ -39,16 +39,29 @@ public class TskConsequentType {
     protected TskConsequentClausesType tskThen;
     protected TskConsequentClausesType tskElse;
 
+    /**
+     * Default constructor
+     */
     public TskConsequentType(){
     	super();
     }
     
+    /**
+     * Constructor using a then {@link TskConsequentClausesType} and an else {@link TskConsequentClausesType}
+     * @param then a then {@link TskConsequentClausesType}
+     * @param _else an else {@link TskConsequentClausesType}
+     */
     public TskConsequentType(TskConsequentClausesType then, TskConsequentClausesType _else){
     	super();
     	this.setTskThen(then);
     	this.setTskElse(_else);
     }
     
+    /**
+     * Adds a Tsk THEN ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
     public void addTskThenClause(KnowledgeBaseVariable variable, TskTerm term){
     	if(tskThen==null)
     		tskThen = new TskConsequentClausesType();
@@ -56,6 +69,10 @@ public class TskConsequentType {
     	tskThen.addTskClause(variable, term);
     }
     
+    /**
+     * Adds a Tsk THEN {@link TskClauseType }
+     * @param c a Tsk THEN {@link TskClauseType }
+     */
     public void addTskThenClause(TskClauseType c){
     	if(tskThen==null)
     		tskThen = new TskConsequentClausesType();
@@ -63,6 +80,11 @@ public class TskConsequentType {
     	tskThen.addTskClause(c);
     }
     
+    /**
+     * Adds a TSK ELSE ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
     public void addTskElseClause(KnowledgeBaseVariable variable, TskTerm term){
     	if(tskElse==null)
     		tskElse = new TskConsequentClausesType();
@@ -70,6 +92,10 @@ public class TskConsequentType {
     	tskElse.addTskClause(variable, term);
     }
     
+    /**
+     * Adds a TSK ELSE {@link TskClauseType }
+     * @param c a TSK ELSE {@link TskClauseType }
+     */
     public void addTskElseClause(TskClauseType c){
     	if(tskElse==null)
     		tskElse = new TskConsequentClausesType();

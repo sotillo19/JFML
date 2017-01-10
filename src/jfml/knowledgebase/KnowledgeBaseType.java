@@ -45,7 +45,7 @@ import jfml.knowledgebase.variable.TsukamotoVariableType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "knowledgeBaseType", propOrder = {
@@ -124,7 +124,7 @@ public class KnowledgeBaseType {
     }
     
     /**
-     * 
+     * Add a variable to the list of varibles
      * @param var
      */
     public void addVariable(KnowledgeBaseVariable var){

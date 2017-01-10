@@ -5,8 +5,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 import jfml.enumeration.StandardAndMethodType;
 import jfml.enumeration.StandardOrMethodType;
-import jfml.enumeration.StandardTnormType;
 
+/**
+ * Abstract class for representing the Rule. Methods reset, and and or is implemented
+ * @author sotillo19
+ *
+ */
 @XmlAccessorType(XmlAccessType.NONE) //This is needed to ignore class attributes as xml tags in XML files
 public abstract class Rule {
 	public static String defaultAndMethod = "MIN";

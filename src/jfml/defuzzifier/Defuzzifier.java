@@ -1,5 +1,10 @@
 package jfml.defuzzifier;
 
+/**
+ * Abstract class for representing the Deffuzifier concept
+ * @author sotillo19
+ *
+ */
 public abstract class Defuzzifier{
 
 	protected boolean discrete;
@@ -12,6 +17,10 @@ public abstract class Defuzzifier{
 	 */
 	public abstract float defuzzify();
 
+	/**
+	 * Gets the defuzzifier name
+	 * @return
+	 */
 	public String getName() {
 		String str = this.getClass().getName();
 		String dfStr = "Defuzzifier";
@@ -23,10 +32,18 @@ public abstract class Defuzzifier{
 		return str;
 	}
 
+	/**
+	 * Gets if the defuzzifier is continuous or discrete
+	 * @return true if the defuzzifier is discrete or false otherwise
+	 */
 	public boolean isDiscrete() {
 		return discrete;
 	}
 	
+	/**
+	 * Sets if the defuzzifier is continuous or discrete
+	 * @param discrete
+	 */
 	public void setDiscrete(boolean discrete) {
 		this.discrete = discrete;
 	}

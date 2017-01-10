@@ -4,16 +4,28 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing Z-Shape functions
+ * @author sotillo19
+ *
+ */
 public class ZShapeMembershipFunction extends MembershipFunction implements Monotonical{
 
 	float a,b;
 	
 	String name="z-Shaped";
 	
+	/**
+	 * Default constructor
+	 */
 	public ZShapeMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	/**
+	 * Constructor with a Parameter
+	 * @param p parameter with a and b values
+	 */
 	public ZShapeMembershipFunction(Parameter p) {
 		super(p);
 		if(p!=null){
@@ -22,11 +34,18 @@ public class ZShapeMembershipFunction extends MembershipFunction implements Mono
 		}
 	}
 
+	/**
+	 * Constructor with a parameter and left and right domain
+	 * @param p parameter with the parameters a and b
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public ZShapeMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;
 		this.domainRight=domainRight;
 	}
+	
 	@Override
 	public float getMembershipDegree(float x) {
 		if (x <= a)

@@ -4,17 +4,25 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Class for representing Gaussian Membership functions
+ * @author sotillo19
+ *
+ */
 public class GaussianMembershipFunction extends MembershipFunction {
 
 	float sigma, c;
 	String name = "gaussian";
 	
+	/**
+	 * Default constructor
+	 */
 	public GaussianMembershipFunction() {
 	
 	}
 
 	/**
-	 * 
+	 * Constructor with Parameter instance with parameters of the function
 	 * @param p param1 = c; param2 = sigma
 	 */
 	public GaussianMembershipFunction(Parameter p) {
@@ -26,10 +34,10 @@ public class GaussianMembershipFunction extends MembershipFunction {
 	}
 
 	/**
-	 * 
+	 * Constructor with Parameter instance with parameters of the function and the left and right domain
 	 * @param p param1 = c; param2 = sigma
-	 * @param domainLeft
-	 * @param domainRight
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
 	 */
 	public GaussianMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);

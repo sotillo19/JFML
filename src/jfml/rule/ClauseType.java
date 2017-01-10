@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 import jfml.knowledgebase.variable.FuzzyVariableType;
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.term.FuzzyTerm;
 import jfml.term.FuzzyTermType;
 
 
@@ -29,7 +31,7 @@ import jfml.term.FuzzyTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "clauseType", propOrder = {
@@ -53,16 +55,30 @@ public class ClauseType {
      */
     protected String modifier;
     
+    /**
+     * Default constructor
+     */
     public ClauseType(){
     	super();
     }
     
+    /**
+     * Constructor using a variable and a term
+     * @param variable possible object is {@link KnowledgeBaseVariable } 
+     * @param term possible object is {@link FuzzyTerm }
+     */
     public ClauseType(Object variable, Object term){
     	super();
     	this.setVariable(variable);
     	this.setTerm(term);
     }
     
+    /**
+     * Constructor using a variable, a term and the modifier
+     * @param variable possible object is {@link KnowledgeBaseVariable } 
+     * @param term possible object is {@link FuzzyTerm }
+     * @param modifier a String with the modifier according to {@link StandardModifierType }
+     */
     public ClauseType(Object variable, Object term, String modifier){
     	this(variable,term);
     	this.setModifier(modifier);
@@ -143,8 +159,8 @@ public class ClauseType {
     /**
      * Apply a modification to the membership degree x according to modifier property
      *
-     * @param x
-     * @return
+     * @param x degree
+     * @return a modification of the membership degree
      */
     public float modifierMembershipDegree(float x){
     	String m = getModifier();

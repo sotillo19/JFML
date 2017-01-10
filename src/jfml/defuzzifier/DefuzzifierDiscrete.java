@@ -21,9 +21,7 @@ public abstract class DefuzzifierDiscrete extends Defuzzifier implements Iterabl
 		max=rightDomain;
 		discreteValues = new HashMap<Float, Float>();
 	}
-
-
-	/** Defuzzification function */
+	
 	@Override
 	public abstract float defuzzify();
 

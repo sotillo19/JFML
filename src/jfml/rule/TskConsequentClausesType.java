@@ -27,7 +27,7 @@ import jfml.term.TskTerm;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskConsequentClausesType", propOrder = {
@@ -54,6 +54,10 @@ public class TskConsequentClausesType {
         return this.tskClause;
     }
     
+    /**
+     * Adds a TskClauseType to the list of clauses
+     * @param c a TskClauseType
+     */
     public void addTskClause(TskClauseType c){
     	if (tskClause == null) {
     		tskClause = new ArrayList<TskClauseType>();
@@ -62,6 +66,11 @@ public class TskConsequentClausesType {
     		tskClause.add(c);
     }
     
+    /**
+     * Adds a TskClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
     public void addTskClause(KnowledgeBaseVariable v, TskTerm t){
     	if (tskClause == null) {
     		tskClause = new ArrayList<TskClauseType>();

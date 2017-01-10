@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import jfml.defuzzifier.Defuzzifier;
 import jfml.term.AggregatedFuzzyTermType;
-import jfml.term.FuzzyTermType;
 import jfml.term.Term;
 
 
@@ -36,7 +35,7 @@ import jfml.term.Term;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "aggregatedFuzzyVariableType", propOrder = {
@@ -55,22 +54,37 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
     protected String type;
     @XmlAttribute(name = "networkAddress")
     protected String networkAddress;
+    
+    /**
+     * Default constructor
+     */
+    public AggregatedFuzzyVariableType(){
+    	
+    }
+    
+    /**
+     * Constructor with required parameters
+     * @param name is used to define a unique name for the aggregated fuzzy variable      
+     */
+    public AggregatedFuzzyVariableType(String name){
+    	super();
+    	this.setName(name);
+    	this.setType(getType());
+    }
+    
+    /**
+     * Constructor with required parameters
+     * @param name is used to define a unique name for the aggregated fuzzy variable
+     * @param type is used to define the position of the aggregated fuzzy variable into rule (consequent part or antecedent part). Output or input
+     */
+    public AggregatedFuzzyVariableType(String name, String type){
+    	super();
+    	this.setName(name);
+    	this.setType(type);
+    }
 
     /**
      * Gets the value of the aggregatedFuzzyTerm property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the aggregatedFuzzyTerm property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAggregatedFuzzyTerm().add(newItem);
-     * </pre>
-     * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
@@ -83,6 +97,30 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
             aggregatedFuzzyTerm = new ArrayList<AggregatedFuzzyTermType>();
         }
         return this.aggregatedFuzzyTerm;
+    }
+    
+    /**
+     * Returns the i-th AggregatedFuzzyTermType
+     * @param i
+     * @return the i-th AggregatedFuzzyTermType
+     */
+    public AggregatedFuzzyTermType getAggregatedFuzzyTerm(int i) {
+        if (aggregatedFuzzyTerm != null && i<aggregatedFuzzyTerm.size() && i>=0) {
+        	return aggregatedFuzzyTerm.get(i);
+        }
+        else return null;
+            
+    }
+    
+    /**
+     * Add a AggregatedFuzzyTermType
+     * @param aft {@link AggregatedFuzzyTermType }
+     */
+    public void addAggregatedFuzzyTerm(AggregatedFuzzyTermType aft){
+    	if (aggregatedFuzzyTerm == null) {
+    		aggregatedFuzzyTerm = new ArrayList<AggregatedFuzzyTermType>();
+        }
+    	this.aggregatedFuzzyTerm.add(aft);
     }
 
     /**
@@ -178,12 +216,6 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
 		this.value = Float.NaN;
 	}
 
-    
-	/*@Override
-	public float getDefuzzifierValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
 
 	@Override
 	public float getValue() {
@@ -204,12 +236,6 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
 	}
 
 	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean hasTerm(String name) {
 		for(AggregatedFuzzyTermType t : getTerms())
 			if(t.getName().equals(name))
@@ -225,8 +251,18 @@ public class AggregatedFuzzyVariableType extends FuzzyVariable{
 
 	@Override
 	public Term getTerm(String name) {
-		// TODO Auto-generated method stub
+		for(AggregatedFuzzyTermType t : getTerms())
+			if(t.getName().equals(name))
+				return t;
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		String s = name + " - " + getType() + "\n";
+		for(AggregatedFuzzyTermType aft : getTerms())
+			s += "\t" + aft.toString()  + "\n";
+		return s;
 	}
 
 	

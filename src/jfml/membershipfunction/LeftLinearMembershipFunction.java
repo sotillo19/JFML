@@ -4,19 +4,27 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing LeftLinear membership functions
+ * @author sotillo19
+ *
+ */
 public class LeftLinearMembershipFunction extends MembershipFunction implements Monotonical{
 
 	float a,b;
 	
 	String name="leftLinear";
 	
+	/**
+	 * Default constructor
+	 */
 	public LeftLinearMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * 
-	 * @param parameter p -> a and b. a<b
+	 * Constructor with Parameter instance with parameters of the function
+	 * @param p parameter -> a and b. Parameters a and b must satisfy a<=b
 	 */
 	public LeftLinearMembershipFunction(Parameter p) {
 		super(p);
@@ -29,6 +37,12 @@ public class LeftLinearMembershipFunction extends MembershipFunction implements 
 
 	}
 
+	/**
+	 * Constructor with Parameter instance with parameters of the function and the left and right domain
+	 * @param p parameter -> a and b. a<b
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public LeftLinearMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;

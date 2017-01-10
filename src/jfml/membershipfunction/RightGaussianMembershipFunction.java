@@ -4,18 +4,26 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing RightGaussian membership functions
+ * @author sotillo19
+ *
+ */
 public class RightGaussianMembershipFunction extends MembershipFunction implements Monotonical {
 
 	float sigma, c;
 	
 	String name="rightGaussian";
 	
+	/**
+	 * Default constructor
+	 */
 	public RightGaussianMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * 
+	 * Constructor with a Parameter instance with the parameters c and sigma 
 	 * @param p param1 = c; param2 = sigma
 	 */
 	public RightGaussianMembershipFunction(Parameter p) {
@@ -27,10 +35,10 @@ public class RightGaussianMembershipFunction extends MembershipFunction implemen
 	}
 
 	/**
-	 *  
+	 *  Constructor with a Parameter instance with the parameters c and sigma and the domain
 	 * @param p param1 = c; param2 = sigma
-	 * @param domainLeft
-	 * @param domainRight
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
 	 */
 	public RightGaussianMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlValue;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "circularTermType", propOrder = {
@@ -39,10 +39,17 @@ public class CircularTermType{
     @XmlAttribute(name = "complement")
     protected String complement;
 
+    /**
+     * Default constructor
+     */
     public CircularTermType(){
     	
     }
     
+    /**
+     * Constructor using the name
+     * @param name the name of the circular term
+     */
     public CircularTermType(String name){
     	this.value=name;
     }

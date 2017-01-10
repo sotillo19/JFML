@@ -25,7 +25,7 @@ import jfml.term.FuzzyTerm;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "consequentType", propOrder = {
@@ -39,16 +39,29 @@ public class ConsequentType {
     @XmlElement(name = "else")
     protected ConsequentClausesType _else;
 
+    /**
+     * Default constructor
+     */
     public ConsequentType(){
     	super();
     }
     
+    /**
+     * Constructor using a then {@link ConsequentClausesType} and an else {@link ConsequentClausesType}
+     * @param then a then {@link ConsequentClausesType}
+     * @param _else an else {@link ConsequentClausesType}
+     */
     public ConsequentType(ConsequentClausesType then, ConsequentClausesType _else){
     	super();
     	this.setThen(then);
     	this.setElse(_else);
     }
     
+    /**
+     * Adds a THEN ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
     public void addThenClause(KnowledgeBaseVariable variable, FuzzyTerm term){
     	if(then==null)
     		then = new ConsequentClausesType();
@@ -56,6 +69,10 @@ public class ConsequentType {
     	then.addClause(variable, term);
     }
     
+    /**
+     * Adds a THEN {@link ClauseType }
+     * @param c a THEN {@link ClauseType }
+     */
     public void addThenClause(ClauseType c){
     	if(then==null)
     		then = new ConsequentClausesType();
@@ -63,6 +80,12 @@ public class ConsequentType {
     	then.addClause(c);
     }
     
+    
+    /**
+     * Adds an ELSE ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
     public void addElseClause(KnowledgeBaseVariable variable, FuzzyTerm term){
     	if(_else==null)
     		_else = new ConsequentClausesType();
@@ -70,6 +93,10 @@ public class ConsequentType {
     	_else.addClause(variable, term);
     }
     
+    /**
+     * Adds an ELSE {@link ClauseType }
+     * @param c an ELSE {@link ClauseType }
+     */
     public void addElseClause(ClauseType c){
     	if(_else==null)
     		_else = new ConsequentClausesType();

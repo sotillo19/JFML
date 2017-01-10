@@ -40,7 +40,7 @@ import jfml.term.TskTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskFuzzyRuleType", propOrder = {
@@ -77,7 +77,7 @@ public class TskFuzzyRuleType extends Rule{
     }
     /**
      * Constructor with parameters by default
-     * @param name
+     * @param name name of the TSK Fuzzy Rule
      */
     public TskFuzzyRuleType(String name){
     	super();
@@ -89,8 +89,10 @@ public class TskFuzzyRuleType extends Rule{
     }
     
     /**
-     * Constructor with parameters by default
-     * @param name
+     * Constructor using the name of the FuzzyRule, the Antecedent {@link AntecedentType } and the TSK Consequent {@link TskConsequentType }
+     * @param name the name of the FuzzyRule
+     * @param ant the Antecedent {@link AntecedentType }
+     * @param con the Consequent {@link TskConsequentType }
      */
     public TskFuzzyRuleType(String name, AntecedentType ant, TskConsequentType con){
     	super();
@@ -104,13 +106,13 @@ public class TskFuzzyRuleType extends Rule{
     }
     
     /**
-	 * @param name
-	 * @param connector
-	 * @param andMethod
-	 * @param orMethod
-	 * @param weight
-	 * @param networkAddress
-	 */
+     * Constructor using the name of the TSK FuzzyRule, the connector, the AndMethod, the OrMethod and the weight
+     * @param name name of the TSK fuzzy rule
+     * @param connector the connector used to define the logical operator aimed at connecting the different clauses in antecedent part (and/or)
+     * @param andMethod the attribute andMethod is used to define the and algorithm to be used if the chosen connector is and
+     * @param orMethod the attribute orMethod is used to define the or algorithm to be used if the chosen connector is or.
+     * @param weight the attribute weight is used to define the importance of the rule to be used by the inference engine.
+     */
 	public TskFuzzyRuleType(String name, String connector, String andMethod, String orMethod, Float weight) {
 		super();
 		this.name = name;
@@ -121,12 +123,11 @@ public class TskFuzzyRuleType extends Rule{
 	}
 	
 	/**
-	 * @param name
-	 * @param connector
-	 * @param andMethod
-	 * @param orMethod
-	 * @param weight
-	 * @param networkAddress
+	 * Constructor using the name of the TSK fuzzy rule, the connector (and / or), the connector method and the weight of the fuzzy rule
+	 * @param name name of the TSK Fuzzy rule
+	 * @param connector the connector used to define the logical operator aimed at connecting the different clauses in antecedent part (and/or)
+	 * @param connectorMethod the and algorithm to be used if the chosen connector is and or the or algorithm to be used if the chosen connector is or.
+	 * @param weight the importance of the rule to be used by the inference engine.
 	 */
 	public TskFuzzyRuleType(String name, String connector, String connectorMethod, Float weight) {
 		super();
@@ -141,9 +142,9 @@ public class TskFuzzyRuleType extends Rule{
 
 
 	/**
-	 * 
-	 * @param name
-	 * @param weight
+	 * Constructor using the name and the weight of the Fuzzy Rule
+	 * @param name name of the TSK Fuzzy rule
+	 * @param weight the importance of the rule to be used by the inference engine.
 	 */
 	public TskFuzzyRuleType(String name, Float weight) {
 		super();
@@ -387,7 +388,7 @@ public class TskFuzzyRuleType extends Rule{
 
 	@Override
 	public String toString() {
-String b = getName() +" - ("+getEvaluation()+") IF ";
+		String b = getName() +" - ("+getEvaluation()+") IF ";
 		
 		//ANTECEDENTS
 		List<ClauseType> clauses = getAntecedent().getClauses();

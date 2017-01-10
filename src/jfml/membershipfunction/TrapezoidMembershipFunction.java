@@ -4,19 +4,27 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing Trapezoid functions
+ * @author sotillo19
+ *
+ */
 public class TrapezoidMembershipFunction extends MembershipFunction {
 
 	float a,b,c,d;
 	
 	String name = "trapezoid";
 	
+	/**
+	 * Default constructor
+	 */
 	public TrapezoidMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * 
-	 * @param p Parameter p->a, p->b, p->c and p->d. a<=b<=c<=d
+	 * Constructor with Parameter instance with the parameters of the function
+	 * @param p parameter -> a, b, c and d. Parameters must satisfy a <= b <= c <= d
 	 */
 	public TrapezoidMembershipFunction(Parameter p) {
 		super(p);
@@ -31,6 +39,12 @@ public class TrapezoidMembershipFunction extends MembershipFunction {
 		
 	}
 
+	/**
+	 * Constructor with Parameter instance with the parameters of the function
+	 * @param p parameter -> a, b, c and d. Parameters must satisfy a <= b <= c <= d
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public TrapezoidMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;

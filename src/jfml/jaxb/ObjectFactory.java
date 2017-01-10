@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
+import jfml.aggregated.AndAggregatedType;
+import jfml.aggregated.OrAggregatedType;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.AggregatedFuzzyVariableType;
 import jfml.knowledgebase.variable.AnYaDataCloudType;
@@ -39,10 +41,8 @@ import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.RuleBaseType;
 import jfml.rulebase.TskRuleBaseType;
 import jfml.term.AggregatedFuzzyTermType;
-import jfml.term.AndAggregatedType;
 import jfml.term.CircularTermType;
 import jfml.term.FuzzyTermType;
-import jfml.term.OrAggregatedType;
 import jfml.term.TskTermType;
 import jfml.term.TsukamotoTermType;
 
@@ -60,6 +60,7 @@ import jfml.term.TsukamotoTermType;
  * groups.  Factory methods for each of these are 
  * provided in this class.
  * 
+ * @author sotillo19
  */
 @XmlRegistry
 public class ObjectFactory {

@@ -13,12 +13,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import jfml.defuzzifier.Defuzzifier;
 import jfml.enumeration.StandardCombinationType;
-import jfml.term.FuzzyTermType;
 import jfml.term.Term;
 import jfml.term.TskTermType;
-import jfml.term.TsukamotoTermType;
 
 
 /**
@@ -42,7 +39,7 @@ import jfml.term.TsukamotoTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskVariableType", propOrder = {

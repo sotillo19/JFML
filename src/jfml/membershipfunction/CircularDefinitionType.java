@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.operator.AndLogicalType;
 import jfml.operator.LogicalType;
@@ -32,7 +31,7 @@ import jfml.term.Term;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "circularDefinitionType", propOrder = {
@@ -47,10 +46,21 @@ public class CircularDefinitionType extends MembershipFunction{
     @XmlTransient
     private KnowledgeBaseVariable var;
     
+    
+    /**
+     * Default constructor
+     */
     public CircularDefinitionType(){
     	super();
     }
     
+    
+    /**
+     * 
+     * @param and
+     * @param or
+     * @param var
+     */
     public CircularDefinitionType(AndLogicalType and, OrLogicalType or, KnowledgeBaseVariable var){
     	super();
     	this.and=and;
@@ -116,6 +126,10 @@ public class CircularDefinitionType extends MembershipFunction{
         this.or = or;
     }
 
+    /**
+     * Copy method
+     * @return a new instance of CircularDefinitionType
+     */
 	public CircularDefinitionType copy() {
 		return new CircularDefinitionType(getAnd(), getOr(), getVariable());
 	}

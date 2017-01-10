@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import jfml.parameter.Parameter;
 
 /**
- * Membership function
+ * The abstract base class for all membership functions
+ * @author sotillo19
+ *
  */
 public abstract class MembershipFunction {
 
@@ -22,11 +24,21 @@ public abstract class MembershipFunction {
 		domainLeft = domainRight = Float.NaN;
 	}
 	
+	/**
+	 * Constructor with parameters
+	 * @param p parameter 
+	 */
 	protected MembershipFunction(Parameter p){
 		super();
 		this.parameter=p;
 	}
 	
+	/**
+	 * Constructor with parameter and right and left domain
+	 * @param p parameter
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	protected MembershipFunction(Parameter p, float domainLeft, float domainRight){
 		super();
 		this.parameter=p;
@@ -43,6 +55,10 @@ public abstract class MembershipFunction {
 	public abstract float getMembershipDegree(float x);
 
 
+	/**
+	 * Gets the name of the function
+	 * @return the name of the function
+	 */
 	public String getName() {
 		String str = this.getClass().getName();
 		String mfStr = "MembershipFunction";
@@ -54,34 +70,50 @@ public abstract class MembershipFunction {
 		return str;
 	}
 
+	/**
+	 * Gets the Parameter associated to this function
+	 * @return the Parameter associated to this function
+	 */
 	public Parameter getParameter() {
 		return parameter;
 	}
 
+	/**
+	 * Gets the right domain
+	 * @return the right domain
+	 */
 	public double getDomainRight() {
 		return domainRight;
 	}
 
+	/**
+	 * Gets the left domain
+	 * @return the left domain
+	 */
 	public double getDomainLeft() {
 		return domainLeft;
 	}
 
-	/*public boolean isDiscrete() {
-		return discrete;
-	}
-
-	public void setDiscrete(boolean discrete) {
-		this.discrete = discrete;
-	}*/
-
+	/**
+	 * Sets the parameter
+	 * @param p the parameter
+	 */
 	public void setParameter(Parameter p) {
 		parameter = p;
 	}
 
+	/**
+	 * Sets the right domain value
+	 * @param domainRight the right domain value
+	 */
 	public void setDomainRight(float domainRight) {
 		this.domainRight = domainRight;
 	}
 
+	/**
+	 * Sets the left domain value
+	 * @param domainLeft the left domain value
+	 */
 	public void setDomainLeft(float domainLeft) {
 		this.domainLeft = domainLeft;
 	}

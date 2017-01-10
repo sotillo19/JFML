@@ -7,6 +7,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 import jfml.membershipfunction.*;
 
+/**
+ * Abstract class for representing the FuzzyTerm types
+ * Each fuzzy term has associated a {@link MembershipFunction} and a left and right domain from the variable
+ * 
+ * @author sotillo19
+ *
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class FuzzyTerm extends Term{
 	public static final int TYPE_rightLinearShape = 0;
@@ -35,16 +42,50 @@ public abstract class FuzzyTerm extends Term{
 	
 	protected MembershipFunction mf;
 	
+	/**
+	 * Gets the complement (true or false)
+	 * @return the complement
+	 */
 	public abstract String getComplement();
 	
+	/**
+	 * Sets the value for the type according to the static variables
+	 * @param type the value for the type. Possible values:
+	 * - TYPE_rightLinearShape </br>
+	 * - TYPE_leftLinearShape </br>
+	 * -TYPE_piShape</br>
+	 * -TYPE_triangularShape</br>
+	 * -TYPE_gaussianShape</br>
+	 * 	-TYPE_rightGaussianShape</br>
+	 * 	-TYPE_leftGaussianShape</br>
+	 * 	-TYPE_trapezoidShape</br>
+	 * 	-TYPE_singletonShape</br>
+	 * 	-TYPE_rectangularShape</br>
+	 * 	-TYPE_zShape </br>
+	 * 	-TYPE_sShape</br>
+	 * 	-TYPE_pointSetShape</br> 
+	 * 	-TYPE_pointSetMonotonicShape</br>
+	 * 	-TYPE_circularDefinition </br>
+	 * 	-TYPE_customShape</br>
+	 * 	-TYPE_customMonotonicShape</br>
+	 *  
+	 */
 	public void setType(int type){
 		this.type=type;
 	}
 	
+	/**
+	 * Gets the {@link } MembershipFunction associated to this term
+	 * @return the {@link } MembershipFunction associated to this term
+	 */
 	public MembershipFunction getMembershipFunction(){
 		return this.mf;
 	}
 	
+	/**
+	 * This function returns an array with values [x1, x2, x3, ...] which represents points in the x domain of the function needed by defuzzifer
+	 * @return an ArrayList with floats
+	 */
 	public ArrayList<Float> getXValuesDefuzzifier(){
 		if(mf !=null)
 			return mf.getXValuesDefuzzifier();
@@ -52,6 +93,11 @@ public abstract class FuzzyTerm extends Term{
 			return new ArrayList<>();
 	}
 
+	/**
+	 * This function initializes the membership function associated to this term
+	 * @param domainLeft the left domain
+	 * @param domainRight the right domain
+	 */
 	public void initializeMembershipFunction(float domainLeft, float domainRight){
 		leftDomain = domainLeft;
 		rightDomain = domainRight;
@@ -157,6 +203,7 @@ public abstract class FuzzyTerm extends Term{
 		}
 	}
 	
+	@Override
 	public float getMembershipValue(float x) {
 		float d = 0;
 		MembershipFunction mf = getMembershipFunction();
@@ -170,6 +217,11 @@ public abstract class FuzzyTerm extends Term{
 		return d;
 	}
 	
+	/**
+	 * Gets the x value from y
+	 * @param y the y value
+	 * @return the x value from y
+	 */
 	public float getFi(float y){
 		float d = 0;
 		MembershipFunction mf = getMembershipFunction();
@@ -183,8 +235,14 @@ public abstract class FuzzyTerm extends Term{
 		return d;
 	}
 
+	/**
+	 * Gets the name of the fuzzy term
+	 */
 	public abstract String getName();
 	
+	/**
+	 * Creates a copy of the fuzzy term
+	 */
 	public abstract FuzzyTerm copy();
 
 }

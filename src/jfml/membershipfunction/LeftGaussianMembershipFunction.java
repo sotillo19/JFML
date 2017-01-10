@@ -10,12 +10,15 @@ public class LeftGaussianMembershipFunction extends MembershipFunction implement
 	
 	String name = "leftGaussian";
 	
+	/**
+	 * Default constructor
+	 */
 	public LeftGaussianMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * 
+	 * Constructor with Parameter instance with parameters of the function
 	 * @param p param1 = c; param2 = sigma
 	 * 
 	 */
@@ -28,10 +31,10 @@ public class LeftGaussianMembershipFunction extends MembershipFunction implement
 	}
 
 	/**
-	 * 
+	 * Constructor with Parameter instance with parameters of the function and the left and right domain
 	 * @param p param1 = c; param2 = sigma
-	 * @param domainLeft
-	 * @param domainRight
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
 	 */
 	public LeftGaussianMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);

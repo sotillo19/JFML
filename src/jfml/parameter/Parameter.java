@@ -1,5 +1,11 @@
 package jfml.parameter;
 
+/**
+ * Abstract class for the Parameter representation
+ * 
+ * @author sotillo19
+ *
+ */
 public abstract class Parameter {
 
 	/**

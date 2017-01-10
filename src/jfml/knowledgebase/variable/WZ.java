@@ -1,5 +1,10 @@
 package jfml.knowledgebase.variable;
 
+/**
+ * Java class for representing the values w and z in the tsukamotoVariableType
+ * @author sotillo19
+ *
+ */
 public class WZ {
 
 	float w;
@@ -11,14 +16,14 @@ public class WZ {
 	}
 
 	/**
-	 * @return the w
+	 * @return the w value
 	 */
 	public float getW() {
 		return w;
 	}
 
 	/**
-	 * @return the z
+	 * @return the z value
 	 */
 	public float getZ() {
 		return z;

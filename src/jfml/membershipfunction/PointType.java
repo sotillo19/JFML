@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "pointType")
@@ -41,6 +41,11 @@ public class PointType implements Comparator<PointType>{
     	
     }
     
+    /**
+     * Constructor with the two parameters x and y
+     * @param x parameter x
+     * @param y parameter y
+     */
     public PointType(float x, float y){
     	super();
     	setX(x);

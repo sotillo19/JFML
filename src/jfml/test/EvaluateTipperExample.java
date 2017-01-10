@@ -19,9 +19,10 @@ public class EvaluateTipperExample {
 		//File xml = new File("./XMLFiles/TipperExample_TSK.xml");
 		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani3.xml");
 		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
-		File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Tsukamoto2.xml");
+		//File xml = new File("./XMLFiles/irisMamdani-testMFs.xml");
 		//File xml = new File("./XMLFiles/TipperExampleFuzzySystemOUTANYA1.xml");
 		//File xml = new File("./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_Mamdani.xml");
+		File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_MamdaniAgg.xml");
 		
 		
 		//loading Fuzzy System from an XML file according the standard IEEE 1855
@@ -37,8 +38,7 @@ public class EvaluateTipperExample {
 		input2.setValue(8);
 		
 		// inference
-		fs.evaluate();
-		
+		fs.evaluate();	
 		
 		// get output
 		KnowledgeBaseVariable output =  fs.getVariable("tip");
@@ -46,20 +46,12 @@ public class EvaluateTipperExample {
 		
 		//printing results
 		System.out.println("RESULTS");
-		System.out.println(" (INPUT): "+input1.getName()+ "="+input1.getValue() +", "+input2.getName()+ "="+input2.getValue());
+		System.out.println(" (INPUT): "+input1.getName()+ "="+input1.getValue());
 		System.out.println(" (OUTPUT): "+output.getName()+"="+ value);
 		
 		
 		//printing the FuzzySystem
 		System.out.println(fs.toString());
-		
-		
-		//copying options
-		KnowledgeBaseVariable copy1 = input1.copy();
-		KnowledgeBaseVariable copy2 = input2.copy();
-		KnowledgeBaseVariable copy3 = output.copy();
-		
-		copy2.hasTerm("good");
 	}
 
 }

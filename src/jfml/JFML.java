@@ -18,7 +18,6 @@ import jfml.jaxb.FuzzySystemType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TsukamotoVariableType;
-import jfml.membershipfunction.CircularDefinitionType;
 import jfml.rule.AnYaRuleType;
 import jfml.rule.ClauseType;
 import jfml.rule.FuzzyRuleType;
@@ -31,8 +30,12 @@ import jfml.rulebase.TskRuleBaseType;
 import jfml.term.FuzzyTerm;
 import jfml.term.FuzzyTermType;
 import jfml.term.Term;
-import jfml.term.TskTerm;
 
+/**
+ * Main class to load and write FML systems in/from files
+ * @author sotillo19
+ *
+ */
 public class JFML {
 
 	/**
@@ -209,6 +212,16 @@ public class JFML {
 
 	}
 
+	/**
+	 * Static method to write a FuzzySystem in a xml file
+	 * @param element List of JAXBElement
+     *     {@link JAXBElement }
+	 * 
+	 * @param output
+	 * allowed object is
+     *     {@link File }
+	 * 
+	 */
 	private static void writeFSTtoXML(JAXBElement<?> element, File output) {
 		try {
 			@SuppressWarnings("rawtypes")

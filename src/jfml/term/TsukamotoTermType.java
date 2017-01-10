@@ -21,9 +21,6 @@ import jfml.membershipfunction.RightGaussianMembershipFunction;
 import jfml.membershipfunction.RightLinearMembershipFunction;
 import jfml.membershipfunction.SShapeMembershipFunction;
 import jfml.membershipfunction.ZShapeMembershipFunction;
-import jfml.parameter.FourParamType;
-import jfml.parameter.OneParamType;
-import jfml.parameter.ThreeParamType;
 import jfml.parameter.TwoParamType;
 
 
@@ -57,7 +54,7 @@ import jfml.parameter.TwoParamType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tsukamotoTermType", propOrder = {
@@ -98,10 +95,10 @@ public class TsukamotoTermType extends FuzzyTerm{
     
     
     /**
-     * 
-     * @param name
-     * @param type
-     * @param param
+     * Constructor using the name, the type of fuzzy term and an array of parameters
+     * @param name the name of the fuzzy term
+     * @param type the type (see static variables in {@link FuzzyTerm})
+     * @param param an array of parameters
      */
     public TsukamotoTermType(String name, int type, float[] param) {
     	super();
@@ -169,10 +166,10 @@ public class TsukamotoTermType extends FuzzyTerm{
 	}
     
     /**
-     * 
-     * @param name
-     * @param type
-     * @param param
+     * Constructor of a PointSet term using the name and a list of PointType
+     * @param name the name of the Fuzzy Term
+     * @param type type must be the static value FuzzyTerm.TYPE_pointSetShape
+     * @param points the list of PointType
      */
     public TsukamotoTermType(String name, int type, List<PointType> param) {
     	super();
@@ -195,6 +192,11 @@ public class TsukamotoTermType extends FuzzyTerm{
 		}
 	}
     
+    /**
+     * Constructor using the name and an instance of PointSetMonotonicShapeType
+     * @param name the name of the Tsukamoto term
+     * @param psm an instance of PointSetMonotonicShapeType
+     */
     public TsukamotoTermType(String name, PointSetMonotonicShapeType psm) {
     	super();
     	this.setName(name);
@@ -493,6 +495,10 @@ public class TsukamotoTermType extends FuzzyTerm{
 		return t;
 	}
 	
+	/**
+	 * Gets an array of floats with the parameters of this fuzzy term
+	 * @return an array of floats with the parameters of this fuzzy term
+	 */
 	public float[] getParam(){
     	float[] param = null;
     	TwoParamType two;

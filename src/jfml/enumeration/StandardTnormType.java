@@ -20,15 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
+ * @author sotillo19
  * 
- * 
- * 	 * 	- MIN for implementing the operator and with the minimum as defined from Equation (A.14);
-		- PROD for implementing the operator and with the product as defined from Equation (A.15);
-		- BDIF for implementing the operator and with bounded difference as defined from Equation (A.16);
-		- DRP for implementing the operator and with the drastic product as defined from Equation (A.17);
-		- EPROD for implementing the operator and with the Einstein product as defined from Equation (A.18);
-		- HPROD for implementing the operator and with the Hamacher product as defined from Equation (A.19);
-		- NILMIN for implementing the operator and with the Nilpotent minimum as defined from Equation (A.20); 
  */
 @XmlType(name = "standardTnormType")
 @XmlEnum

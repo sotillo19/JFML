@@ -4,19 +4,27 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing Triangular functions
+ * @author sotillo19
+ *
+ */
 public class TriangularMembershipFunction extends MembershipFunction {
 
 	float a,b,c;
 	
 	String name="triangular";
 	
+	/**
+	 * Default constructor
+	 */
 	public TriangularMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * 
-	 * @param p Parameter p->a, p->b, p->c. a<=b<=c<=d
+	 * Constructor with Parameter instance with the parameters of the function
+	 * @param p parameter -> a, b and c. Parameters must satisfy a <= b <= c
 	 */
 	public TriangularMembershipFunction(Parameter p) {
 		super(p);
@@ -29,6 +37,12 @@ public class TriangularMembershipFunction extends MembershipFunction {
 			throw new RuntimeException("Parameter ERROR: parameters must satisfy a <= b <= c");
 	}
 
+	/**
+	 * Constructor with Parameter instance with the parameters of the function
+	 * @param p parameter -> a, b and c. Parameters must satisfy a <= b <= c
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public TriangularMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;

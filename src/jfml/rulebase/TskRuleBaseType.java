@@ -15,8 +15,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.TskVariableType;
 import jfml.rule.ClauseType;
-import jfml.rule.ConsequentClausesType;
-import jfml.rule.FuzzyRuleType;
 import jfml.rule.TskClauseType;
 import jfml.rule.TskConsequentClausesType;
 import jfml.rule.TskFuzzyRuleType;
@@ -44,7 +42,7 @@ import jfml.term.TskTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskRuleBaseType", propOrder = { "tskRules" })
@@ -66,14 +64,17 @@ public class TskRuleBaseType extends FuzzySystemRuleBase {
 	@XmlAttribute(name = "networkAddress")
 	protected String networkAddress;
 	
+	/**
+	 * Default constructor
+	 */
 	public TskRuleBaseType(){
 		setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_TSK);
 	}
 	
 	/**
      * Constructor using name. Rest elements by default
-     * @param name
-     * @param type
+     * @param name name of the TSK rule base
+     * @param type the ruleBaseSystemType 
      */
     public TskRuleBaseType(String name, int type){
     	super();
@@ -86,12 +87,13 @@ public class TskRuleBaseType extends FuzzySystemRuleBase {
     }
     
     /**
-     * 
-     * @param name
-     * @param activation
-     * @param and
-     * @param or
-     */
+	 * Constructor using the name, the activation method, the and, the or and the type
+	 * @param name name of the TSK rule base
+	 * @param activation the method used for the implication process according to {@link StandardActivationMethodType }
+	 * @param and the and algorithm to be used
+	 * @param or the or algorithm to be used
+	 * @param type the ruleBaseSystemType
+	 */
     public TskRuleBaseType(String name, String activation, String and, String or, int type){
     	super();
     	setName(name);
@@ -118,6 +120,10 @@ public class TskRuleBaseType extends FuzzySystemRuleBase {
 		return this.tskRules;
 	}
 	
+	/**
+	 * Adds a TskFuzzyRuleType to the list of rules
+     * @param rule the TskFuzzyRuleType
+	 */
 	public void addTskRule(TskFuzzyRuleType rule){
     	if (tskRules == null) {
     		tskRules = new ArrayList<TskFuzzyRuleType>();

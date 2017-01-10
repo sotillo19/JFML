@@ -26,7 +26,7 @@ import jfml.term.FuzzyTerm;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "consequentClausesType", propOrder = {
@@ -37,11 +37,18 @@ public class ConsequentClausesType {
     @XmlElement(required = true, name="clause")
     protected List<ClauseType> clauses;
     
+    /**
+     * Default constructor
+     */
     public ConsequentClausesType(){
     	super();
     	clauses = new ArrayList<ClauseType>();
     }
     
+    /**
+     * Constructor using a list of {@link ClauseType }
+     * @param clauses list of {@link ClauseType }
+     */
     public ConsequentClausesType(List<ClauseType> clauses){
     	this.clauses = clauses;
     }
@@ -62,6 +69,10 @@ public class ConsequentClausesType {
         return this.clauses;
     }
 
+    /**
+     * Adds a {@link ClauseType } to the list
+     * @param c a {@link ClauseType }
+     */
     public void addClause(ClauseType c){
     	if (clauses == null) {
             clauses = new ArrayList<ClauseType>();
@@ -70,6 +81,11 @@ public class ConsequentClausesType {
     		clauses.add(c);
     }
     
+    /**
+     * Adds a ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
     public void addClause(KnowledgeBaseVariable v, FuzzyTerm t){
     	if (clauses == null) {
             clauses = new ArrayList<ClauseType>();

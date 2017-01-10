@@ -13,11 +13,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import jfml.defuzzifier.Defuzzifier;
 import jfml.enumeration.StandardCombinationType;
-import jfml.term.FuzzyTermType;
 import jfml.term.Term;
-import jfml.term.TskTermType;
 import jfml.term.TsukamotoTermType;
 
 
@@ -44,7 +41,7 @@ import jfml.term.TsukamotoTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tsukamotoVariableType", propOrder = {
@@ -86,9 +83,9 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
     
     /**
      * Constructor with required elements
-     * @param name
-     * @param domainLeft
-     * @param domainRight
+     * @param name name of the variable
+     * @param domainLeft left domain
+     * @param domainRight right domain
      */
     public TsukamotoVariableType(String name, float domainLeft, float domainRight){
     	super();
@@ -364,6 +361,11 @@ public class TsukamotoVariableType extends KnowledgeBaseVariable{
 		this.value=x;
 	}
 
+	/**
+	 * Adds a evaluation
+	 * @param wi value w
+	 * @param zi value z
+	 */
 	public void addEvaluation(float wi, float zi) {
 		if(z==null)
 			z= new ArrayList<>();

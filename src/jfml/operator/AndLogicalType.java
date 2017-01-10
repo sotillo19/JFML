@@ -9,9 +9,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.namespace.QName;
-
-import jfml.enumeration.StandardActivationMethodType;
 import jfml.enumeration.StandardAndMethodType;
 import jfml.jaxb.ObjectFactory;
 import jfml.term.CircularTermType;
@@ -42,7 +39,7 @@ import jfml.term.CircularTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "andLogicalType", propOrder = {
@@ -59,10 +56,79 @@ public class AndLogicalType extends LogicalType{
     @XmlAttribute(name = "t-norm")
     protected String tNorm;
     
+    /**
+     * Default constructor
+     */
     public AndLogicalType(){
     	
     }
     
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link String} with the name of term2
+     */
+    public AndLogicalType(String term1, String term2){
+    	this.tNorm="MIN";
+    	new AndLogicalType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public AndLogicalType(String term1, AndLogicalType term2){
+    	this.tNorm="MIN";
+    	new AndLogicalType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public AndLogicalType(AndLogicalType term1, AndLogicalType term2){
+    	this.tNorm="MIN";
+    	new AndLogicalType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link AndLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public AndLogicalType(AndLogicalType term1, OrLogicalType term2){
+    	this.tNorm="MIN";
+    	new AndLogicalType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link AndLogicalType} term2
+     */
+    public AndLogicalType(OrLogicalType term1, AndLogicalType term2){
+    	this.tNorm="MIN";
+    	new AndLogicalType(tNorm,term1,term2);
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link OrLogicalType} term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public AndLogicalType(OrLogicalType term1, OrLogicalType term2){
+    	this.tNorm="MIN";
+    	new AndLogicalType(tNorm,term1,term2);
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
     public AndLogicalType(String tNorm, String term1, String term2){
     	super();
     	this.tNorm = tNorm;
@@ -74,6 +140,12 @@ public class AndLogicalType extends LogicalType{
     	content.add(ob.createAndLogicalTypeTermName(new CircularTermType(term2)));
     }
     
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
     public AndLogicalType(String tNorm, String term1, AndLogicalType term2){
     	super();
     	this.tNorm = tNorm;
@@ -85,6 +157,12 @@ public class AndLogicalType extends LogicalType{
     	content.add(ob.createAndLogicalTypeAnd(term2));
     }
     
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
     public AndLogicalType(String tNorm, AndLogicalType term1, AndLogicalType term2){
     	super();
     	this.tNorm = tNorm;
@@ -96,6 +174,12 @@ public class AndLogicalType extends LogicalType{
     	content.add(ob.createAndLogicalTypeAnd(term2));
     }
     
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
     public AndLogicalType(String tNorm, AndLogicalType term1, OrLogicalType term2){
     	super();
     	this.tNorm = tNorm;
@@ -107,6 +191,12 @@ public class AndLogicalType extends LogicalType{
     	content.add(ob.createAndLogicalTypeOr(term2));
     }
     
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
     public AndLogicalType(String tNorm, OrLogicalType term1, AndLogicalType term2){
     	super();
     	this.tNorm = tNorm;
@@ -118,6 +208,12 @@ public class AndLogicalType extends LogicalType{
     	content.add(ob.createAndLogicalTypeAnd(term2));
     }
     
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
     public AndLogicalType(String tNorm, OrLogicalType term1, OrLogicalType term2){
     	super();
     	this.tNorm = tNorm;
@@ -130,7 +226,7 @@ public class AndLogicalType extends LogicalType{
     }
 
     /**
-     * <p>
+     * 
      * Objects of the following type(s) are allowed in the list
      * {@link JAXBElement }{@code <}{@link OrLogicalType }{@code >}
      * {@link JAXBElement }{@code <}{@link AndLogicalType }{@code >}
@@ -240,7 +336,7 @@ public class AndLogicalType extends LogicalType{
 	}
 
 	/**
-	 * - NILMIN for implementing the operator and with the Nilpotent minimum as defined from from Equation (A.20);
+	 * - NILMIN for implementing the operator and with the Nilpotent minimum as defined from Equation (A.20);
 	 * 
 	 * @param x
 	 * @param y
@@ -254,7 +350,7 @@ public class AndLogicalType extends LogicalType{
 	}
 
 	/**
-	 * - HPROD for implementing the operator and with the Hamacher product as defined from from Equation (A.19); 
+	 * - HPROD for implementing the operator and with the Hamacher product as defined from Equation (A.19); 
 	 * 
 	 * @param x
 	 * @param y
@@ -266,7 +362,7 @@ public class AndLogicalType extends LogicalType{
 
 	/**
 	 * 	 
-	 * - EPROD for implementing the operator and with the Einstein product as defined from from Equation (A.18);
+	 * - EPROD for implementing the operator and with the Einstein product as defined from Equation (A.18);
 	 * 
 	 * @param x
 	 * @param y
@@ -278,7 +374,7 @@ public class AndLogicalType extends LogicalType{
 
 	/**
 	 * 
-	 * - DRP for implementing the operator and with the drastic product as defined from from Equation (A.17);
+	 * - DRP for implementing the operator and with the drastic product as defined from Equation (A.17);
 	 * 
 	 * @param x
 	 * @param y
@@ -295,7 +391,7 @@ public class AndLogicalType extends LogicalType{
 
 	/**
 	 * 
-	 * - BDIF for implementing the operator and with bounded difference as defined from from Equation (A.16);
+	 * - BDIF for implementing the operator and with bounded difference as defined from Equation (A.16);
 	 * 
 	 * @param x
 	 * @param y
@@ -307,7 +403,7 @@ public class AndLogicalType extends LogicalType{
 
 	/**
 	 * 
-	 * - PROD for implementing the operator and with the product as defined from from Equation (A.15);
+	 * - PROD for implementing the operator and with the product as defined from Equation (A.15);
 	 * 
 	 * @param x
 	 * @param y

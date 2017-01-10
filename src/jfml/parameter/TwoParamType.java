@@ -1,11 +1,3 @@
-//
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
-// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2016.07.12 a las 06:51:57 PM CEST 
-//
-
-
 package jfml.parameter;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,8 +8,6 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for the twoParamType complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="twoParamType">
@@ -30,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "twoParamType")
@@ -42,32 +32,32 @@ public class TwoParamType extends Parameter{
     protected float param2;
 
     /**
-     * Obtiene el valor de la propiedad param1.
-     * 
+     * Gets the value of the attribute param1.
+     * @return the value of the attribute param1.
      */
     public float getParam1() {
         return param1;
     }
 
     /**
-     * Define el valor de la propiedad param1.
-     * 
+     * Sets the value for the attribute param1.
+     * @param value value
      */
     public void setParam1(float value) {
         this.param1 = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad param2.
-     * 
+     * Gets the value of the attribute param2.
+     * @return the value of the attribute param2.
      */
     public float getParam2() {
         return param2;
     }
 
     /**
-     * Define el valor de la propiedad param2.
-     * 
+     * Sets the value for the attribute param2.
+     * @param value value
      */
     public void setParam2(float value) {
         this.param2 = value;

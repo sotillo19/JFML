@@ -32,7 +32,7 @@ import jfml.term.Term;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "anYaDataCloudType", propOrder = {
@@ -50,10 +50,17 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
     @XmlAttribute(name = "networkAddress")
     protected String networkAddress;
 
+    /**
+     * Default constructor
+     */
     public AnYaDataCloudType() {
     	
     }
     
+    /**
+     * Constructor using the name
+     * @param name
+     */
     public AnYaDataCloudType(String name) {
 		super();
 		setName(name);

@@ -2,6 +2,7 @@ package jfml.knowledgebase.variable;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,7 +27,6 @@ import jfml.membershipfunction.MembershipFunction;
 import jfml.membershipfunction.SingletonMembershipFunction;
 import jfml.term.FuzzyTermType;
 import jfml.term.Term;
-import jfml.term.TsukamotoTermType;
 
 
 /**
@@ -53,7 +53,7 @@ import jfml.term.TsukamotoTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fuzzyVariableType", propOrder = {
@@ -127,7 +127,7 @@ public class FuzzyVariableType extends FuzzyVariable{
     /**
      * Returns the i-th FuzzyTerm
      * @param i
-     * @return
+     * @return the i-th FuzzyTerm
      */
     public FuzzyTermType getFuzzyTerm(int i) {
         if (fuzzyTerm != null && i<fuzzyTerm.size() && i>=0) {
@@ -138,8 +138,8 @@ public class FuzzyVariableType extends FuzzyVariable{
     }
     
     /**
-     * 
-     * @param ft
+     * Add a FuzzyTermType
+     * @param ft {@link FuzzyTermType }
      */
     public void addFuzzyTerm(FuzzyTermType ft){
     	if (fuzzyTerm == null) {

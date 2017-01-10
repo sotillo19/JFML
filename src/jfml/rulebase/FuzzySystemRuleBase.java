@@ -1,14 +1,17 @@
 package jfml.rulebase;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import jfml.enumeration.StandardActivationMethodType;
-import jfml.rule.FuzzyRuleType;
-import jfml.rule.Rule;
 
+/**
+ * Abstract class for representing Fuzzy Systems RuleBase.
+ * <p> Methods to evaluate rules, reset and get activation methods are included.
+ * 
+ * @author sotillo19
+ *
+ */
 @XmlAccessorType(XmlAccessType.NONE) // This is needed to ignore class
 										// attributes as xml tags in XML files
 public abstract class FuzzySystemRuleBase {
@@ -26,18 +29,42 @@ public abstract class FuzzySystemRuleBase {
 
 	protected int ruleBaseSystemType;
 
+	/**
+	 * Evaluates the rules
+	 */
 	public abstract void evaluate();
 	
+	/**
+	 * Defines the method used for the implication process.
+	 * @return the ActivationMethod according to {@link StandardActivationMethodType}
+	 */
 	public abstract String getActivationMethod();
 
 	/**
+	 * Gets the representation of the fuzzy system according to the static variables</br>
+	 * <p>
+	 * - TYPE_MAMDANI - Mamdani Rule Base </br>
+	 * - TYPE_TSUKAMOTO - tsukamoto Rule Base </br>
+	 * - TYPE_TSK - tsk Rule Base </br>
+	 * - TYPE_ANYA - AnYa Rule Base </br>
+	 * - TYPE_OTHER - other Rule Base </br>
 	 * 
-	 * @return
+	 * @return the representation of the fuzzy system 
 	 */
 	public int getRuleBaseSystemType() {
 		return this.ruleBaseSystemType;
 	}
 
+	/**
+	 * Gets the name of the Rule Base fuzzy system </br>
+	 * <p>
+	 * - TYPE_MAMDANI - mamdani </br>
+	 * - TYPE_TSUKAMOTO - tsukamoto </br>
+	 * - TYPE_TSK - tsk  </br>
+	 * - TYPE_ANYA - anYa  </br>
+	 * - TYPE_OTHER - other  </br>
+	 * @return the name of the Rule Base fuzzy system
+	 */
 	public String getRuleBaseSystemTypeName() {
 		switch (ruleBaseSystemType) {
 		case TYPE_MAMDANI:
@@ -54,27 +81,29 @@ public abstract class FuzzySystemRuleBase {
 	}
 
 	/**
-	 * Sets the fuzzy system type according to static variables
+	 * Sets the fuzzy system type according to static variables</br>
 	 * <p>
-	 * - TYPE_MAMDANI - Mamdani Rule Base - TYPE_TSUKAMOTO - tsukamoto Rule Base
-	 * - TYPE_TSK - tsk Rule Base - TYPE_ANYA - AnYa Rule Base - TYPE_OTHER -
-	 * other Rule Base
+	 * - TYPE_MAMDANI - Mamdani Rule Base </br>
+	 * - TYPE_TSUKAMOTO - tsukamoto Rule Base </br>
+	 * - TYPE_TSK - tsk Rule Base </br>
+	 * - TYPE_ANYA - AnYa Rule Base </br>
+	 * - TYPE_OTHER - other Rule Base </br>
 	 * 
-	 * @param type
+	 * @param type the type of the rule base
 	 */
 	public void setRuleBaseSystemType(int type) {
 		this.ruleBaseSystemType = type;
 	}
 
 	/**
-	 * - MIN for implementing the implication with the minimum as defined from Equation (A.28); 
-	 * - PROD for implementing the implication with the product  as defined from Equation (A.29); 
-	 * - BDIF for implementing the implication with bounded difference as defined from Equation (A.30); 
-	 * - DRP for implementing the implication with the drastic product as defined from Equation (A.31); 
-	 * - EPROD for implementing the implication with the Einstein product as defined from Equation (A.32); 
-	 * - HPROD for implementing the implication with the Hamacher product as defined from Equation (A.33); 
-	 * - NILMIN for implementing the implication with the Nilpotent minimum as defined from Equation (A.34); 
-	 * - custom_\S* for a custom implication method.
+	 * - MIN for implementing the implication with the minimum as defined from Equation (A.28); </br>
+	 * - PROD for implementing the implication with the product  as defined from Equation (A.29); </br>
+	 * - BDIF for implementing the implication with bounded difference as defined from Equation (A.30); </br>
+	 * - DRP for implementing the implication with the drastic product as defined from Equation (A.31); </br>
+	 * - EPROD for implementing the implication with the Einstein product as defined from Equation (A.32); </br>
+	 * - HPROD for implementing the implication with the Hamacher product as defined from Equation (A.33); </br>
+	 * - NILMIN for implementing the implication with the Nilpotent minimum as defined from Equation (A.34); </br>
+	 * - custom_\S* for a custom implication method.</br>
 	 * 
 	 * @param x
 	 *            degree of antecedent

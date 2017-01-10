@@ -4,19 +4,27 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing Rectangular membership functions
+ * @author sotillo19
+ *
+ */
 public class RectangularMembershipFunction extends MembershipFunction {
 
 	float a,b;
 	
 	String name="rectangular";
 	
+	/**
+	 * Default constructor
+	 */
 	public RectangularMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * 
-	 * @param p Parameter -> a and b. a<b
+	 * Constructor with a Parameter instance with the parameters a and b 
+	 * @param p Parameter -> a and b. Parameters a and b must satisfy a<=b
 	 */
 	public RectangularMembershipFunction(Parameter p) {
 		super(p);
@@ -28,6 +36,12 @@ public class RectangularMembershipFunction extends MembershipFunction {
 			throw new RuntimeException("Parameter ERROR: parameters must satisfy a<=b");
 	}
 
+	/**
+	 * Constructor with a Parameter and the left and right domain
+	 * @param p Parameter -> a and b. Parameters must satisfy a<=b
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public RectangularMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;

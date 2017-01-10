@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import jfml.knowledgebase.variable.KnowledgeBaseVariable;
+import jfml.term.FuzzyTerm;
+
 
 /**
  * <p>Java class for tskClauseType complex type.
@@ -24,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tskClauseType", propOrder = {
@@ -42,10 +45,18 @@ public class TskClauseType {
     @XmlSchemaType(name = "IDREF")
     protected Object term;
     
+    /**
+     * Default constructor
+     */
     public TskClauseType(){
     	
     }
 
+    /**
+     * Constructor using a variable and a term
+     * @param variable possible object is {@link KnowledgeBaseVariable } 
+     * @param term possible object is {@link FuzzyTerm }
+     */
     public TskClauseType(Object variable, Object term){
     	super();
     	this.setVariable(variable);

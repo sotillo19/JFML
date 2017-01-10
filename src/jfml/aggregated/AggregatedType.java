@@ -1,21 +1,22 @@
-package jfml.operator;
+package jfml.aggregated;
 
 /**
- * Abstract class for representing LogicalTypes
+ * Abstract class for representing the AggregatedType
  * @author sotillo19
  *
  */
-public abstract class LogicalType {
+public abstract class AggregatedType {
 
 	/**
 	 * Default constructor
 	 */
-	public LogicalType() {
+	public AggregatedType() {
 		
 	}
 
 	/**
 	 * Get the method for operator AND / OR
+	 * @return the method for operator AND / OR
 	 */
 	public abstract String getOperator();
 	
@@ -32,8 +33,8 @@ public abstract class LogicalType {
 
 	/**
 	 * Gets the aggregation depending on the operator AND / OR
-	 * @param degree1
-	 * @param degree2
+	 * @param degree1 the degree1
+	 * @param degree2 the degree2
 	 * @return the aggregation result
 	 */
 	public abstract float operate(float degree1, float degree2);

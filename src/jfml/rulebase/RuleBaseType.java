@@ -13,13 +13,10 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import jfml.defuzzifier.Defuzzifier;
 import jfml.defuzzifier.DefuzzifierContinuous;
-import jfml.defuzzifier.DefuzzifierDiscrete;
+import jfml.knowledgebase.variable.FuzzyVariable;
 import jfml.knowledgebase.variable.FuzzyVariableType;
-import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TsukamotoVariableType;
-import jfml.membershipfunction.SingletonMembershipFunction;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentClausesType;
 import jfml.rule.FuzzyRuleType;
@@ -46,7 +43,7 @@ import jfml.term.FuzzyTermType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ruleBaseType", propOrder = {
@@ -80,8 +77,8 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 
     /**
      * Constructor using name. Rest elements by default
-     * @param name
-     * @param type
+     * @param name name of the rule base
+     * @param type the ruleBaseSystemType 
      */
     public RuleBaseType(String name, int type){
     	super();
@@ -93,12 +90,13 @@ public class RuleBaseType extends FuzzySystemRuleBase{
     }
     
     /**
-     * 
-     * @param name
-     * @param activation
-     * @param and
-     * @param or
-     */
+	 * Constructor using the name, the activation method, the and, the or and the type
+	 * @param name name of the rule base
+	 * @param activation the method used for the implication process according to {@link StandardActivationMethodType }
+	 * @param and the and algorithm to be used
+	 * @param or the or algorithm to be used
+	 * @param type the ruleBaseSystemType
+	 */
     public RuleBaseType(String name, String activation, String and, String or, int type){
     	super();
     	setName(name);
@@ -123,6 +121,10 @@ public class RuleBaseType extends FuzzySystemRuleBase{
         return this.rules;
     }
     
+    /**
+     * Adds a FuzzyRuleType to the list of rules
+     * @param rule the FuzzyRuleType
+     */
     public void addRule(FuzzyRuleType rule){
     	if (rules == null) {
             rules = new ArrayList<FuzzyRuleType>();
@@ -267,6 +269,9 @@ public class RuleBaseType extends FuzzySystemRuleBase{
         this.networkAddress = value;
     }
 	
+    /**
+     * Evaluate the rules of the rule base
+     */
 	public void evaluate() {
 		//evaluate each rule
 		for(FuzzyRuleType r : getRules()){
@@ -383,7 +388,27 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 		List<ClauseType> clauses = r.getAntecedent().getClauses();
 		float[] degrees = new float[clauses.size()];
 		for(int i=0;i<clauses.size();i++){
-			ClauseType c= clauses.get(i);
+			ClauseType c = clauses.get(i);
+			FuzzyTerm t=null;
+			FuzzyVariable v=null;
+			if(c!=null && c.getTerm() instanceof FuzzyTerm)
+				t = (FuzzyTerm) c.getTerm();
+			if(c.getVariable() instanceof FuzzyVariable)
+				v = (FuzzyVariable) c.getVariable();
+				
+			if(t!=null && v!=null)
+				degrees[i] = c.modifierMembershipDegree(t.getMembershipValue(v.getValue()));
+		}
+		
+		//aggregate degrees (connector operator)
+		return r.aggregation(degrees);
+	}
+	
+	private float evaluateAntecedents1(FuzzyRuleType r){
+		List<ClauseType> clauses = r.getAntecedent().getClauses();
+		float[] degrees = new float[clauses.size()];
+		for(int i=0;i<clauses.size();i++){
+			ClauseType c = clauses.get(i);
 			FuzzyTermType t=null;
 			FuzzyVariableType v=null;
 			if(c!=null && c.getTerm() instanceof FuzzyTermType)

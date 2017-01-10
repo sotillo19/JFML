@@ -1,7 +1,6 @@
 package jfml.jaxb;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,7 +18,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.w3c.dom.Element;
 
 import jfml.knowledgebase.KnowledgeBaseType;
-import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.knowledgebase.variable.TskVariableType;
 import jfml.knowledgebase.variable.TsukamotoVariableType;
@@ -53,7 +51,7 @@ import jfml.rulebase.TskRuleBaseType;
  * &lt;/complexType>
  * </pre>
  * 
- * 
+ * @author sotillo19
  */
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -133,7 +131,7 @@ public class FuzzySystemType {
 	 * {@link JAXBElement }{@code <}{@link RuleBaseType }{@code >}
 	 * {@link Element }
 	 * 
-	 * 
+	 * @return a list of RuleBase
 	 */
 	public List<Object> getRuleBase() {
 		if (ruleBase == null) {
@@ -143,10 +141,10 @@ public class FuzzySystemType {
 	}
 
 	/**
-	 * Add a new RuleBase to the fuzzySystem
+	 * Adds a new RuleBase to the fuzzySystem
 	 * 
 	 * @param r
-	 *            allowed object is {@link FuzzySystemRuleBaseType }
+	 *            allowed object is {@link FuzzySystemRuleBase }
 	 */
 	public void addRuleBase(FuzzySystemRuleBase r) {
 		if (ruleBase == null) {

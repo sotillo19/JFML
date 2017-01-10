@@ -4,16 +4,28 @@ import java.util.ArrayList;
 
 import jfml.parameter.Parameter;
 
+/**
+ * Java class for representing S-Shape functions
+ * @author sotillo19
+ *
+ */
 public class SShapeMembershipFunction extends MembershipFunction implements Monotonical{
 
 	float a,b;
 	
 	String name="s-Shape";
 	
+	/**
+	 * Default constructor
+	 */
 	public SShapeMembershipFunction() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	/**
+	 * Constructor with a Parameter
+	 * @param p parameter with a and b value
+	 */
 	public SShapeMembershipFunction(Parameter p) {
 		super(p);
 		if(p!=null){
@@ -22,6 +34,12 @@ public class SShapeMembershipFunction extends MembershipFunction implements Mono
 		}
 	}
 
+	/**
+	 * Constructor with a parameter and left and right domain
+	 * @param p parameter with the parameters a and b
+	 * @param domainLeft left domain
+	 * @param domainRight right domain
+	 */
 	public SShapeMembershipFunction(Parameter p, float domainLeft, float domainRight) {
 		this(p);
 		this.domainLeft=domainLeft;
