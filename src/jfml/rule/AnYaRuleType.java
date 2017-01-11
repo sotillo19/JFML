@@ -18,22 +18,22 @@ import jfml.term.FuzzyTerm;
  * <p>Java class for anYaRuleType complex type.
  * 
  * <pre>
- * &lt;complexType name="anYaRuleType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="anYaAntecedent" type="{http://www.ieee1855.org}anYaAntecedentType"/>
- *         &lt;choice>
- *           &lt;element name="consequent" type="{http://www.ieee1855.org}consequentType"/>
- *           &lt;element name="tskConsequent" type="{http://www.ieee1855.org}tskConsequentType"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *       &lt;attribute name="weight" type="{http://www.ieee1855.org}weightType" default="1.0" />
- *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="anYaRuleType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="anYaAntecedent" type="{http://www.ieee1855.org}anYaAntecedentType"/&gt;
+ *         &lt;choice&gt;
+ *           &lt;element name="consequent" type="{http://www.ieee1855.org}consequentType"/&gt;
+ *           &lt;element name="tskConsequent" type="{http://www.ieee1855.org}tskConsequentType"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *       &lt;attribute name="weight" type="{http://www.ieee1855.org}weightType" default="1.0" /&gt;
+ *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

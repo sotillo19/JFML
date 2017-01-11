@@ -31,24 +31,24 @@ import jfml.rulebase.TskRuleBaseType;
  * Java class for the fuzzySystemType complex type.
  * 
  * <pre>
- * &lt;complexType name="fuzzySystemType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="knowledgeBase" type="{http://www.ieee1855.org}knowledgeBaseType"/>
- *         &lt;choice maxOccurs="unbounded">
- *           &lt;element name="mamdaniRuleBase" type="{http://www.ieee1855.org}ruleBaseType"/>
- *           &lt;element name="tsukamotoRuleBase" type="{http://www.ieee1855.org}ruleBaseType"/>
- *           &lt;element name="tskRuleBase" type="{http://www.ieee1855.org}tskRuleBaseType"/>
- *           &lt;element name="anYaRuleBase" type="{http://www.ieee1855.org}anYaRuleBaseType"/>
- *           &lt;any processContents='lax' namespace='##other' minOccurs="0"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="fuzzySystemType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="knowledgeBase" type="{http://www.ieee1855.org}knowledgeBaseType"/&gt;
+ *         &lt;choice maxOccurs="unbounded"&gt;
+ *           &lt;element name="mamdaniRuleBase" type="{http://www.ieee1855.org}ruleBaseType"/&gt;
+ *           &lt;element name="tsukamotoRuleBase" type="{http://www.ieee1855.org}ruleBaseType"/&gt;
+ *           &lt;element name="tskRuleBase" type="{http://www.ieee1855.org}tskRuleBaseType"/&gt;
+ *           &lt;element name="anYaRuleBase" type="{http://www.ieee1855.org}anYaRuleBaseType"/&gt;
+ *           &lt;any processContents='lax' namespace='##other' minOccurs="0"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19
@@ -85,7 +85,7 @@ public class FuzzySystemType {
 	/**
 	 * Constructor using the FuzzySystem name
 	 * 
-	 * @param name
+	 * @param name the fuzzy System name
 	 */
 	public FuzzySystemType(String name) {
 		super();

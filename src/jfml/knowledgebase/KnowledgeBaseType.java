@@ -26,23 +26,23 @@ import jfml.knowledgebase.variable.TsukamotoVariableType;
  * <p>Java class for knowledgeBaseType complex type.
  *  
  * <pre>
- * &lt;complexType name="knowledgeBaseType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;choice maxOccurs="unbounded" minOccurs="2">
- *           &lt;element name="fuzzyVariable" type="{http://www.ieee1855.org}fuzzyVariableType"/>
- *           &lt;element name="tsukamotoVariable" type="{http://www.ieee1855.org}tsukamotoVariableType"/>
- *           &lt;element name="aggregatedFuzzyVariable" type="{http://www.ieee1855.org}aggregatedFuzzyVariableType"/>
- *           &lt;element name="tskVariable" type="{http://www.ieee1855.org}tskVariableType"/>
- *           &lt;element name="anYaDataCloud" type="{http://www.ieee1855.org}anYaDataCloudType"/>
- *           &lt;any processContents='lax' namespace='##other' minOccurs="0"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="knowledgeBaseType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;choice maxOccurs="unbounded" minOccurs="2"&gt;
+ *           &lt;element name="fuzzyVariable" type="{http://www.ieee1855.org}fuzzyVariableType"/&gt;
+ *           &lt;element name="tsukamotoVariable" type="{http://www.ieee1855.org}tsukamotoVariableType"/&gt;
+ *           &lt;element name="aggregatedFuzzyVariable" type="{http://www.ieee1855.org}aggregatedFuzzyVariableType"/&gt;
+ *           &lt;element name="tskVariable" type="{http://www.ieee1855.org}tskVariableType"/&gt;
+ *           &lt;element name="anYaDataCloud" type="{http://www.ieee1855.org}anYaDataCloudType"/&gt;
+ *           &lt;any processContents='lax' namespace='##other' minOccurs="0"/&gt;
+ *         &lt;/choice&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

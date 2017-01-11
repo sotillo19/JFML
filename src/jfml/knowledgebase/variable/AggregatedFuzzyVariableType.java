@@ -18,21 +18,23 @@ import jfml.term.Term;
 
 
 /**
- * <p>Java class for aggregatedFuzzyVariableType complex type.
+ * <p>Java class for aggregatedFuzzyVariableType complex type. 
+ * 
+ * <p>Represents an input fuzzy variable that can be used to aggregate two or more fuzzy variables related to a given FLS
  * 
  * <pre>
- * &lt;complexType name="aggregatedFuzzyVariableType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="aggregatedFuzzyTerm" type="{http://www.ieee1855.org}aggregatedFuzzyTermType" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *       &lt;attribute name="type" type="{http://www.ieee1855.org}typeType" fixed="input" />
- *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="aggregatedFuzzyVariableType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="aggregatedFuzzyTerm" type="{http://www.ieee1855.org}aggregatedFuzzyTermType" maxOccurs="unbounded"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *       &lt;attribute name="type" type="{http://www.ieee1855.org}typeType" fixed="input" /&gt;
+ *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

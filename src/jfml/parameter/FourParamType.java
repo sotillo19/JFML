@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for the fourParamType complex type.
  *  
  * <pre>
- * &lt;complexType name="fourParamType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="param1" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="param2" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="param3" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="param4" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="fourParamType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;attribute name="param1" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="param2" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="param3" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="param4" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

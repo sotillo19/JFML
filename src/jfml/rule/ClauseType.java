@@ -18,17 +18,17 @@ import jfml.term.FuzzyTermType;
  * <p>Java class for clauseType complex type.
  *  
  * <pre>
- * &lt;complexType name="clauseType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="variable" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
- *         &lt;element name="term" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
- *       &lt;/sequence>
- *       &lt;attribute name="modifier" type="{http://www.ieee1855.org}modifierType" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="clauseType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="variable" type="{http://www.w3.org/2001/XMLSchema}IDREF"/&gt;
+ *         &lt;element name="term" type="{http://www.w3.org/2001/XMLSchema}IDREF"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="modifier" type="{http://www.ieee1855.org}modifierType" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

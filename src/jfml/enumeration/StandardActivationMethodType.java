@@ -8,17 +8,17 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for standardActivationMethodType.
  * 
  * <pre>
- * &lt;simpleType name="standardActivationMethodType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="MIN"/>
- *     &lt;enumeration value="PROD"/>
- *     &lt;enumeration value="BDIF"/>
- *     &lt;enumeration value="DRP"/>
- *     &lt;enumeration value="EPROD"/>
- *     &lt;enumeration value="HPROD"/>
- *     &lt;enumeration value="NILMIN"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="standardActivationMethodType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="MIN"/&gt;
+ *     &lt;enumeration value="PROD"/&gt;
+ *     &lt;enumeration value="BDIF"/&gt;
+ *     &lt;enumeration value="DRP"/&gt;
+ *     &lt;enumeration value="EPROD"/&gt;
+ *     &lt;enumeration value="HPROD"/&gt;
+ *     &lt;enumeration value="NILMIN"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * @author sotillo19
  */

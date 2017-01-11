@@ -19,25 +19,25 @@ import jfml.rule.ClauseType;
  * <p>Java class for orAggregatedType complex type.
  * 
  * <pre>
- * &lt;complexType name="orAggregatedType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;sequence>
- *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType" maxOccurs="2" minOccurs="2"/>
- *         &lt;/sequence>
- *         &lt;sequence>
- *           &lt;choice>
- *             &lt;element name="and" type="{http://www.ieee1855.org}andAggregatedType"/>
- *             &lt;element name="or" type="{http://www.ieee1855.org}orAggregatedType"/>
- *           &lt;/choice>
- *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType"/>
- *         &lt;/sequence>
- *       &lt;/choice>
- *       &lt;attribute name="t-conorm" type="{http://www.ieee1855.org}orMethodType" default="MAX" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="orAggregatedType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType" maxOccurs="2" minOccurs="2"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;sequence&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="and" type="{http://www.ieee1855.org}andAggregatedType"/&gt;
+ *             &lt;element name="or" type="{http://www.ieee1855.org}orAggregatedType"/&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute name="t-conorm" type="{http://www.ieee1855.org}orMethodType" default="MAX" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19
@@ -66,8 +66,8 @@ public class OrAggregatedType extends AggregatedType{
     
     /**
      * Or constructor using default tConorm = MAX
-     * @param c1 {@link String} with the name of term1
-     * @param c2 {@link String} with the name of term2
+     * @param c1 {@link ClauseType} 
+     * @param c2 {@link ClauseType} 
      */
     public OrAggregatedType(ClauseType c1, ClauseType c2){
     	this.tConorm="MAX";
@@ -127,8 +127,8 @@ public class OrAggregatedType extends AggregatedType{
     /**
      * Or constructor using tConorm as method for or operator
      * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
-     * @param c1 
-     * @param c2
+     * @param c1 ClauseType
+     * @param c2 ClauseType
      */
     public OrAggregatedType(String tConorm, ClauseType c1, ClauseType c2){
     	super();
@@ -144,8 +144,8 @@ public class OrAggregatedType extends AggregatedType{
     /**
      * Or constructor using tConorm as method for or operator
      * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
-     * @param c1 
-     * @param term2
+     * @param c1 ClauseType
+     * @param term2 AndAggregatedType
      */
     public OrAggregatedType(String tConorm, ClauseType c1, AndAggregatedType term2){
     	super();
@@ -161,8 +161,8 @@ public class OrAggregatedType extends AggregatedType{
     /**
      * Or constructor using tConorm as method for or operator
      * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 AndAggregatedType
+     * @param term2 AndAggregatedType
      */
     public OrAggregatedType(String tConorm, AndAggregatedType term1, AndAggregatedType term2){
     	super();
@@ -178,8 +178,8 @@ public class OrAggregatedType extends AggregatedType{
     /**
      * Or constructor using tConorm as method for or operator
      * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 AndAggregatedType
+     * @param term2 OrAggregatedType
      */
     public OrAggregatedType(String tConorm, AndAggregatedType term1, OrAggregatedType term2){
     	super();
@@ -195,8 +195,8 @@ public class OrAggregatedType extends AggregatedType{
     /**
      * Or constructor using tConorm as method for or operator
      * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 OrAggregatedType
+     * @param term2 AndAggregatedType
      */
     public OrAggregatedType(String tConorm, OrAggregatedType term1, AndAggregatedType term2){
     	super();
@@ -212,8 +212,8 @@ public class OrAggregatedType extends AggregatedType{
     /**
      * Or constructor using tConorm as method for or operator
      * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 OrAggregatedType
+     * @param term2 OrAggregatedType
      */
     public OrAggregatedType(String tConorm, OrAggregatedType term1, OrAggregatedType term2){
     	super();
@@ -235,7 +235,7 @@ public class OrAggregatedType extends AggregatedType{
      * {@link JAXBElement }{@code <}{@link AndAggregatedType }{@code >}
      * {@link JAXBElement }{@code <}{@link OrAggregatedType }{@code >}
      * 
-     * 
+     * @return OrAggregatedType or ClauseType or AndAggregatedType
      */
     public List<JAXBElement<?>> getContent() {
         if (content == null) {

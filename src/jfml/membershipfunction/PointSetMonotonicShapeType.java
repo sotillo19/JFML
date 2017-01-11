@@ -17,16 +17,16 @@ import jfml.enumeration.MonotonicInterpolationMethodType;
  * <p>Java class for pointSetMonotonicShapeType complex type.
  * 
  * <pre>
- * &lt;complexType name="pointSetMonotonicShapeType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="point" type="{http://www.ieee1855.org}pointType" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="interpolationMethod" type="{http://www.ieee1855.org}monotonicInterpolationMethodType" default="linear" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="pointSetMonotonicShapeType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="point" type="{http://www.ieee1855.org}pointType" maxOccurs="unbounded"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="interpolationMethod" type="{http://www.ieee1855.org}monotonicInterpolationMethodType" default="linear" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

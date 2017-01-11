@@ -20,17 +20,17 @@ import jfml.rule.ClauseType;
  * <p>Java class for aggregatedFuzzyTermType complex type.
  * 
  * <pre>
- * &lt;complexType name="aggregatedFuzzyTermType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="and" type="{http://www.ieee1855.org}andAggregatedType"/>
- *         &lt;element name="or" type="{http://www.ieee1855.org}orAggregatedType"/>
- *       &lt;/choice>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="aggregatedFuzzyTermType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="and" type="{http://www.ieee1855.org}andAggregatedType"/&gt;
+ *         &lt;element name="or" type="{http://www.ieee1855.org}orAggregatedType"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

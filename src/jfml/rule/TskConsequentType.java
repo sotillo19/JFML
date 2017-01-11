@@ -14,16 +14,16 @@ import jfml.term.TskTerm;
  * <p>Java class for tskConsequentType complex type.
  * 
  * <pre>
- * &lt;complexType name="tskConsequentType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="tskThen" type="{http://www.ieee1855.org}tskConsequentClausesType"/>
- *         &lt;element name="tskElse" type="{http://www.ieee1855.org}tskConsequentClausesType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="tskConsequentType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="tskThen" type="{http://www.ieee1855.org}tskConsequentClausesType"/&gt;
+ *         &lt;element name="tskElse" type="{http://www.ieee1855.org}tskConsequentClausesType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

@@ -8,15 +8,15 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for standardDefuzzifierType.
  * 
  * <pre>
- * &lt;simpleType name="standardDefuzzifierType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="MOM"/>
- *     &lt;enumeration value="LM"/>
- *     &lt;enumeration value="RM"/>
- *     &lt;enumeration value="COG"/>
- *     &lt;enumeration value="COA"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="standardDefuzzifierType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="MOM"/&gt;
+ *     &lt;enumeration value="LM"/&gt;
+ *     &lt;enumeration value="RM"/&gt;
+ *     &lt;enumeration value="COG"/&gt;
+ *     &lt;enumeration value="COA"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * @author sotillo19
  */

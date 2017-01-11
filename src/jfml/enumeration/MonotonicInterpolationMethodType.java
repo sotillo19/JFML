@@ -9,12 +9,12 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for monotonicInterpolationMethodType.
  * 
  * <pre>
- * &lt;simpleType name="monotonicInterpolationMethodType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="linear"/>
- *     &lt;enumeration value="cubic"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="monotonicInterpolationMethodType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="linear"/&gt;
+ *     &lt;enumeration value="cubic"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * @author sotillo19
  */

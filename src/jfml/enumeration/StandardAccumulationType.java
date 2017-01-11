@@ -8,17 +8,17 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for standardAccumulationType.
  * 
  * <pre>
- * &lt;simpleType name="standardAccumulationType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="MAX"/>
- *     &lt;enumeration value="PROBOR"/>
- *     &lt;enumeration value="BSUM"/>
- *     &lt;enumeration value="DRS"/>
- *     &lt;enumeration value="ESUM"/>
- *     &lt;enumeration value="HSUM"/>
- *     &lt;enumeration value="NILMAX"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="standardAccumulationType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="MAX"/&gt;
+ *     &lt;enumeration value="PROBOR"/&gt;
+ *     &lt;enumeration value="BSUM"/&gt;
+ *     &lt;enumeration value="DRS"/&gt;
+ *     &lt;enumeration value="ESUM"/&gt;
+ *     &lt;enumeration value="HSUM"/&gt;
+ *     &lt;enumeration value="NILMAX"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * @author sotillo19
  */

@@ -33,24 +33,24 @@ import jfml.term.Term;
  * <p>Java class for the fuzzyVariableType complex type from IEEE Standard 1855.
  * 
  * <pre>
- * &lt;complexType name="fuzzyVariableType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="fuzzyTerm" type="{http://www.ieee1855.org}fuzzyTermType" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *       &lt;attribute name="scale" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="domainleft" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="domainright" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
- *       &lt;attribute name="type" type="{http://www.ieee1855.org}typeType" default="input" />
- *       &lt;attribute name="accumulation" type="{http://www.ieee1855.org}accumulationType" default="MAX" />
- *       &lt;attribute name="defuzzifier" type="{http://www.ieee1855.org}defuzzifierType" default="COG" />
- *       &lt;attribute name="defaultValue" type="{http://www.w3.org/2001/XMLSchema}float" default="0" />
- *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="fuzzyVariableType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="fuzzyTerm" type="{http://www.ieee1855.org}fuzzyTermType" maxOccurs="unbounded"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *       &lt;attribute name="scale" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="domainleft" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="domainright" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="type" type="{http://www.ieee1855.org}typeType" default="input" /&gt;
+ *       &lt;attribute name="accumulation" type="{http://www.ieee1855.org}accumulationType" default="MAX" /&gt;
+ *       &lt;attribute name="defuzzifier" type="{http://www.ieee1855.org}defuzzifierType" default="COG" /&gt;
+ *       &lt;attribute name="defaultValue" type="{http://www.w3.org/2001/XMLSchema}float" default="0" /&gt;
+ *       &lt;attribute name="networkAddress" type="{http://www.ieee1855.org}networkAddressType" default="127.0.0.1" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

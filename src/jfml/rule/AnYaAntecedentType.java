@@ -12,16 +12,16 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for anYaAntecedentType complex type.
  * 
  * <pre>
- * &lt;complexType name="anYaAntecedentType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="dataCloudName" type="{http://www.w3.org/2001/XMLSchema}IDREF"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * &lt;complexType name="anYaAntecedentType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="dataCloudName" type="{http://www.w3.org/2001/XMLSchema}IDREF"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre&gt;
  * 
  * @author sotillo19
  */

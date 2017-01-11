@@ -9,23 +9,23 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for standardModifierType.
  * 
  * <pre>
- * &lt;simpleType name="standardModifierType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="above"/>
- *     &lt;enumeration value="any"/>
- *     &lt;enumeration value="below"/>
- *     &lt;enumeration value="extremely"/>
- *     &lt;enumeration value="intensify"/>
- *     &lt;enumeration value="more_or_less"/>
- *     &lt;enumeration value="norm"/>
- *     &lt;enumeration value="not"/>
- *     &lt;enumeration value="plus"/>
- *     &lt;enumeration value="seldom"/>
- *     &lt;enumeration value="slightly"/>
- *     &lt;enumeration value="somewhat"/>
- *     &lt;enumeration value="very"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="standardModifierType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="above"/&gt;
+ *     &lt;enumeration value="any"/&gt;
+ *     &lt;enumeration value="below"/&gt;
+ *     &lt;enumeration value="extremely"/&gt;
+ *     &lt;enumeration value="intensify"/&gt;
+ *     &lt;enumeration value="more_or_less"/&gt;
+ *     &lt;enumeration value="norm"/&gt;
+ *     &lt;enumeration value="not"/&gt;
+ *     &lt;enumeration value="plus"/&gt;
+ *     &lt;enumeration value="seldom"/&gt;
+ *     &lt;enumeration value="slightly"/&gt;
+ *     &lt;enumeration value="somewhat"/&gt;
+ *     &lt;enumeration value="very"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * @author sotillo19
  */

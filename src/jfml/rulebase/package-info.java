@@ -1,8 +1,5 @@
+/**
+ * Classes for representing collections of fuzzy rules to model a system’s behavior (Mamdani, Tsukamoto, TSK and AnYa).
+ */
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.ieee1855.org", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package jfml.rulebase;
-
-/*@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.ieee1855.org", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED,xmlns = {
-		@XmlNs(prefix="", namespaceURI="http://www.ieee1855.org")})
-package jfml;
-
-import javax.xml.bind.annotation.XmlNs;*/

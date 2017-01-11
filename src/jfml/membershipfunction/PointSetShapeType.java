@@ -17,17 +17,17 @@ import jfml.enumeration.InterpolationMethodType;
  * <p>Java class for pointSetShapeType complex type.
  * 
  * <pre>
- * &lt;complexType name="pointSetShapeType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="point" type="{http://www.ieee1855.org}pointType" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *       &lt;attribute name="interpolationMethod" type="{http://www.ieee1855.org}interpolationMethodType" default="linear" />
- *       &lt;attribute name="degree" type="{http://www.w3.org/2001/XMLSchema}int" default="3" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="pointSetShapeType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="point" type="{http://www.ieee1855.org}pointType" maxOccurs="unbounded"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="interpolationMethod" type="{http://www.ieee1855.org}interpolationMethodType" default="linear" /&gt;
+ *       &lt;attribute name="degree" type="{http://www.w3.org/2001/XMLSchema}int" default="3" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

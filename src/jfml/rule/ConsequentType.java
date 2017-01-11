@@ -13,16 +13,16 @@ import jfml.term.FuzzyTerm;
  * <p>Java class for consequentType complex type.
  * 
  * <pre>
- * &lt;complexType name="consequentType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="then" type="{http://www.ieee1855.org}consequentClausesType"/>
- *         &lt;element name="else" type="{http://www.ieee1855.org}consequentClausesType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="consequentType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="then" type="{http://www.ieee1855.org}consequentClausesType"/&gt;
+ *         &lt;element name="else" type="{http://www.ieee1855.org}consequentClausesType" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

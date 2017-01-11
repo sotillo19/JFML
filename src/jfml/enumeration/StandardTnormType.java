@@ -8,17 +8,17 @@ import javax.xml.bind.annotation.XmlType;
  * <p>Java class for standardTnormType.
  * 
  * <pre>
- * &lt;simpleType name="standardTnormType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="MIN"/>
- *     &lt;enumeration value="PROD"/>
- *     &lt;enumeration value="BSUM"/>
- *     &lt;enumeration value="DRS"/>
- *     &lt;enumeration value="EPROD"/>
- *     &lt;enumeration value="HPROD"/>
- *     &lt;enumeration value="NILMIN"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
+ * &lt;simpleType name="standardTnormType"&gt;
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *     &lt;enumeration value="MIN"/&gt;
+ *     &lt;enumeration value="PROD"/&gt;
+ *     &lt;enumeration value="BSUM"/&gt;
+ *     &lt;enumeration value="DRS"/&gt;
+ *     &lt;enumeration value="EPROD"/&gt;
+ *     &lt;enumeration value="HPROD"/&gt;
+ *     &lt;enumeration value="NILMIN"/&gt;
+ *   &lt;/restriction&gt;
+ * &lt;/simpleType&gt;
  * </pre>
  * @author sotillo19
  * 

@@ -28,30 +28,30 @@ import jfml.parameter.TwoParamType;
  * <p>Java class for tsukamotoTermType complex type.
  * 
  * <pre>
- * &lt;complexType name="tsukamotoTermType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="rightLinearShape" type="{http://www.ieee1855.org}twoParamType"/>
- *         &lt;element name="leftLinearShape" type="{http://www.ieee1855.org}twoParamType"/>
- *         &lt;element name="rightGaussianShape" type="{http://www.ieee1855.org}twoParamType"/>
- *         &lt;element name="leftGaussianShape" type="{http://www.ieee1855.org}twoParamType"/>
- *         &lt;element name="zShape" type="{http://www.ieee1855.org}twoParamType"/>
- *         &lt;element name="sShape" type="{http://www.ieee1855.org}twoParamType"/>
- *         &lt;element name="pointSetMonotonicShape" type="{http://www.ieee1855.org}pointSetMonotonicShapeType"/>
- *         &lt;element name="customMonotonicShape" type="{http://www.ieee1855.org}customShapeType"/>
- *       &lt;/choice>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *       &lt;attribute name="complement" default="false">
- *         &lt;simpleType>
- *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *             &lt;pattern value="true|false|TRUE|FALSE|True|False"/>
- *           &lt;/restriction>
- *         &lt;/simpleType>
- *       &lt;/attribute>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="tsukamotoTermType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;element name="rightLinearShape" type="{http://www.ieee1855.org}twoParamType"/&gt;
+ *         &lt;element name="leftLinearShape" type="{http://www.ieee1855.org}twoParamType"/&gt;
+ *         &lt;element name="rightGaussianShape" type="{http://www.ieee1855.org}twoParamType"/&gt;
+ *         &lt;element name="leftGaussianShape" type="{http://www.ieee1855.org}twoParamType"/&gt;
+ *         &lt;element name="zShape" type="{http://www.ieee1855.org}twoParamType"/&gt;
+ *         &lt;element name="sShape" type="{http://www.ieee1855.org}twoParamType"/&gt;
+ *         &lt;element name="pointSetMonotonicShape" type="{http://www.ieee1855.org}pointSetMonotonicShapeType"/&gt;
+ *         &lt;element name="customMonotonicShape" type="{http://www.ieee1855.org}customShapeType"/&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *       &lt;attribute name="complement" default="false"&gt;
+ *         &lt;simpleType&gt;
+ *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
+ *             &lt;pattern value="true|false|TRUE|FALSE|True|False"/&gt;
+ *           &lt;/restriction&gt;
+ *         &lt;/simpleType&gt;
+ *       &lt;/attribute&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19

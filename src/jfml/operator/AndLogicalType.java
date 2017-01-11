@@ -18,26 +18,26 @@ import jfml.term.CircularTermType;
  * <p>Java class for andLogicalType complex type.
  * 
  * <pre>
- * &lt;complexType name="andLogicalType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;sequence>
- *           &lt;element name="termName" type="{http://www.ieee1855.org}circularTermType" maxOccurs="2" minOccurs="2"/>
- *         &lt;/sequence>
- *         &lt;sequence>
- *           &lt;choice>
- *             &lt;element name="and" type="{http://www.ieee1855.org}andLogicalType"/>
- *             &lt;element name="or" type="{http://www.ieee1855.org}orLogicalType"/>
- *           &lt;/choice>
- *           &lt;element name="termName" type="{http://www.ieee1855.org}circularTermType"/>
- *         &lt;/sequence>
- *       &lt;/choice>
- *       &lt;attribute name="t-norm" type="{http://www.ieee1855.org}andMethodType" default="MIN" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * &lt;complexType name="andLogicalType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="termName" type="{http://www.ieee1855.org}circularTermType" maxOccurs="2" minOccurs="2"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;sequence&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="and" type="{http://www.ieee1855.org}andLogicalType"/&gt;
+ *             &lt;element name="or" type="{http://www.ieee1855.org}orLogicalType"/&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element name="termName" type="{http://www.ieee1855.org}circularTermType"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute name="t-norm" type="{http://www.ieee1855.org}andMethodType" default="MIN" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre&gt;
  * 
  * @author sotillo19
  */

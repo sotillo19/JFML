@@ -12,8 +12,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import jfml.enumeration.StandardAndMethodType;
 import jfml.jaxb.ObjectFactory;
-import jfml.operator.AndLogicalType;
-import jfml.operator.OrLogicalType;
 import jfml.rule.ClauseType;
 
 
@@ -21,25 +19,25 @@ import jfml.rule.ClauseType;
  * <p>Java class for andAggregatedType complex type.
  * 
  * <pre>
- * &lt;complexType name="andAggregatedType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;sequence>
- *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType" maxOccurs="2" minOccurs="2"/>
- *         &lt;/sequence>
- *         &lt;sequence>
- *           &lt;choice>
- *             &lt;element name="and" type="{http://www.ieee1855.org}andAggregatedType"/>
- *             &lt;element name="or" type="{http://www.ieee1855.org}orAggregatedType"/>
- *           &lt;/choice>
- *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType"/>
- *         &lt;/sequence>
- *       &lt;/choice>
- *       &lt;attribute name="t-norm" type="{http://www.ieee1855.org}andMethodType" default="MIN" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="andAggregatedType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;choice&gt;
+ *         &lt;sequence&gt;
+ *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType" maxOccurs="2" minOccurs="2"/&gt;
+ *         &lt;/sequence&gt;
+ *         &lt;sequence&gt;
+ *           &lt;choice&gt;
+ *             &lt;element name="and" type="{http://www.ieee1855.org}andAggregatedType"/&gt;
+ *             &lt;element name="or" type="{http://www.ieee1855.org}orAggregatedType"/&gt;
+ *           &lt;/choice&gt;
+ *           &lt;element name="clause" type="{http://www.ieee1855.org}clauseType"/&gt;
+ *         &lt;/sequence&gt;
+ *       &lt;/choice&gt;
+ *       &lt;attribute name="t-norm" type="{http://www.ieee1855.org}andMethodType" default="MIN" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * @author sotillo19
@@ -68,8 +66,8 @@ public class AndAggregatedType extends AggregatedType{
     
     /**
      * And constructor using default t-norm = MIN
-     * @param c1 {@link String} with the name of term1
-     * @param c2 {@link String} with the name of term2
+     * @param c1 {@link ClauseType} 
+     * @param c2 {@link ClauseType} 
      */
     public AndAggregatedType(ClauseType c1, ClauseType c2){
     	this.tNorm="MIN";
@@ -78,8 +76,8 @@ public class AndAggregatedType extends AggregatedType{
     
     /**
      * And constructor using default t-norm = MIN
-     * @param c1 
-     * @param term2 {@link AndLogicalType} term2
+     * @param c1 ClauseType
+     * @param term2 {@link AndAggregatedType} term2
      */
     public AndAggregatedType(ClauseType c1, AndAggregatedType term2){
     	this.tNorm="MIN";
@@ -88,8 +86,8 @@ public class AndAggregatedType extends AggregatedType{
     
     /**
      * And constructor using default t-norm = MIN
-     * @param term1 {@link AndLogicalType} term1
-     * @param term2 {@link AndLogicalType} term2
+     * @param term1 {@link AndAggregatedType} term1
+     * @param term2 {@link AndAggregatedType} term2
      */
     public AndAggregatedType(AndAggregatedType term1, AndAggregatedType term2){
     	this.tNorm="MIN";
@@ -98,8 +96,8 @@ public class AndAggregatedType extends AggregatedType{
     
     /**
      * And constructor using default t-norm = MIN
-     * @param term1 {@link AndLogicalType} term1
-     * @param term2 {@link OrLogicalType} term2
+     * @param term1 {@link AndAggregatedType} term1
+     * @param term2 {@link OrAggregatedType} term2
      */
     public AndAggregatedType(AndAggregatedType term1, OrAggregatedType term2){
     	this.tNorm="MIN";
@@ -108,8 +106,8 @@ public class AndAggregatedType extends AggregatedType{
     
     /**
      * And constructor using default t-norm = MIN
-     * @param term1 {@link OrLogicalType} term1
-     * @param term2 {@link AndLogicalType} term2
+     * @param term1 {@link OrAggregatedType} term1
+     * @param term2 {@link AndAggregatedType} term2
      */
     public AndAggregatedType(OrAggregatedType term1, AndAggregatedType term2){
     	this.tNorm="MIN";
@@ -118,8 +116,8 @@ public class AndAggregatedType extends AggregatedType{
     
     /**
      * And constructor using default t-norm = MIN
-     * @param term1 {@link OrLogicalType} term1
-     * @param term2 {@link OrLogicalType} term2
+     * @param term1 {@link OrAggregatedType} term1
+     * @param term2 {@link OrAggregatedType} term2
      */
     public AndAggregatedType(OrAggregatedType term1, OrAggregatedType term2){
     	this.tNorm="MIN";
@@ -129,8 +127,8 @@ public class AndAggregatedType extends AggregatedType{
     /**
      * AND constructor using t-norm as method for and operator
      * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
-     * @param c1 
-     * @param c2
+     * @param c1 ClauseType
+     * @param c2 ClauseType
      */
     public AndAggregatedType(String tNorm, ClauseType c1, ClauseType c2){
     	super();
@@ -146,8 +144,8 @@ public class AndAggregatedType extends AggregatedType{
     /**
      * AND constructor using t-norm as method for and operator
      * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
-     * @param c1 
-     * @param term2
+     * @param c1 ClauseType
+     * @param term2 AndAggregatedType
      */
     public AndAggregatedType(String tNorm, ClauseType c1, AndAggregatedType term2){
     	super();
@@ -163,8 +161,8 @@ public class AndAggregatedType extends AggregatedType{
     /**
      * AND constructor using t-norm as method for and operator
      * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 AndAggregatedType
+     * @param term2 AndAggregatedType
      */
     public AndAggregatedType(String tNorm, AndAggregatedType term1, AndAggregatedType term2){
     	super();
@@ -180,8 +178,8 @@ public class AndAggregatedType extends AggregatedType{
     /**
      * AND constructor using t-norm as method for and operator
      * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 AndAggregatedType
+     * @param term2 OrAggregatedType
      */
     public AndAggregatedType(String tNorm, AndAggregatedType term1, OrAggregatedType term2){
     	super();
@@ -197,8 +195,8 @@ public class AndAggregatedType extends AggregatedType{
     /**
      * AND constructor using t-norm as method for and operator
      * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 OrAggregatedType
+     * @param term2 AndAggregatedType
      */
     public AndAggregatedType(String tNorm, OrAggregatedType term1, AndAggregatedType term2){
     	super();
@@ -214,8 +212,8 @@ public class AndAggregatedType extends AggregatedType{
     /**
      * AND constructor using t-norm as method for and operator
      * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
-     * @param term1 
-     * @param term2
+     * @param term1 OrAggregatedType
+     * @param term2 OrAggregatedType
      */
     public AndAggregatedType(String tNorm, OrAggregatedType term1, OrAggregatedType term2){
     	super();
@@ -236,7 +234,7 @@ public class AndAggregatedType extends AggregatedType{
      * {@link JAXBElement }{@code <}{@link ClauseType }{@code >}
      * {@link JAXBElement }{@code <}{@link AndAggregatedType }{@code >}
      * 
-     * 
+     * @return OrAggregatedType or ClauseType or AndAggregatedType
      */
     public List<JAXBElement<?>> getContent() {
         if (content == null) {
