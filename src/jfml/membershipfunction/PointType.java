@@ -83,10 +83,16 @@ public class PointType implements Comparator<PointType>{
     public void setY(float value) {
         this.y = value;
     }
+    
+    @Override
+    public String toString(){
+    	return "["+x + ", "+y+"]";
+    }
 
 	@Override
 	public int compare(PointType o1, PointType o2) {
 		int r=0;
+		int sorting=1;
 		if (o1.getX() == o2.getX())
             return 0;
 
@@ -94,7 +100,8 @@ public class PointType implements Comparator<PointType>{
             r=-1;
         else
         	r=1;
-        return r;
+        
+        return r*sorting;
 	}
 
 }

@@ -149,6 +149,9 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 
 	@Override
 	public float getMembershipDegree(float x) {
+		if(!isMonotonic())
+			throw new RuntimeException("Points: "+point.toString()+" are not monotonic");
+		
 		MonotonicInterpolationMethodType interpolation = getInterpolationMethod();
 		if(interpolation.value().equals(MonotonicInterpolationMethodType.LINEAR.value()) )
 			return linearInterpolation(x);
@@ -159,6 +162,21 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 
 	}
 	
+	private boolean isMonotonic() {
+		Collections.sort(getPoints(),new PointType());
+		int count = 0;
+		for(int i=1;i<getPoints().size();i++)
+			if(getPoints().get(i-1).getY()<getPoints().get(i).getY())
+				count++;
+			else
+				count--;
+		
+		if(Math.abs(count)==getPoints().size()-1)
+			return true;
+		else
+			return false;
+	}
+
 	private boolean preprocesingDataCubicInterpolation(){
 		Collections.sort(getPoints(),new PointType());
 		int n=getPoints().size();
@@ -194,7 +212,7 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 					if(a<0 || b<0)
 						m[i]=0;
 					if(!checkMonotonicity(a,b))
-						throw new RuntimeException("The monotonocity is not possible with these input data points");
+						throw new RuntimeException("The monotonocity is not possible with these input data points: "+point.toString());
 				}
 			}
 			m[0]=d[0];
@@ -214,6 +232,10 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 	private float f_interpolated(float x) {
 		int i_lower = lower(x);
 		int i_upper = upper(x);
+		
+		if(i_lower == i_upper)
+			return getPoints().get(i_lower).getY();
+		
 		PointType p_lower = getPoints().get(i_lower);
 		PointType p_upper = getPoints().get(i_upper);
 		float m_lower = m[i_lower];
@@ -260,16 +282,20 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 
 	private int upper(float x) {
 		for(int i=0;i<getPoints().size();i++)
-			if(getPoints().get(i).getX()>x)
+			if(getPoints().get(i).getX()>=x)
 				return i;
-		return 0;
+		return getPoints().size()-1;
 	}
 
 	private int lower(float x) {
 		for(int i=0;i<getPoints().size();i++)
-			if(getPoints().get(i).getX()>x)
-				return i-1;
-		return 0;
+			if(getPoints().get(i).getX()>=x)
+				if(i==0)
+					return i;
+				else
+					return i-1;
+		
+		return getPoints().size()-1;
 	}
 
 	private boolean checkMonotonicity(float a, float b) {
@@ -312,6 +338,9 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 
 	@Override
 	public float getFi(float y) {
+		if(!isMonotonic())
+			throw new RuntimeException("Points: "+point.toString()+" are not monotonic");
+		
 		MonotonicInterpolationMethodType interpolation = getInterpolationMethod();
 		if(interpolation.value().equals(MonotonicInterpolationMethodType.LINEAR.value()) )
 			return getFiLinear(y);
@@ -321,27 +350,117 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 			return Float.NaN;
 	}
 
-	private float getFiCubic(float y) {
-		// TODO Auto-generated method stub
-		return 0;
+	private float getfi_interpolated(float y, int i_lower, int i_upper) {
+		PointType p_lower = getPoints().get(i_lower);
+		PointType p_upper = getPoints().get(i_upper);
+		float m_lower = m[i_lower];
+		float m_upper = m[i_upper];
+		
+		float h = p_upper.getX() - p_lower.getX();
+
+		float y_lower = p_lower.getY();
+		float y_upper = p_upper.getY();
+
+		float b_lower = 0;
+		float b_upper = 1.0f;
+			
+		float t=0;
+		float err = 1.0f;
+		
+		while (Math.abs(err) > 0.0001f){
+			t = b_lower + ((b_upper - b_lower) / 2.0f);
+			err = (float) ((Math.pow(t, 3)*((2*y_lower) - (2*y_upper) + (h*m_lower) + (h*m_upper))) + ((Math.pow(t, 2)*((3*y_upper) - (3*y_lower) - (h*m_upper) - (2*h*m_lower))) + (t*h*m_lower) + y_lower - y));
+
+			if (err > 0) b_upper = t;
+			else  b_lower = t;
+		}
+		
+		return ((t * h) + p_lower.getX());
 	}
 
-	private float getFiLinear(float y) {
+	private float getFiCubic(float y) {
+		preprocesingDataCubicInterpolation();
+		
 		Collections.sort(getPoints(),new PointType());
 		PointType p0 = getPoints().get(0);
+		PointType pf = getPoints().get(getPoints().size()-1);
 		if(y==p0.getY())
 			return p0.getX();
+		else if(y==pf.getY())
+			return pf.getX();
 		else{
-			for(int i=1;i<getPoints().size();i++){
-				PointType p1 = getPoints().get(i);
-				if(y<=p0.getY()){
-					p0 = getPoints().get(i-1);
-					return p0.getX() + (p1.getX()-p0.getX())*(y-p0.getY())/(p1.getY()-p0.getY());
-				}	
+			if (p0.getY() < pf.getY()) {
+				if(y<p0.getY())
+					return p0.getX();
+				if(y>pf.getY())
+					return pf.getX();
+				for(int i=1;i<getPoints().size();i++){
+					PointType p1 = getPoints().get(i);
+					if(y==p1.getY())  return p1.getX(); 
+					else if(y<p1.getY()){
+						return (getfi_interpolated(y, i-1, i));
+					}	
+				}
+			}
+			else {
+				if(p0.getY()<y)
+					return p0.getX();
+				if(pf.getY()>y)
+					return pf.getX();
+				for(int i=1;i<getPoints().size();i++){
+					PointType p1 = getPoints().get(i);
+					if(p1.getY()==y)  return p1.getX();
+					else if(p1.getY()<y){
+						return (getfi_interpolated(y, i, i-1));
+					}	
+				}
 			}
 		}
 		return 0;
 	}
+
+
+	private float getFiLinear(float y) {
+		Collections.sort(getPoints(),new PointType());
+		PointType p0 = getPoints().get(0);
+		PointType pf = getPoints().get(getPoints().size()-1);
+		if(y==p0.getY())
+			return p0.getX();
+		else if(y==pf.getY())
+			return pf.getX();
+		else{
+			if (p0.getY() < pf.getY()) {
+				if(y<p0.getY())
+					return p0.getX();
+				if(y>pf.getY())
+					return pf.getX();
+				for(int i=1;i<getPoints().size();i++){
+					PointType p1 = getPoints().get(i);
+					if(y==p1.getY())  return p1.getX(); 
+					else if(y<p1.getY()){
+						p0 = getPoints().get(i-1);
+						return p0.getX() + (p1.getX()-p0.getX())*(y-p0.getY())/(p1.getY()-p0.getY());
+					}	
+				}
+			}
+			else {
+				if(p0.getY()<y)
+					return p0.getX();
+				if(pf.getY()>y)
+					return pf.getX();
+				for(int i=1;i<getPoints().size();i++){
+					PointType p1 = getPoints().get(i);
+					if(p1.getY()==y)  return p1.getX();
+					else if(p1.getY()<y){
+						p0 = getPoints().get(i-1);
+						return p0.getX() + (p1.getX()-p0.getX())*(y-p0.getY())/(p1.getY()-p0.getY());
+					}	
+				}
+			}
+		}
+		return 0;
+	}
+
 
 	@Override
 	public ArrayList<Float> getXValuesDefuzzifier() {
@@ -353,4 +472,36 @@ public class PointSetMonotonicShapeType extends MembershipFunction implements Mo
 		return v;
 	}
 
+	
+	/**
+	 * For testing
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		ArrayList<PointType> p = new ArrayList<>();
+		
+		//Increasing function
+		p.add(new PointType(1, 0.3f));
+		p.add(new PointType(2, 0.6f));
+		p.add(new PointType(3, 0.7f));
+		p.add(new PointType(4, 1.3f));
+		p.add(new PointType(5, 1.6f));
+		
+		//Decreasing function
+		/*p.add(new PointType(5, 0.3f));
+		p.add(new PointType(4, 0.6f));
+		p.add(new PointType(3, 0.7f));
+		p.add(new PointType(2, 1.3f));
+		p.add(new PointType(1, 1.6f));*/
+		
+		PointSetMonotonicShapeType ps = new PointSetMonotonicShapeType(p);
+		ps.setInterpolationMethod(MonotonicInterpolationMethodType.CUBIC);
+		
+		float x = 2.6f;
+		float y = ps.getMembershipDegree(x);
+		System.out.println(x +"->" + y);
+		
+		float x1 = ps.getFi(y);
+		System.out.println(y +"->" + x1);
+	}
 }
