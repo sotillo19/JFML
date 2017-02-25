@@ -71,7 +71,7 @@ public class AndAggregatedType extends AggregatedType{
      */
     public AndAggregatedType(ClauseType c1, ClauseType c2){
     	this.tNorm="MIN";
-    	new AndAggregatedType(tNorm,c1,c2);
+    	this.content = (new AndAggregatedType(tNorm,c1,c2)).getContent();
     }
     
     /**
@@ -81,7 +81,17 @@ public class AndAggregatedType extends AggregatedType{
      */
     public AndAggregatedType(ClauseType c1, AndAggregatedType term2){
     	this.tNorm="MIN";
-    	new AndAggregatedType(tNorm,c1,term2);
+    	this.content = (new AndAggregatedType(tNorm,c1,term2)).getContent();
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param c1 ClauseType
+     * @param term2 {@link OrAggregatedType} term2
+     */
+    public AndAggregatedType(ClauseType c1, OrAggregatedType term2){
+    	this.tNorm="MIN";
+    	this.content = (new AndAggregatedType(tNorm,c1,term2)).getContent();
     }
     
     /**
@@ -91,7 +101,7 @@ public class AndAggregatedType extends AggregatedType{
      */
     public AndAggregatedType(AndAggregatedType term1, AndAggregatedType term2){
     	this.tNorm="MIN";
-    	new AndAggregatedType(tNorm,term1,term2);
+    	this.content = (new AndAggregatedType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -101,7 +111,7 @@ public class AndAggregatedType extends AggregatedType{
      */
     public AndAggregatedType(AndAggregatedType term1, OrAggregatedType term2){
     	this.tNorm="MIN";
-    	new AndAggregatedType(tNorm,term1,term2);
+    	this.content = (new AndAggregatedType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -111,7 +121,7 @@ public class AndAggregatedType extends AggregatedType{
      */
     public AndAggregatedType(OrAggregatedType term1, AndAggregatedType term2){
     	this.tNorm="MIN";
-    	new AndAggregatedType(tNorm,term1,term2);
+    	this.content = (new AndAggregatedType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -121,7 +131,7 @@ public class AndAggregatedType extends AggregatedType{
      */
     public AndAggregatedType(OrAggregatedType term1, OrAggregatedType term2){
     	this.tNorm="MIN";
-    	new AndAggregatedType(tNorm,term1,term2);
+    	this.content = (new AndAggregatedType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -156,6 +166,23 @@ public class AndAggregatedType extends AggregatedType{
     	
     	content.add(ob.createAndAggregatedTypeClause(c1));
     	content.add(ob.createAndAggregatedTypeAnd(term2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param c1 ClauseType
+     * @param term2 OrAggregatedType
+     */
+    public AndAggregatedType(String tNorm, ClauseType c1, OrAggregatedType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndAggregatedTypeClause(c1));
+    	content.add(ob.createAndAggregatedTypeOr(term2));
     }
     
     /**

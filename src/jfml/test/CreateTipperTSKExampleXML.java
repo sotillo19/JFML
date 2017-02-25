@@ -1,7 +1,6 @@
 package jfml.test;
 
 import java.io.File;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
@@ -17,7 +16,15 @@ import jfml.term.FuzzyTermType;
 import jfml.term.TskTerm;
 import jfml.term.TskTermType;
 
-public class CreateTSKTipperExampleXML {
+/**
+ * This class creates an XML file with the definition of a TSK-type FLS for the Tipper regression problem:
+ *   1) Two input variables (food and service) with Triangular, rightLinear, leftGaussian, gaussian and rightGaussian membership functions
+ *   2) Three rules with order-0 and order-1 in the rule consequents
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateTipperTSKExampleXML {
 
 	public static void main(String[] args) {
 
@@ -120,7 +127,7 @@ public class CreateTSKTipperExampleXML {
 		tipper.addRuleBase(fr);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
-		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
+		File tipperXMLFile = new File("./XMLFiles/TipperTSK.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}
 

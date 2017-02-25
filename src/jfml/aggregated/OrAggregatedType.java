@@ -71,7 +71,7 @@ public class OrAggregatedType extends AggregatedType{
      */
     public OrAggregatedType(ClauseType c1, ClauseType c2){
     	this.tConorm="MAX";
-    	new OrAggregatedType(tConorm,c1,c2);
+    	this.content = (new OrAggregatedType(tConorm,c1,c2)).getContent();
     }
     
     /**
@@ -81,7 +81,17 @@ public class OrAggregatedType extends AggregatedType{
      */
     public OrAggregatedType(ClauseType c1, AndAggregatedType term2){
     	this.tConorm="MAX";
-    	new OrAggregatedType(tConorm,c1,term2);
+    	this.content = (new OrAggregatedType(tConorm,c1,term2)).getContent();
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param c1 {@link String} with the name of term1
+     * @param term2 {@link orAggregatedType} term2
+     */
+    public OrAggregatedType(ClauseType c1, OrAggregatedType term2){
+    	this.tConorm="MAX";
+    	this.content = (new OrAggregatedType(tConorm,c1,term2)).getContent();
     }
     
     /**
@@ -91,7 +101,7 @@ public class OrAggregatedType extends AggregatedType{
      */
     public OrAggregatedType(AndAggregatedType term1, AndAggregatedType term2){
     	this.tConorm="MAX";
-    	new OrAggregatedType(tConorm,term1,term2);
+    	this.content = (new OrAggregatedType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -101,7 +111,7 @@ public class OrAggregatedType extends AggregatedType{
      */
     public OrAggregatedType(AndAggregatedType term1, OrAggregatedType term2){
     	this.tConorm="MAX";
-    	new OrAggregatedType(tConorm,term1,term2);
+    	this.content = (new OrAggregatedType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -111,7 +121,7 @@ public class OrAggregatedType extends AggregatedType{
      */
     public OrAggregatedType(OrAggregatedType term1, AndAggregatedType term2){
     	this.tConorm="MAX";
-    	new OrAggregatedType(tConorm,term1,term2);
+    	this.content = (new OrAggregatedType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -121,7 +131,7 @@ public class OrAggregatedType extends AggregatedType{
      */
     public OrAggregatedType(OrAggregatedType term1, OrAggregatedType term2){
     	this.tConorm="MAX";
-    	new OrAggregatedType(tConorm,term1,term2);
+    	this.content = (new OrAggregatedType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -156,6 +166,23 @@ public class OrAggregatedType extends AggregatedType{
     	
     	content.add(ob.createOrAggregatedTypeClause(c1));
     	content.add(ob.createOrAggregatedTypeAnd(term2));
+    }
+    
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param c1 ClauseType
+     * @param term2 OrAggregatedType
+     */
+    public OrAggregatedType(String tConorm, ClauseType c1, OrAggregatedType term2){
+    	super();
+    	this.tConorm = tConorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createOrAggregatedTypeClause(c1));
+    	content.add(ob.createOrAggregatedTypeOr(term2));
     }
     
     /**

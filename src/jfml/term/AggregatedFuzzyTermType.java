@@ -57,14 +57,24 @@ public class AggregatedFuzzyTermType extends FuzzyTerm{
     public AggregatedFuzzyTermType(){
     	super();
     }
+    /**
+     * Constructor using the name and the And {@link AndAggregatedType } and the OrAggregatedType {@link OrAggregatedType }
+     * @param name the name of the term
+     */
+    public AggregatedFuzzyTermType(String name) {
+		super();
+		this.name=name;
+	}
     
     /**
      * Constructor using an AggregatedType {@link AggregatedType }. 
      *
      * @param agg an instance of AndAggregatedType {@link AndAggregatedType } or OrAggregatedType {@link OrAggregatedType }
+     * @param name the name of the term
      */
-    public AggregatedFuzzyTermType(AggregatedType agg){
+    public AggregatedFuzzyTermType(String name, AggregatedType agg){
     	super();
+    	this.name=name;
     	if(agg instanceof AndAggregatedType)
     		this.and=(AndAggregatedType) agg;
     	else if(agg instanceof OrAggregatedType)
@@ -73,7 +83,7 @@ public class AggregatedFuzzyTermType extends FuzzyTerm{
 
     /**
      * Constructor using the name and the And {@link AndAggregatedType } and the OrAggregatedType {@link OrAggregatedType }
-     * @param name the name of the variable
+     * @param name the name of the term
      * @param and the And {@link AndAggregatedType }
      * @param or the Or {@link OrAggregatedType }
      */

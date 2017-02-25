@@ -71,7 +71,7 @@ public class OrLogicalType extends LogicalType {
      */
     public OrLogicalType(String term1, String term2){
     	this.tConorm="MAX";
-    	new OrLogicalType(tConorm,term1,term2);
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -81,7 +81,17 @@ public class OrLogicalType extends LogicalType {
      */
     public OrLogicalType(String term1, AndLogicalType term2){
     	this.tConorm="MAX";
-    	new OrLogicalType(tConorm,term1,term2);
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
+    }
+    
+    /**
+     * Or constructor using default tConorm = MAX
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public OrLogicalType(String term1, OrLogicalType term2){
+    	this.tConorm="MAX";
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -91,7 +101,7 @@ public class OrLogicalType extends LogicalType {
      */
     public OrLogicalType(AndLogicalType term1, AndLogicalType term2){
     	this.tConorm="MAX";
-    	new OrLogicalType(tConorm,term1,term2);
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -101,7 +111,7 @@ public class OrLogicalType extends LogicalType {
      */
     public OrLogicalType(AndLogicalType term1, OrLogicalType term2){
     	this.tConorm="MAX";
-    	new OrLogicalType(tConorm,term1,term2);
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -111,7 +121,7 @@ public class OrLogicalType extends LogicalType {
      */
     public OrLogicalType(OrLogicalType term1, AndLogicalType term2){
     	this.tConorm="MAX";
-    	new OrLogicalType(tConorm,term1,term2);
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -121,7 +131,7 @@ public class OrLogicalType extends LogicalType {
      */
     public OrLogicalType(OrLogicalType term1, OrLogicalType term2){
     	this.tConorm="MAX";
-    	new OrLogicalType(tConorm,term1,term2);
+    	this.content = (new OrLogicalType(tConorm,term1,term2)).getContent();
     }
     
     /**
@@ -156,6 +166,23 @@ public class OrLogicalType extends LogicalType {
     	
     	content.add(ob.createOrLogicalTypeTermName(new CircularTermType(term1)));
     	content.add(ob.createOrLogicalTypeAnd(term2));
+    }
+    
+    /**
+     * Or constructor using tConorm as method for or operator
+     * @param tConorm {@link String} with or operator {@link StandardOrMethodType}
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public OrLogicalType(String tConorm, String term1, OrLogicalType term2){
+    	super();
+    	this.tConorm = tConorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createOrLogicalTypeTermName(new CircularTermType(term1)));
+    	content.add(ob.createOrLogicalTypeOr(term2));
     }
     
     /**

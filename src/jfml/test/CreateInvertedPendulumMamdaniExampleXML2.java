@@ -1,7 +1,6 @@
 package jfml.test;
 
 import java.io.File;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
@@ -17,7 +16,16 @@ import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.CircularTermType;
 import jfml.term.FuzzyTermType;
 
-public class CreateMamdaniInvertedPendulumExampleXML2 {
+/**
+ * This class creates an XML file with the definition of a Mamdani-type FLS for the problem of Inverted Pendulum:
+ *   1) Triangular and Trapezoidal membership functions
+ *   2) Definition of composed linguistic terms such as "A or B" with OrLogicalType and CircularDefinitionType
+ *   3) 19 rules
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateInvertedPendulumMamdaniExampleXML2 {
 
 	public static void main(String[] args) {
 
@@ -356,7 +364,7 @@ public class CreateMamdaniInvertedPendulumExampleXML2 {
 		invertedPendulum.addRuleBase(rb);
 
 		// WRITTING INVERTED PENDULUM EXAMPLE INTO AN XML FILE
-		File invertedPendulumXMLFile = new File("./XMLFiles/GeneratedInvertedPendulumExampleOUT_Mamdani2.xml");
+		File invertedPendulumXMLFile = new File("./XMLFiles/InvertedPendulumMamdani2.xml");
 		JFML.writeFSTtoXML(invertedPendulum, invertedPendulumXMLFile);
 	}
 

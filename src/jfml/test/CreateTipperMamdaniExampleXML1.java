@@ -1,25 +1,31 @@
 package jfml.test;
 
 import java.io.File;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
-import jfml.knowledgebase.variable.TsukamotoVariableType;
 import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentType;
 import jfml.rule.FuzzyRuleType;
-import jfml.rulebase.TsukamotoRuleBaseType;
+import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.FuzzyTermType;
-import jfml.term.TsukamotoTermType;
 
-public class CreateTsukamotoTipperExampleXML {
+/**
+ * This class creates an XML file with the definition of a Mamdani-type FLS for the Tipper regression problem:
+ *   1) Two input variables (food and service) with Triangular, rightLinear, leftGaussian, gaussian and rightGaussian membership functions
+ *   2) Three rules:
+ *      + Use of edge "very" in rule1
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateTipperMamdaniExampleXML1 {
 
 	public static void main(String[] args) {
 
-		FuzzyInferenceSystem tipper = new FuzzyInferenceSystem("tipper - TSUKAMOTO");
+		FuzzyInferenceSystem tipper = new FuzzyInferenceSystem("tipper - MAMDANI");
 
 		//KNOWLEDGE BASE
 		KnowledgeBaseType kb = new KnowledgeBaseType();
@@ -54,30 +60,31 @@ public class CreateTsukamotoTipperExampleXML {
 		
 		kb.addVariable(service);
 
-		// TSUKAMOTO VARIABLE tip
-		TsukamotoVariableType tip = new TsukamotoVariableType("tip", 0, 20);
+		// FUZZY VARIABLE tip
+		FuzzyVariableType tip = new FuzzyVariableType("tip", 0, 20);
 		tip.setDefaultValue(0f);
-		tip.setCombination("WA");
+		tip.setAccumulation("MAX");
+		tip.setDefuzzifierName("COG");
 		tip.setType("output");
 
-		// TSUKAMOTO TERM cheap
-		TsukamotoTermType cheap = new TsukamotoTermType("cheap", FuzzyTermType.TYPE_leftLinearShape,
-						(new float[] { 0f, 10f }));
-		tip.addTsukamotoTerm(cheap);
-		// TSUKAMOTO TERM average
-		TsukamotoTermType average = new TsukamotoTermType("average", FuzzyTermType.TYPE_zShape,
-				(new float[] { 5f, 15f }));
-		tip.addTsukamotoTerm(average);
-		// TSUKAMOTO TERM generous
-		TsukamotoTermType generous = new TsukamotoTermType("generous", FuzzyTermType.TYPE_rightGaussianShape,
-				(new float[] { 20f, 10f }));
-		tip.addTsukamotoTerm(generous);
+		// FUZZY TERM cheap
+		FuzzyTermType cheap = new FuzzyTermType("cheap", FuzzyTermType.TYPE_triangularShape,
+						(new float[] { 0f, 5f, 10f }));
+		tip.addFuzzyTerm(cheap);
+		// FUZZY TERM average
+		FuzzyTermType average = new FuzzyTermType("average", FuzzyTermType.TYPE_triangularShape,
+				(new float[] { 5f, 10f, 15f }));
+		tip.addFuzzyTerm(average);
+		// FUZZY TERM generous
+		FuzzyTermType generous = new FuzzyTermType("generous", FuzzyTermType.TYPE_triangularShape,
+				(new float[] { 10f, 15f, 20f }));
+		tip.addFuzzyTerm(generous);
 
 		kb.addVariable(tip);
 
 		// RULE BASE
-		//RuleBaseType rb = new RuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_TSUKAMOTO);
-		TsukamotoRuleBaseType rb = new TsukamotoRuleBaseType("rulebase1");
+		//RuleBaseType rb = new RuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_MAMDANI);
+		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
 		FuzzyRuleType reg1 = new FuzzyRuleType("reg1", "or", "MAX", 1.0f);
@@ -118,7 +125,7 @@ public class CreateTsukamotoTipperExampleXML {
 		tipper.addRuleBase(rb);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
-		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_Tsukamoto.xml");
+		File tipperXMLFile = new File("./XMLFiles/TipperMamdani1.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}
 

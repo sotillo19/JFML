@@ -3,7 +3,7 @@
     <knowledgeBase>
         <fuzzyVariable name="PetalWidth" scale="" domainleft="0.1" domainright="2.5" type="input">
             <fuzzyTerm name="low" complement="false">
-                <trapezoidShape param1="0.0" param2="0.1" param3="0.244" param4="1.087"/>
+                <trapezoidShape param1="0.1" param2="0.1" param3="0.244" param4="1.087"/>
             </fuzzyTerm>
             <fuzzyTerm name="medium" complement="false">
                 <trapezoidShape param1="0.244" param2="1.087" param3="1.419" param4="1.906"/>
@@ -12,7 +12,7 @@
                 <trapezoidShape param1="1.419" param2="1.906" param3="2.5" param4="2.5"/>
             </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="1.0">
+        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="MOM" defaultValue="1.0">
             <fuzzyTerm name="setosa" complement="false">
                 <singletonShape param1="1.0"/>
             </fuzzyTerm>

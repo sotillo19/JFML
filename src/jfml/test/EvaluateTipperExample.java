@@ -15,15 +15,7 @@ public class EvaluateTipperExample {
 
 	
 	public static void main(String[] args) {
-		//File xml = new File("./XMLFiles/TipperExample_Mamdani.xml");
-		//File xml = new File("./XMLFiles/TipperExample_TSK.xml");
-		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani3.xml");
-		//File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_TSK.xml");
-		//File xml = new File("./XMLFiles/irisMamdani-testMFs.xml");
-		//File xml = new File("./XMLFiles/TipperExampleFuzzySystemOUTANYA1.xml");
-		//File xml = new File("./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_Mamdani.xml");
-		File xml = new File("./XMLFiles/GeneratedTipperExampleOUT_MamdaniAgg.xml");
-		
+		File xml = new File("./XMLFiles/TipperMamdani4.xml");
 		
 		//loading Fuzzy System from an XML file according the standard IEEE 1855
 		FuzzyInferenceSystem fs = JFML.load(xml);

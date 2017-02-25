@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
+import jfml.aggregated.AndAggregatedType;
+import jfml.aggregated.OrAggregatedType;
 import jfml.enumeration.InterpolationMethodType;
 import jfml.knowledgebase.KnowledgeBaseType;
+import jfml.knowledgebase.variable.AggregatedFuzzyVariableType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
-import jfml.membershipfunction.PointSetMonotonicShapeType;
 import jfml.membershipfunction.PointSetShapeType;
 import jfml.membershipfunction.PointType;
 import jfml.rule.AntecedentType;
@@ -16,9 +18,20 @@ import jfml.rule.ClauseType;
 import jfml.rule.ConsequentType;
 import jfml.rule.FuzzyRuleType;
 import jfml.rulebase.MamdaniRuleBaseType;
+import jfml.term.AggregatedFuzzyTermType;
 import jfml.term.FuzzyTermType;
 
-public class CreateMamdaniTipperExampleXML2 {
+/**
+ * This class creates an XML file with the definition of a Mamdani-type FLS for the Tipper regression problem:
+ *   1) Two input variables (food and service) with Triangular, rightLinear, leftGaussian, gaussian and rightGaussian membership functions
+ *   2) Example of using AggregatedFuzzyVariableType and AggregatedFuzzyTermType in the definition of the variable "quality" as a combination of terms
+ *   3) five rules:
+ *      + Use of the variable quality in rule4 and rule5
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateTipperMamdaniExampleXML3 {
 
 	public static void main(String[] args) {
 
@@ -56,6 +69,30 @@ public class CreateMamdaniTipperExampleXML2 {
 		service.addFuzzyTerm(excellent);
 		
 		kb.addVariable(service);
+		
+		//AGGREGATED FUZZY VARIABLE quality
+		AggregatedFuzzyVariableType quality = new AggregatedFuzzyVariableType("quality");
+		
+		// AGGREGATED FUZZY TERM acceptable
+		AggregatedFuzzyTermType acceptable = new AggregatedFuzzyTermType("acceptable");
+		ClauseType acceptable_t1 = new ClauseType(food,delicious);
+		ClauseType acceptable_t2 = new ClauseType(service,good);
+		ClauseType acceptable_t3 = new ClauseType(service,excellent);
+		OrAggregatedType acceptable_or = new OrAggregatedType(acceptable_t2, acceptable_t3);
+		AndAggregatedType acceptable_and = new AndAggregatedType(acceptable_t1, acceptable_or);
+		acceptable.setAnd(acceptable_and);
+		
+		// AGGREGATED FUZZY TERM bad
+		AggregatedFuzzyTermType bad = new AggregatedFuzzyTermType("bad");
+		ClauseType bad_t1 = new ClauseType(food,rancid);
+		ClauseType bad_t2 = new ClauseType(service,poor);
+		OrAggregatedType bad_or = new OrAggregatedType(bad_t1, bad_t2);
+		bad.setOr(bad_or);
+		
+		quality.addAggregatedFuzzyTerm(acceptable);
+		quality.addAggregatedFuzzyTerm(bad);
+		
+		kb.addVariable(quality);
 
 		// FUZZY VARIABLE tip
 		FuzzyVariableType tip = new FuzzyVariableType("tip", 0, 20);
@@ -65,7 +102,6 @@ public class CreateMamdaniTipperExampleXML2 {
 		tip.setType("output");
 
 		// FUZZY TERM cheap
-		//FuzzyTermType cheap = new FuzzyTermType("cheap", FuzzyTermType.TYPE_triangularShape, (new float[] { 0f, 5f, 10f }));
 		ArrayList<PointType> points1 = new ArrayList<>();
 		points1.add(new PointType(0, 1));
 		points1.add(new PointType(1, 1));
@@ -74,14 +110,15 @@ public class CreateMamdaniTipperExampleXML2 {
 		points1.add(new PointType(4, 0));
 				
 		PointSetShapeType ps = new PointSetShapeType(points1);
-		ps.setInterpolationMethod(InterpolationMethodType.LAGRANGE);
+		ps.setInterpolationMethod(InterpolationMethodType.LINEAR);
 		FuzzyTermType cheap = new FuzzyTermType("cheap", ps);
 		
 		tip.addFuzzyTerm(cheap);
-		
 		// FUZZY TERM average
-		FuzzyTermType average = new FuzzyTermType("average", FuzzyTermType.TYPE_triangularShape, (new float[] { 5f, 10f, 15f }));
+		FuzzyTermType average = new FuzzyTermType("average", FuzzyTermType.TYPE_triangularShape,
+				(new float[] { 5f, 10f, 15f }));
 		tip.addFuzzyTerm(average);
+		
 		// FUZZY TERM generous
 		FuzzyTermType generous = new FuzzyTermType("generous", FuzzyTermType.TYPE_triangularShape,
 				(new float[] { 10f, 15f, 20f }));
@@ -90,7 +127,6 @@ public class CreateMamdaniTipperExampleXML2 {
 		kb.addVariable(tip);
 
 		// RULE BASE
-		//RuleBaseType rb = new RuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_MAMDANI);
 		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
@@ -128,11 +164,34 @@ public class CreateMamdaniTipperExampleXML2 {
 		reg3.setAntecedent(ant3);
 		reg3.setConsequent(con3);
 		rb.addRule(reg3);
+		
+		
+		// RULE 4
+		FuzzyRuleType reg4 = new FuzzyRuleType("reg4", "or", "MAX", 1.0f);
+
+		AntecedentType ant4 = new AntecedentType();
+		ant4.addClause(new ClauseType(quality, acceptable));
+		ConsequentType con4 = new ConsequentType();
+		con4.addThenClause(tip, generous);
+		reg4.setAntecedent(ant4);
+		reg4.setConsequent(con4);
+		rb.addRule(reg4);
+		
+		// RULE 5
+		FuzzyRuleType reg5 = new FuzzyRuleType("reg5", "or", "MAX", 1.0f);
+
+		AntecedentType ant5 = new AntecedentType();
+		ant5.addClause(new ClauseType(quality, bad, "very"));
+		ConsequentType con5 = new ConsequentType();
+		con5.addThenClause(tip, cheap);
+		reg5.setAntecedent(ant5);
+		reg5.setConsequent(con5);
+		rb.addRule(reg5);
 
 		tipper.addRuleBase(rb);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
-		File tipperXMLFile = new File("./XMLFiles/GeneratedTipperExampleOUT_Mamdani2.xml");
+		File tipperXMLFile = new File("./XMLFiles/TipperMamdani3.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}
 

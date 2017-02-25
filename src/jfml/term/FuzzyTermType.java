@@ -763,6 +763,7 @@ public class FuzzyTermType extends FuzzyTerm{
         this.type=FuzzyTerm.TYPE_pointSetShape;
         this.mf = value;
     }
+    
 
     /**
      * Gets the value of the property circularDefinition.

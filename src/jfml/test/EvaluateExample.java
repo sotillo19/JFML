@@ -5,7 +5,6 @@ import java.io.LineNumberReader;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.util.Vector;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
@@ -17,6 +16,14 @@ import jfml.knowledgebase.variable.KnowledgeBaseVariable;
  * 3) IRIS classification problem Example
  * 4) InvertedPendulum control problem Example
  * 5) Robot problem Example
+ *
+ * Each example can be tested from command line and also with the test-data files provided in the XMLFiles folder:
+ * 1) test-data-Tipper.txt
+ * 2) test-data-JapaneseDietAssessment.txt
+ * 3) test-data-Iris1.txt (irisMamdani1.xml and irisMamdani3.xml) and test-data-Iris2.txt (irisMamdani2.xml)
+ * 4)test-data-InvertedPendulum.txt
+ * 5) test-data-Robot.txt
+ *
  * @author Jose Alonso
  */
 public class EvaluateExample {
@@ -32,7 +39,7 @@ public class EvaluateExample {
 
 	public EvaluateExample() {
 	      System.out.println("Prueba R");
-          this.xml= "jfmlTest/XMLFiles/GeneratedTipperExampleOUT_Mamdani.xml";
+          this.xml= "jfmlTest/XMLFiles/TipperMamdani1.xml";
 	}
 
 	public EvaluateExample(String[] aa) {
@@ -86,25 +93,17 @@ public class EvaluateExample {
 		    }*/
 		  if (!end && !warning) {
 		    String mainf=null;
-	        if (example.equals("Tipper")) {
-		      mainf= "./XMLFiles/GeneratedTipperExampleOUT_";
-		      this.NbOutputs=1;
-		    } else if (example.equals("JapaneseDietAssessment")) {
-		      mainf= "./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_";
-		      this.NbOutputs=1;
-		    } else if (example.equals("Iris")) {
-		      mainf= "./XMLFiles/GeneratedIrisExampleOUT_";
-		      this.NbOutputs=1;
-		    } else if (example.equals("InvertedPendulum")) {
-		      mainf= "./XMLFiles/GeneratedInvertedPendulumExampleOUT_";
+	        if ( (example.equals("Tipper")) || (example.equals("JapaneseDietAssessment")) || (example.equals("Iris")) || (example.equals("InvertedPendulum")) ) {
 		      this.NbOutputs=1;
 		    } else if (example.equals("Robot")) {
-		      mainf= "./XMLFiles/GeneratedRobotExampleOUT_";
 		      this.NbOutputs=2;
 		    }
+			if (this.NbOutputs > 0) {
+	          mainf= "./XMLFiles/"+example;
+			}
 		    if (mainf!=null) {
 		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani1")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK1")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto1")) || (infOpt.equals("Tsukamoto2")) ) {
 		        this.xml = mainf+infOpt+".xml";
 		      }
 		    }
@@ -163,15 +162,15 @@ public class EvaluateExample {
 		if (warning) {
 		      System.out.println("Please, check the arguments given to the program");
 			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
-		      System.out.println("  Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file");
 		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
-		      System.out.println("  Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("  Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
+		      System.out.println("  Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file");
+		      System.out.println("  Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file");
 		      System.out.println("  Options: Robot Mamdani test-data-file");
 			  System.out.println("You can also call the program with a specific instance as follows:");
 			  System.out.println("  Options: ProblemName InferenceExample V1 D1 V2 D2 ... ");
 			  System.out.println("  ProblemName: Tipper, JapaneseDietAssessment, etc.");
-			  System.out.println("  InferenceExample; Mamdani, Mamdani2, TSK, etc.");
+			  System.out.println("  InferenceExample; Mamdani, Mamdani1, Mamdani2, TSK, etc.");
 			  System.out.println("  Notice that the combination of ProblemName and InferenceExample must be in accordance with the name of an XML file in the folder ./XMLFiles");
 			  System.out.println("  You must be also sure of providing the entire list of pairs variable name (Vi, as it is in the XML file) and numerical value (Di) for evaluation");
 			  System.out.println("  Example:");
@@ -183,22 +182,17 @@ public class EvaluateExample {
 
     public EvaluateExample(String example, String infOpt, String dataFile) {
           String mainf=null;
-		  this.NbOutputs=1;
-	      if (example.equals("Tipper")) {
-		      mainf= "./XMLFiles/GeneratedTipperExampleOUT_";
-		  } else if (example.equals("JapaneseDietAssessment")) {
-		      mainf= "./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_";
-		  } else if (example.equals("Iris")) {
-		      mainf= "./XMLFiles/GeneratedIrisExampleOUT_";
-		  } else if (example.equals("InvertedPendulum")) {
-		      mainf= "./XMLFiles/GeneratedInvertedPendulumExampleOUT_";
+	      if ( (example.equals("Tipper")) || (example.equals("JapaneseDietAssessment")) || (example.equals("Iris")) || (example.equals("InvertedPendulum")) ){
+		      this.NbOutputs=1;
 		  } else if (example.equals("Robot")) {
-		      mainf= "./XMLFiles/GeneratedRobotExampleOUT_";
 			  this.NbOutputs=2;
+		  }
+		  if (this.NbOutputs > 0) {
+              mainf= "./XMLFiles/"+example;
 		  }
 		  if (mainf!=null) {
 		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto2")) ) {
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani1")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK1")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto1")) || (infOpt.equals("Tsukamoto2")) ) {
 		        this.xml = mainf+infOpt+".xml";
 		      }
 		  }
@@ -276,15 +270,15 @@ public class EvaluateExample {
 		  if (warning) {
 		      System.out.println("Please, check the arguments given to the program");
 			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
-		      System.out.println("  Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file");
 		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
-		      System.out.println("  Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("  Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
+		      System.out.println("  Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file");
+		      System.out.println("  Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file");
 		      System.out.println("  Options: Robot Mamdani test-data-file");
 			  System.out.println("You can also call the program with a specific instance as follows:");
 			  System.out.println("  Options: ProblemName InferenceExample V1 D1 V2 D2 ... ");
 			  System.out.println("  ProblemName: Tipper, JapaneseDietAssessment, etc.");
-			  System.out.println("  InferenceExample; Mamdani, Mamdani2, TSK, etc.");
+			  System.out.println("  InferenceExample; Mamdani, Mamdani1, Mamdani2, TSK, etc.");
 			  System.out.println("  Notice that the combination of ProblemName and InferenceExample must be in accordance with the name of an XML file in the folder ./XMLFiles");
 			  System.out.println("  You must be also sure of providing the entire list of pairs variable name (Vi, as it is in the XML file) and numerical value (Di) for evaluation");
 			  System.out.println("  Example:");
@@ -473,15 +467,15 @@ public class EvaluateExample {
 		      System.out.println("ERROR: WRONG ARGUMENTS");
 		      System.out.println("Please, check the arguments given to the program");
 			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
-		      System.out.println("  Options: Tipper [Mamdani | Mamdani2 | TSK | Tsukamoto | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file");
 		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
-		      System.out.println("  Options: Iris [Mamdani | Mamdani2] test-data-file");
-		      System.out.println("  Options: InvertedPendulum [Mamdani | Mamdani2 | TSK | TSK2] test-data-file");
+		      System.out.println("  Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file");
+		      System.out.println("  Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file");
 		      System.out.println("  Options: Robot Mamdani test-data-file");
-			  System.out.println("You can also call the program with a specific instance, for one of the given examples, as follows:");
+			  System.out.println("You can also call the program with a specific instance as follows:");
 			  System.out.println("  Options: ProblemName InferenceExample V1 D1 V2 D2 ... ");
 			  System.out.println("  ProblemName: Tipper, JapaneseDietAssessment, etc.");
-			  System.out.println("  InferenceExample; Mamdani, Mamdani2, TSK, etc.");
+			  System.out.println("  InferenceExample; Mamdani, Mamdani1, Mamdani2, TSK, etc.");
 			  System.out.println("  Notice that the combination of ProblemName and InferenceExample must be in accordance with the name of an XML file in the folder ./XMLFiles");
 			  System.out.println("  You must be also sure of providing the entire list of pairs variable name (Vi, as it is in the XML file) and numerical value (Di) for evaluation");
 			  System.out.println("  Example:");

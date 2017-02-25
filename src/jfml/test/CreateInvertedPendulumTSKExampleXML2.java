@@ -1,7 +1,6 @@
 package jfml.test;
 
 import java.io.File;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
@@ -21,7 +20,16 @@ import jfml.term.FuzzyTermType;
 import jfml.term.TskTerm;
 import jfml.term.TskTermType;
 
-public class CreateTSKInvertedPendulumExampleXML {
+/**
+ * This class creates an XML file with the definition of a TSK-type FLS for the problem of Inverted Pendulum:
+ *   1) Triangular and Trapezoidal membership functions
+ *   2) Definition of composed linguistic terms such as "A or B" with OrLogicalType and CircularDefinitionType
+ *   3) 19 rules (some rules of order-0 and some rules of order-1)
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateInvertedPendulumTSKExampleXML2 {
 
 	public static void main(String[] args) {
 
@@ -111,7 +119,7 @@ public class CreateTSKInvertedPendulumExampleXML {
 		force.setType("output");
 
 	    //  FUZZY TERM VNEG
-		TskTermType force_vneg = new TskTermType("very negative", TskTerm._ORDER_0, (new float[] { 48f}));
+		TskTermType force_vneg = new TskTermType("very negative", TskTerm._ORDER_1, (new float[] { 48f, 0.01f, 0.02f }));
 		force.addTskTerm(force_vneg);
 
 	    //  FUZZY TERM NEG
@@ -119,7 +127,7 @@ public class CreateTSKInvertedPendulumExampleXML {
 		force.addTskTerm(force_neg);
 
 		//  FUZZY TERM NEU
-		TskTermType force_neu = new TskTermType("zero", TskTerm._ORDER_0, (new float[] { 128f}));
+		TskTermType force_neu = new TskTermType("zero", TskTerm._ORDER_1, (new float[] { 128f, 0.05f, 0.05f }));
 		force.addTskTerm(force_neu);
 
 		//  FUZZY TERM POS
@@ -127,7 +135,7 @@ public class CreateTSKInvertedPendulumExampleXML {
 		force.addTskTerm(force_pos);
 
 		//  FUZZY TERM VPOS
-		TskTermType force_vpos = new TskTermType("very positive", TskTerm._ORDER_0, (new float[] { 208f}));
+		TskTermType force_vpos = new TskTermType("very positive", TskTerm._ORDER_1, (new float[] { 208f, 0.05f, 0.03f }));
 		force.addTskTerm(force_vpos);
 
 		// TSK TERM cheap
@@ -354,7 +362,7 @@ public class CreateTSKInvertedPendulumExampleXML {
 		invertedPendulum.addRuleBase(rb);
 
 		// WRITTING INVERTED PENDULUM EXAMPLE INTO AN XML FILE
-		File invertedPendulumXMLFile = new File("./XMLFiles/GeneratedInvertedPendulumExampleOUT_TSK.xml");
+		File invertedPendulumXMLFile = new File("./XMLFiles/InvertedPendulumTSK2.xml");
 		JFML.writeFSTtoXML(invertedPendulum, invertedPendulumXMLFile);
 	}
 

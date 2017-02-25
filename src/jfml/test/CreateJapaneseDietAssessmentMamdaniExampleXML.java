@@ -1,7 +1,6 @@
 package jfml.test;
 
 import java.io.File;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
@@ -13,7 +12,21 @@ import jfml.rule.FuzzyRuleType;
 import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.FuzzyTermType;
 
-public class CreateMamdaniJapaneseDietAssessmentExampleXML {
+/**
+ * This class creates an XML file with the definition of a Mamdani-type FLS for the Japanese Diet Assessment regression problem:
+ *   1) Five input variables with Trapezoidal membership functions:
+ *      + Percentage of Calories from Carbohydrate (PCC)
+ *      + Percentage of Calories from Protein (PCP)
+ *      + Percentage of Calories from Fat (PCF)
+ *      + Percentage of Caloric Ratio (PCR)
+ *      + Food Group Balance (FGB)
+ *
+ *   2) Two rules
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateJapaneseDietAssessmentMamdaniExampleXML {
 
 	public static void main(String[] args) {
 
@@ -181,7 +194,7 @@ public class CreateMamdaniJapaneseDietAssessmentExampleXML {
 		japaneseDietAssessment.addRuleBase(rb);
 
 		// WRITTING JAPANESE DIET ASSESSMENT EXAMPLE INTO AN XML FILE
-		File japaneseDietAssessmentXMLFile = new File("./XMLFiles/GeneratedJapaneseDietAssessmentExampleOUT_Mamdani.xml");
+		File japaneseDietAssessmentXMLFile = new File("./XMLFiles/JapaneseDietAssessmentMamdani.xml");
 		JFML.writeFSTtoXML(japaneseDietAssessment, japaneseDietAssessmentXMLFile);
 	}
 

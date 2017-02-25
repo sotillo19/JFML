@@ -70,7 +70,7 @@ public class AndLogicalType extends LogicalType{
      */
     public AndLogicalType(String term1, String term2){
     	this.tNorm="MIN";
-    	new AndLogicalType(tNorm,term1,term2);
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -80,7 +80,17 @@ public class AndLogicalType extends LogicalType{
      */
     public AndLogicalType(String term1, AndLogicalType term2){
     	this.tNorm="MIN";
-    	new AndLogicalType(tNorm,term1,term2);
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
+    }
+    
+    /**
+     * And constructor using default t-norm = MIN
+     * @param term1 {@link String} with the name of term1
+     * @param term2 {@link OrLogicalType} term2
+     */
+    public AndLogicalType(String term1, OrLogicalType term2){
+    	this.tNorm="MIN";
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -90,7 +100,7 @@ public class AndLogicalType extends LogicalType{
      */
     public AndLogicalType(AndLogicalType term1, AndLogicalType term2){
     	this.tNorm="MIN";
-    	new AndLogicalType(tNorm,term1,term2);
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -100,7 +110,7 @@ public class AndLogicalType extends LogicalType{
      */
     public AndLogicalType(AndLogicalType term1, OrLogicalType term2){
     	this.tNorm="MIN";
-    	new AndLogicalType(tNorm,term1,term2);
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -110,7 +120,7 @@ public class AndLogicalType extends LogicalType{
      */
     public AndLogicalType(OrLogicalType term1, AndLogicalType term2){
     	this.tNorm="MIN";
-    	new AndLogicalType(tNorm,term1,term2);
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -120,7 +130,7 @@ public class AndLogicalType extends LogicalType{
      */
     public AndLogicalType(OrLogicalType term1, OrLogicalType term2){
     	this.tNorm="MIN";
-    	new AndLogicalType(tNorm,term1,term2);
+    	this.content = (new AndLogicalType(tNorm,term1,term2)).getContent();
     }
     
     /**
@@ -155,6 +165,23 @@ public class AndLogicalType extends LogicalType{
     	
     	content.add(ob.createAndLogicalTypeTermName(new CircularTermType(term1)));
     	content.add(ob.createAndLogicalTypeAnd(term2));
+    }
+    
+    /**
+     * AND constructor using t-norm as method for and operator
+     * @param tNorm {@link String} with AND operator {@link StandardAndMethodType}
+     * @param term1 
+     * @param term2
+     */
+    public AndLogicalType(String tNorm, String term1, OrLogicalType term2){
+    	super();
+    	this.tNorm = tNorm;
+    	content = new ArrayList<JAXBElement<?>>();
+    	
+    	ObjectFactory ob = new ObjectFactory();
+    	
+    	content.add(ob.createAndLogicalTypeTermName(new CircularTermType(term1)));
+    	content.add(ob.createAndLogicalTypeOr(term2));
     }
     
     /**

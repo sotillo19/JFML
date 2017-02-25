@@ -1,7 +1,6 @@
 package jfml.test;
 
 import java.io.File;
-
 import jfml.FuzzyInferenceSystem;
 import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
@@ -13,7 +12,15 @@ import jfml.rule.FuzzyRuleType;
 import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.FuzzyTermType;
 
-public class CreateMamdaniIrisExampleXML {
+/**
+ * This class creates an XML file with the definition of a Mamdani-type FLS for the Iris classification problem:
+ *   1) One input variable (PetalWidth) with Trapezoidal membership functions
+ *   2) Three rules (one per output class)
+ *
+ * @author Jose Alonso
+ */
+
+public class CreateIrisMamdaniExampleXML1 {
 
 	public static void main(String[] args) {
 
@@ -102,7 +109,7 @@ public class CreateMamdaniIrisExampleXML {
 		iris.addRuleBase(rb);
 
 		// WRITTING IRIS EXAMPLE INTO AN XML FILE
-		File irisXMLFile = new File("./XMLFiles/GeneratedIrisExampleOUT_Mamdani.xml");
+		File irisXMLFile = new File("./XMLFiles/IrisMamdani1.xml");
 		JFML.writeFSTtoXML(iris, irisXMLFile);
 	}
 
