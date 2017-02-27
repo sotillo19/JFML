@@ -11,6 +11,9 @@ createIrisMamdani1:
 createIrisMamdani2:
 	java -classpath $(JFML) jfml.test.CreateIrisMamdaniExampleXML2
 
+createIrisMamdani3:
+	java -classpath $(JFML) jfml.test.CreateIrisMamdaniExampleXML3
+
 createInvertedPendulumMamdani1:
 	java -classpath $(JFML) jfml.test.CreateInvertedPendulumMamdaniExampleXML1
 	
@@ -31,6 +34,9 @@ createTipperMamdani1:
 
 createTipperMamdani2:
 	java -classpath $(JFML) jfml.test.CreateTipperMamdaniExampleXML2
+
+createTipperMamdani3:
+	java -classpath $(JFML) jfml.test.CreateTipperMamdaniExampleXML3
 
 createTipperTSK:
 	java -classpath $(JFML) jfml.test.CreateTipperTSKExampleXML

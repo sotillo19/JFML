@@ -24,6 +24,7 @@ Otherwise, you can create some of them from the command line:
 Examples:
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateIrisMamdaniExampleXML1
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateIrisMamdaniExampleXML2
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateIrisMamdaniExampleXML3
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateInvertedPendulumMamdaniExampleXML1
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateInvertedPendulumMamdaniExampleXML2
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateInvertedPendulumTSKExampleXML1
@@ -31,6 +32,7 @@ Examples:
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateJapaneseDietAssessmentMamdaniExampleXML
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperMamdaniExampleXML1
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperMamdaniExampleXML2
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperMamdaniExampleXML3
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperTSKExampleXML
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperTsukamotoExampleXML1
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperTsukamotoExampleXML2
@@ -54,7 +56,7 @@ Tests:
 > java -jar ./lib/JFML-v1.0.jar Tipper Tsukamoto1 ./XMLFiles/test-data-Tipper1.txt
 > java -jar ./lib/JFML-v1.0.jar Tipper Tsukamoto2 ./XMLFiles/test-data-Tipper1.txt
 > java -jar ./lib/JFML-v1.0.jar Robot Mamdani ./XMLFiles/test-data-Robot.txt
-> java -jar ./lib/JFML-v1.0.jar D:/MisJavaProg/jfml-test/XMLFiles/RobotIEEEstd1855.xml ./XMLFiles/test-data-Robot.txt
-> java -jar ./lib/JFML-v1.0.jar D:/MisJavaProg/jfml-test/XMLFiles/RobotIEEEstd1855.xml 2 la av rd 0.2 dq 0.25 o 20 v 0.25
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/RobotIEEEstd1855.xml ./XMLFiles/test-data-Robot.txt
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/RobotIEEEstd1855.xml 2 la av rd 0.2 dq 0.25 o 20 v 0.25
 
 In addition, notice that you can run the examples above by calling to the related bat files in Windows OS or by running the Makefile otherwise.
