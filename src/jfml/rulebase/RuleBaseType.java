@@ -21,7 +21,6 @@ import jfml.rule.ClauseType;
 import jfml.rule.ConsequentClausesType;
 import jfml.rule.FuzzyRuleType;
 import jfml.term.FuzzyTerm;
-import jfml.term.FuzzyTermType;
 
 /**
  * <p>Java class for ruleBaseType complex type.
@@ -132,6 +131,7 @@ public class RuleBaseType extends FuzzySystemRuleBase{
     	if(rule!=null)
     		rules.add(rule);
     }
+    
 
     /**
      * Gets the value of the property name.
@@ -337,45 +337,7 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 				aggregated = v.accumulation(defuzzifier.getValueY(x), y);
 				defuzzifier.setPoint(x, aggregated);
 			}
-			/*x = defuzzifier.getMin();
-			double step = defuzzifier.getStepSize();
-			int i, length = defuzzifier.getLength();
-	
-			// Add membership degrees to defuzzifier
-			for (i = 0; i < length; i++, x += step) {
-				membership = t.getMembershipValue(x);
-				
-				if(membership==1)
-					System.out.println(x);
-	
-				//IMPLICATION (activation process)
-				y = activation(ant_evaluation, membership);
-	
-				//ACCUMULATION
-				aggregated = v.accumulation(defuzzifier.getValue(i), y);
-				defuzzifier.setValue(i, aggregated);
-			}*/
 		}
-		/*else{
-			DefuzzifierDiscrete defuzzifierDiscrete = (DefuzzifierDiscrete) v.getDefuzzifier();
-			float membership, y, x, aggregated = 0;
-			
-			if(t.getMembershipFunction() instanceof SingletonMembershipFunction == false)
-				throw new RuntimeException("MembershipFunction is not Singleton.\n");
-
-			// Add membership degree to defuzzifier
-			Iterator<Float> it = defuzzifierDiscrete.iterator();
-			while(it.hasNext()){
-				x = it.next();
-				membership = t.getMembershipValue(x);
-
-				y = activation(ant_evaluation, membership); 
-
-				// Aggregate value
-				aggregated = v.accumulation(defuzzifierDiscrete.getDiscreteValue(x), y);
-				defuzzifierDiscrete.setPoint(x, aggregated);
-			}
-		}*/
 	}
 	
 	
@@ -404,25 +366,6 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 		return r.aggregation(degrees);
 	}
 	
-	private float evaluateAntecedents1(FuzzyRuleType r){
-		List<ClauseType> clauses = r.getAntecedent().getClauses();
-		float[] degrees = new float[clauses.size()];
-		for(int i=0;i<clauses.size();i++){
-			ClauseType c = clauses.get(i);
-			FuzzyTermType t=null;
-			FuzzyVariableType v=null;
-			if(c!=null && c.getTerm() instanceof FuzzyTermType)
-				t = (FuzzyTermType) c.getTerm();
-			if(c.getVariable() instanceof FuzzyVariableType)
-				v = (FuzzyVariableType) c.getVariable();
-				
-			if(t!=null && v!=null)
-				degrees[i] = c.modifierMembershipDegree(t.getMembershipValue(v.getValue()));
-		}
-		
-		//aggregate degrees (connector operator)
-		return r.aggregation(degrees);
-	}
 	
 	@Override
 	public void reset() {

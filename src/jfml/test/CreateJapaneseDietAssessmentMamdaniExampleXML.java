@@ -194,6 +194,10 @@ public class CreateJapaneseDietAssessmentMamdaniExampleXML {
 		japaneseDietAssessment.addRuleBase(rb);
 
 		// WRITTING JAPANESE DIET ASSESSMENT EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File japaneseDietAssessmentXMLFile = new File("./XMLFiles/JapaneseDietAssessmentMamdani.xml");
 		JFML.writeFSTtoXML(japaneseDietAssessment, japaneseDietAssessmentXMLFile);
 	}

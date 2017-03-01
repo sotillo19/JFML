@@ -7,7 +7,6 @@ import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.TskVariableType;
 import jfml.membershipfunction.CircularDefinitionType;
-import jfml.operator.AndLogicalType;
 import jfml.operator.OrLogicalType;
 import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
@@ -15,7 +14,6 @@ import jfml.rule.TskConsequentType;
 import jfml.rule.TskFuzzyRuleType;
 import jfml.rulebase.FuzzySystemRuleBase;
 import jfml.rulebase.TskRuleBaseType;
-import jfml.term.CircularTermType;
 import jfml.term.FuzzyTermType;
 import jfml.term.TskTerm;
 import jfml.term.TskTermType;
@@ -362,6 +360,10 @@ public class CreateInvertedPendulumTSKExampleXML2 {
 		invertedPendulum.addRuleBase(rb);
 
 		// WRITTING INVERTED PENDULUM EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File invertedPendulumXMLFile = new File("./XMLFiles/InvertedPendulumTSK2.xml");
 		JFML.writeFSTtoXML(invertedPendulum, invertedPendulumXMLFile);
 	}

@@ -7,7 +7,6 @@ import jfml.JFML;
 import jfml.enumeration.InterpolationMethodType;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
-import jfml.membershipfunction.PointSetMonotonicShapeType;
 import jfml.membershipfunction.PointSetShapeType;
 import jfml.membershipfunction.PointType;
 import jfml.rule.AntecedentType;
@@ -103,7 +102,7 @@ public class CreateTipperMamdaniExampleXML2 {
 		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
-		FuzzyRuleType reg1 = new FuzzyRuleType("reg1", "or", "MAX", 1.0f);
+		FuzzyRuleType reg1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
@@ -116,7 +115,7 @@ public class CreateTipperMamdaniExampleXML2 {
 		rb.addRule(reg1);
 
 		// RULE 2
-		FuzzyRuleType reg2 = new FuzzyRuleType("reg2", "or", "MAX", 1.0f);
+		FuzzyRuleType reg2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
@@ -127,7 +126,7 @@ public class CreateTipperMamdaniExampleXML2 {
 		rb.addRule(reg2);
 
 		// RULE 3
-		FuzzyRuleType reg3 = new FuzzyRuleType("reg3", "or", "MAX", 1.0f);
+		FuzzyRuleType reg3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
@@ -141,6 +140,10 @@ public class CreateTipperMamdaniExampleXML2 {
 		tipper.addRuleBase(rb);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File tipperXMLFile = new File("./XMLFiles/TipperMamdani2.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}

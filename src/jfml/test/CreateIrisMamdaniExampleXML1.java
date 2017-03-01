@@ -109,6 +109,10 @@ public class CreateIrisMamdaniExampleXML1 {
 		iris.addRuleBase(rb);
 
 		// WRITTING IRIS EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File irisXMLFile = new File("./XMLFiles/IrisMamdani1.xml");
 		JFML.writeFSTtoXML(iris, irisXMLFile);
 	}

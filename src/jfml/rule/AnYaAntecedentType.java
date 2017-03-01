@@ -1,11 +1,14 @@
 package jfml.rule;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import jfml.knowledgebase.variable.AnYaDataCloudType;
 
 
 /**
@@ -35,6 +38,22 @@ public class AnYaAntecedentType {
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
     protected Object dataCloudName;
+    
+    /**
+     * Default constructor
+     */
+    public AnYaAntecedentType(){
+    	    	
+    }
+    
+    /**
+     * Constructor using a data cloud {@link AnYaDataCloudType }
+     * @param dataCloud the cloud {@link AnYaDataCloudType }
+     */
+    public AnYaAntecedentType(AnYaDataCloudType dataCloud){
+    	this.dataCloudName = dataCloud;
+    }
+    
 
     /**
      * Gets the value of the property dataCloudName.
@@ -58,6 +77,14 @@ public class AnYaAntecedentType {
      */
     public void setDataCloudName(Object value) {
         this.dataCloudName = value;
+    }
+    
+    @Override
+    public String toString(){
+    	if(dataCloudName instanceof AnYaDataCloudType)
+    		return dataCloudName.toString();
+    	
+		return "";
     }
 
 }

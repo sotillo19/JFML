@@ -6,14 +6,12 @@ import jfml.JFML;
 import jfml.knowledgebase.KnowledgeBaseType;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.membershipfunction.CircularDefinitionType;
-import jfml.operator.AndLogicalType;
 import jfml.operator.OrLogicalType;
 import jfml.rule.AntecedentType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentType;
 import jfml.rule.FuzzyRuleType;
 import jfml.rulebase.MamdaniRuleBaseType;
-import jfml.term.CircularTermType;
 import jfml.term.FuzzyTermType;
 
 /**
@@ -364,6 +362,10 @@ public class CreateInvertedPendulumMamdaniExampleXML2 {
 		invertedPendulum.addRuleBase(rb);
 
 		// WRITTING INVERTED PENDULUM EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File invertedPendulumXMLFile = new File("./XMLFiles/InvertedPendulumMamdani2.xml");
 		JFML.writeFSTtoXML(invertedPendulum, invertedPendulumXMLFile);
 	}

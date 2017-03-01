@@ -127,6 +127,10 @@ public class CreateTipperTSKExampleXML {
 		tipper.addRuleBase(fr);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File tipperXMLFile = new File("./XMLFiles/TipperTSK.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}

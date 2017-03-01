@@ -1,6 +1,7 @@
 package jfml.rulebase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,9 +20,7 @@ import jfml.knowledgebase.variable.TsukamotoVariableType;
 import jfml.rule.AnYaRuleType;
 import jfml.rule.ClauseType;
 import jfml.rule.ConsequentClausesType;
-import jfml.rule.FuzzyRuleType;
 import jfml.term.FuzzyTerm;
-import jfml.term.FuzzyTermType;
 
 /**
  * <p>
@@ -66,6 +65,28 @@ public class AnYaRuleBaseType extends FuzzySystemRuleBase {
 	public AnYaRuleBaseType() {
 		setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_ANYA);
 	}
+	
+	/**
+	 * Constructor using the name of AnYa rule base
+	 * @param name
+	 */
+	public AnYaRuleBaseType(String name) {
+		super();
+    	setName(name);
+    	setRuleBaseSystemType(FuzzySystemRuleBase.TYPE_ANYA);
+	}
+
+	
+	/**
+     * Adds a AnYaRuleType to the list of rules
+     * @param rule the AnYaRuleType
+     */
+    public void addAnYaRule(AnYaRuleType rule){
+	    if (anYaRule == null) {
+			anYaRule = new ArrayList<AnYaRuleType>();
+		}
+	    anYaRule.add(rule);
+    }
 
 	/**
 	 * Gets the value of the anYaRule property.
@@ -217,24 +238,23 @@ public class AnYaRuleBaseType extends FuzzySystemRuleBase {
 	}
 
 	private void activationMamdani(FuzzyVariableType v, FuzzyTerm t, float ant_evaluation) {
-		DefuzzifierContinuous defuzzifier = (DefuzzifierContinuous) v.getDefuzzifier();
-		float membership, y, x, aggregated = 0;
+		if(v.getDefuzzifier() instanceof DefuzzifierContinuous){
+			DefuzzifierContinuous defuzzifier = (DefuzzifierContinuous) v.getDefuzzifier();
+			float membership, y, x, aggregated = 0;
+			
+			// Add membership degree to defuzzifier
+			Iterator<Float> it = defuzzifier.iterator();
+			while(it.hasNext()){
+				x = it.next();
+				membership = t.getMembershipValue(x);
 
-		x = defuzzifier.getMin();
-		double step = defuzzifier.getStepSize();
+				//IMPLICATION (activation process)
+				y = activation(ant_evaluation, membership); 
 
-		int i, length = defuzzifier.getLength();
-
-		// Add membership degrees function to deffuzifier
-		for (i = 0; i < length; i++, x += step) {
-			membership = t.getMembershipValue(x);
-
-			//IMPLICATION (activation process)
-			y = activation(ant_evaluation, membership);
-
-			// ACCUMULATION
-			aggregated = v.accumulation(defuzzifier.getValueY(i), y);
-			defuzzifier.setValue(i, aggregated);
+				//ACCUMULATION
+				aggregated = v.accumulation(defuzzifier.getValueY(x), y);
+				defuzzifier.setPoint(x, aggregated);
+			}
 		}
 	}
 	
@@ -243,26 +263,6 @@ public class AnYaRuleBaseType extends FuzzySystemRuleBase {
 		v.addEvaluation(ant_evaluation,t.getFi(ant_evaluation));
 	}
 	
-
-	private float evaluateAntecedents(FuzzyRuleType r){
-		List<ClauseType> clauses = r.getAntecedent().getClauses();
-		float[] degrees = new float[clauses.size()];
-		for(int i=0;i<clauses.size();i++){
-			ClauseType c= clauses.get(i);
-			FuzzyTermType t=null;
-			FuzzyVariableType v=null;
-			if(c!=null && c.getTerm() instanceof FuzzyTermType)
-				t = (FuzzyTermType) c.getTerm();
-			if(c.getVariable() instanceof FuzzyVariableType)
-				v = (FuzzyVariableType) c.getVariable();
-				
-			if(t!=null && v!=null)
-				degrees[i] = c.modifierMembershipDegree(t.getMembershipValue(v.getValue()));
-		}
-		
-		//aggregate degrees (connector operator)
-		return r.aggregation(degrees);
-	}
 
 	@Override
 	public void reset() {

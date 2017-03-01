@@ -13,7 +13,8 @@ public class DefuzzifierCenterOfGravity extends DefuzzifierContinuous {
 
 	@Override
 	public float defuzzify() {
-		float x,y, sum = 0, weightedSum = 0;
+		float x,y;
+		float sum = 0, weightedSum = 0;
 
 		for (Map.Entry<Float, Float> entry : discreteValues.entrySet()){
 			x = entry.getKey();

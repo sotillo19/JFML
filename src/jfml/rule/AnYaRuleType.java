@@ -61,6 +61,64 @@ public class AnYaRuleType extends Rule{
     protected String networkAddress;
 
     /**
+     * Constructor by default
+     */
+    public AnYaRuleType(){
+    	
+    }
+    /**
+     * Constructor with parameters by default
+     * @param name name of the AnYa Rule
+     */
+    public AnYaRuleType(String name){
+    	super();
+    	setName(name);
+    	setWeight(getWeight());
+    }
+    
+    /**
+     * Constructor using the name of the AnYa Rule, the Antecedent {@link AnYaAntecedentType } and the Consequent {@link ConsequentType }
+     * @param name the name of the AnYa Rule
+     * @param ant the AnYa Antecedent {@link AnYaAntecedentType }
+     * @param con the Consequent {@link ConsequentType }
+     */
+    public AnYaRuleType(String name, AnYaAntecedentType ant, ConsequentType con){
+    	super();
+    	setName(name);
+    	setWeight(getWeight());
+    	setAnYaAntecedent(ant);
+    	setConsequent(con);
+    }
+    
+    /**
+     * Constructor using the name of the AnYa Rule, the Antecedent {@link AnYaAntecedentType } and the TSK Consequent {@link TskConsequentType }
+     * @param name the name of the AnYa Rule
+     * @param ant the AnYa Antecedent {@link AnYaAntecedentType }
+     * @param con the TSK Consequent {@link TskConsequentType }
+     */
+    public AnYaRuleType(String name, AnYaAntecedentType ant, TskConsequentType con){
+    	super();
+    	setName(name);
+    	setWeight(getWeight());
+    	setAnYaAntecedent(ant);
+    	setTskConsequent(con);
+    }
+    
+
+
+	/**
+	 * Constructor using the name and the weight of the AnYa Rule
+	 * @param name name of the AnYa rule
+	 * @param weight the importance of the rule to be used by the inference engine.
+	 */
+	public AnYaRuleType(String name, Float weight) {
+		super();
+		this.name = name;
+		this.weight = weight;
+	}
+    
+    
+    /**
      * Gets the value of the property anYaAntecedent.
      * 
      * @return
@@ -223,23 +281,8 @@ public class AnYaRuleType extends Rule{
 		String b = getName() +" - ("+getEvaluation()+") IF ";
 		
 		//ANTECEDENTS
-		/*List<ClauseType> clauses = getAntecedent().getClauses();
-		for(int i=0;i<clauses.size();i++){
-			ClauseType c= clauses.get(i);
-			
-			FuzzyTerm t=(FuzzyTerm) c.getTerm();
-			KnowledgeBaseVariable v=(KnowledgeBaseVariable) c.getVariable();
-			
-			String modifier = c.getModifier();
-			if(modifier!=null)
-				modifier += " ";
-			else
-				modifier="";
-			
-			b += v.getName() +" IS "+ modifier + t.getName();
-			if(i<clauses.size()-1)
-				b += " "+getConnector().toUpperCase() + " ";
-		}*/
+		AnYaAntecedentType ant = getAnYaAntecedent();
+		b += ant.toString();
 		
 		//CONSEQUENTS
 		ConsequentClausesType then = getConsequent().getThen();

@@ -130,7 +130,7 @@ public class CreateTipperMamdaniExampleXML3 {
 		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
-		FuzzyRuleType reg1 = new FuzzyRuleType("reg1", "or", "MAX", 1.0f);
+		FuzzyRuleType reg1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
@@ -143,7 +143,7 @@ public class CreateTipperMamdaniExampleXML3 {
 		rb.addRule(reg1);
 
 		// RULE 2
-		FuzzyRuleType reg2 = new FuzzyRuleType("reg2", "or", "MAX", 1.0f);
+		FuzzyRuleType reg2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
@@ -154,7 +154,7 @@ public class CreateTipperMamdaniExampleXML3 {
 		rb.addRule(reg2);
 
 		// RULE 3
-		FuzzyRuleType reg3 = new FuzzyRuleType("reg3", "or", "MAX", 1.0f);
+		FuzzyRuleType reg3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
@@ -167,7 +167,7 @@ public class CreateTipperMamdaniExampleXML3 {
 		
 		
 		// RULE 4
-		FuzzyRuleType reg4 = new FuzzyRuleType("reg4", "or", "MAX", 1.0f);
+		FuzzyRuleType reg4 = new FuzzyRuleType("rule4", "or", "MAX", 1.0f);
 
 		AntecedentType ant4 = new AntecedentType();
 		ant4.addClause(new ClauseType(quality, acceptable));
@@ -178,7 +178,7 @@ public class CreateTipperMamdaniExampleXML3 {
 		rb.addRule(reg4);
 		
 		// RULE 5
-		FuzzyRuleType reg5 = new FuzzyRuleType("reg5", "or", "MAX", 1.0f);
+		FuzzyRuleType reg5 = new FuzzyRuleType("rule5", "or", "MAX", 1.0f);
 
 		AntecedentType ant5 = new AntecedentType();
 		ant5.addClause(new ClauseType(quality, bad, "very"));
@@ -191,6 +191,10 @@ public class CreateTipperMamdaniExampleXML3 {
 		tipper.addRuleBase(rb);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File tipperXMLFile = new File("./XMLFiles/TipperMamdani3.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}

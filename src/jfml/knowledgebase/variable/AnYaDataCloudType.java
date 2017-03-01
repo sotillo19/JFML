@@ -65,6 +65,16 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 		super();
 		setName(name);
 	}
+    
+    /**
+     * Constructor using the name
+     * @param name
+     */
+    public AnYaDataCloudType(String name, List<Double> terms) {
+		super();
+		setName(name);
+		setTerms(terms);
+	}
 
 	/**
      * Gets the value of the datum property.
@@ -162,7 +172,7 @@ public class AnYaDataCloudType extends KnowledgeBaseVariable{
 
 	@Override
 	public String toString() {
-		String s = name + " - [";
+		String s = name + " - cloud[";
 		for(Double d : datum)
 			s +=d + ", ";
 		return s.substring(0, s.length()-2) + "]";

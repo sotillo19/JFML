@@ -83,11 +83,10 @@ public class CreateTipperMamdaniExampleXML1 {
 		kb.addVariable(tip);
 
 		// RULE BASE
-		//RuleBaseType rb = new RuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_MAMDANI);
 		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
-		FuzzyRuleType reg1 = new FuzzyRuleType("reg1", "or", "MAX", 1.0f);
+		FuzzyRuleType reg1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
@@ -100,7 +99,7 @@ public class CreateTipperMamdaniExampleXML1 {
 		rb.addRule(reg1);
 
 		// RULE 2
-		FuzzyRuleType reg2 = new FuzzyRuleType("reg2", "or", "MAX", 1.0f);
+		FuzzyRuleType reg2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
@@ -111,7 +110,7 @@ public class CreateTipperMamdaniExampleXML1 {
 		rb.addRule(reg2);
 
 		// RULE 3
-		FuzzyRuleType reg3 = new FuzzyRuleType("reg3", "or", "MAX", 1.0f);
+		FuzzyRuleType reg3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
@@ -125,6 +124,10 @@ public class CreateTipperMamdaniExampleXML1 {
 		tipper.addRuleBase(rb);
 
 		// WRITTING TIPPER EXAMPLE INTO AN XML FILE
+		File dirXMLFiles = new File("./XMLFiles/");
+		if (!dirXMLFiles.exists())
+			dirXMLFiles.mkdir();
+		
 		File tipperXMLFile = new File("./XMLFiles/TipperMamdani1.xml");
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}
