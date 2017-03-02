@@ -15,15 +15,14 @@ import jfml.rulebase.AnYaRuleBaseType;
 import jfml.term.FuzzyTermType;
 
 /**
- * This class creates an XML file with the definition of a Mamdani-type FLS for the Tipper regression problem:
- *   1) Two input variables (food and service) with Triangular, rightLinear, leftGaussian, gaussian and rightGaussian membership functions
- *   2) Three rules:
- *      + Use of edge "very" in rule1
+ * This class creates an XML file with the definition of a AnYa-type FLS for the Tipper regression problem:
+ *   1) Three input variables (food, service, and quality) defined as AnYaDataCloudType
+ *   2) Three rules
  *
  * @author Jose Alonso
  */
 
-public class CreateTipperAnYaExampleXML1 {
+public class CreateTipperAnYaExampleXML {
 
 	public static void main(String[] args) {
 
@@ -111,7 +110,7 @@ public class CreateTipperAnYaExampleXML1 {
 
 		rb.addAnYaRule(rule2);
 		
-		// RULE 2
+		// RULE 3
 		AnYaRuleType rule3 = new AnYaRuleType("rule3");
 
 		AnYaAntecedentType ant3 = new AnYaAntecedentType(cloudQuality);
@@ -129,7 +128,7 @@ public class CreateTipperAnYaExampleXML1 {
 		if (!dirXMLFiles.exists())
 			dirXMLFiles.mkdir();
 		
-		File tipperXMLFile = new File("./XMLFiles/TipperAnYa1.xml");
+		File tipperXMLFile = new File("./XMLFiles/TipperAnYa.xml");
 			
 		JFML.writeFSTtoXML(tipper, tipperXMLFile);
 	}

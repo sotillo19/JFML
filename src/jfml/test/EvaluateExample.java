@@ -21,7 +21,7 @@ import jfml.knowledgebase.variable.KnowledgeBaseVariable;
  * 1) test-data-Tipper.txt
  * 2) test-data-JapaneseDietAssessment.txt
  * 3) test-data-Iris1.txt (irisMamdani1.xml and irisMamdani3.xml) and test-data-Iris2.txt (irisMamdani2.xml)
- * 4)test-data-InvertedPendulum.txt
+ * 4) test-data-InvertedPendulum.txt
  * 5) test-data-Robot.txt
  *
  * @author Jose Alonso
@@ -103,7 +103,7 @@ public class EvaluateExample {
 			}
 		    if (mainf!=null) {
 		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani1")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK1")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto1")) || (infOpt.equals("Tsukamoto2")) ) {
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani1")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK1")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto1")) || (infOpt.equals("Tsukamoto2")) || (infOpt.equals("AnYa")) || (infOpt.equals("AnYa1")) ) {
 		        this.xml = mainf+infOpt+".xml";
 		      }
 		    }
@@ -131,6 +131,7 @@ public class EvaluateExample {
           } else {
 		      warning=true;
               System.out.println("ERROR: WRONG XML FILE");
+		      //System.out.println("O1");
 		  }
 		}
 		if (end && !warning) {
@@ -162,7 +163,7 @@ public class EvaluateExample {
 		if (warning) {
 		      System.out.println("Please, check the arguments given to the program");
 			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
-		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2 | AnYa] test-data-file");
 		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
 		      System.out.println("  Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file");
 		      System.out.println("  Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file");
@@ -192,7 +193,7 @@ public class EvaluateExample {
 		  }
 		  if (mainf!=null) {
 		      this.exOpt= example;
-	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani1")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK1")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto1")) || (infOpt.equals("Tsukamoto2")) ) {
+	          if ( (infOpt.equals("Mamdani")) || (infOpt.equals("Mamdani1")) || (infOpt.equals("Mamdani2")) || (infOpt.equals("Mamdani3")) || (infOpt.equals("TSK")) || (infOpt.equals("TSK1")) || (infOpt.equals("TSK2")) || (infOpt.equals("Tsukamoto")) || (infOpt.equals("Tsukamoto1")) || (infOpt.equals("Tsukamoto2")) || (infOpt.equals("AnYa")) || (infOpt.equals("AnYa1")) ) {
 		        this.xml = mainf+infOpt+".xml";
 		      }
 		  }
@@ -240,12 +241,15 @@ public class EvaluateExample {
 		  }
 		  if (!warning) {
 		    this.xml= xmlfile;
+		    //System.out.println(this.xml);
             if ( (this.xml!=null) && (this.xml.endsWith(".xml")) ) {
 		      boolean res= this.loadFIS();
 			  if (res) {
 			      for (int n=0; n<this.NbData; n++) {
+		               //System.out.println("n="+n);
                        float[] v= this.makeInference(n);
 					   for (int k=0; k<this.NbOutputs; k++) {
+			             //System.out.println("k="+k);
 					     if (v[k] == -1) {
 					       warning= true;
   		                   System.out.println("ERROR: WRONG INFERENCE");
@@ -264,13 +268,14 @@ public class EvaluateExample {
 			  }
             } else {
   		        System.out.println("ERROR: WRONG XML FILE");
+  		        System.out.println("O2");
 			    warning= true;
 		    }
 		  }
 		  if (warning) {
 		      System.out.println("Please, check the arguments given to the program");
 			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
-		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2 | AnYa] test-data-file");
 		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
 		      System.out.println("  Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file");
 		      System.out.println("  Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file");
@@ -467,7 +472,7 @@ public class EvaluateExample {
 		      System.out.println("ERROR: WRONG ARGUMENTS");
 		      System.out.println("Please, check the arguments given to the program");
 			  System.out.println("Notice that the program has 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required");
-		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file");
+		      System.out.println("  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2 | AnYa] test-data-file");
 		      System.out.println("  Options: JapaneseDietAssessment Mamdani test-data-file");
 		      System.out.println("  Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file");
 		      System.out.println("  Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file");

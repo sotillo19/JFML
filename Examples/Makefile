@@ -47,6 +47,9 @@ createTipperTsukamoto1:
 createTipperTsukamoto2:
 	java -classpath $(JFML) jfml.test.CreateTipperTsukamotoExampleXML2
 
+createTipperAnYa:
+	java -classpath $(JFML) jfml.test.CreateTipperAnYaExampleXML
+
 testIrisMamdani1a:
 	java -jar $(JFML) Iris Mamdani1 ./XMLFiles/test-data-Iris1.txt
 
@@ -98,6 +101,9 @@ testTipperTsukamoto1:
 testTipperTsukamoto2:
 	java -jar $(JFML) Tipper Tsukamoto2 ./XMLFiles/test-data-Tipper1.txt
 	
+testTipperAnYa:
+	java -jar $(JFML) Tipper AnYa ./XMLFiles/test-data-Tipper2.txt
+
 testRobotMamdani:
 	java -jar $(JFML) Robot Mamdani ./XMLFiles/test-data-Robot.txt
 

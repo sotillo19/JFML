@@ -1,6 +1,6 @@
 The JFML library can be run with 3 main arguments (ProblemName InferenceExample DataFile) but brackets are not required
   Usage: java -jar JFML-vx.x.jar [options]
-  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2] test-data-file
+  Options: Tipper [Mamdani1 | Mamdani2 | Mamdani3 | TSK | Tsukamoto1 | Tsukamoto2 | AnYa] test-data-file
   Options: JapaneseDietAssessment Mamdani test-data-file
   Options: Iris [Mamdani1 | Mamdani2 | Mamdani3] test-data-file
   Options: InvertedPendulum [Mamdani1 | Mamdani2 | TSK1 | TSK2] test-data-file
@@ -36,6 +36,7 @@ Examples:
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperTSKExampleXML
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperTsukamotoExampleXML1
 > java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperTsukamotoExampleXML2
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.CreateTipperAnYaExampleXML
 
 Tests:
 > java -jar ./lib/JFML-v1.0.jar Iris Mamdani1 ./XMLFiles/test-data-Iris1.txt
@@ -55,6 +56,7 @@ Tests:
 > java -jar ./lib/JFML-v1.0.jar Tipper TSK ./XMLFiles/test-data-Tipper1.txt
 > java -jar ./lib/JFML-v1.0.jar Tipper Tsukamoto1 ./XMLFiles/test-data-Tipper1.txt
 > java -jar ./lib/JFML-v1.0.jar Tipper Tsukamoto2 ./XMLFiles/test-data-Tipper1.txt
+> java -jar ./lib/JFML-v1.0.jar Tipper AnYa ./XMLFiles/test-data-Tipper2.txt
 > java -jar ./lib/JFML-v1.0.jar Robot Mamdani ./XMLFiles/test-data-Robot.txt
 > java -jar ./lib/JFML-v1.0.jar ./XMLFiles/RobotIEEEstd1855.xml ./XMLFiles/test-data-Robot.txt
 > java -jar ./lib/JFML-v1.0.jar ./XMLFiles/RobotIEEEstd1855.xml 2 la av rd 0.2 dq 0.25 o 20 v 0.25
