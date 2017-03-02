@@ -1,4 +1,4 @@
-# JFML A Java Library for the IEEE Standard for Fuzzy Markup Language (IEEE Std 1855-2016)
+# JFML: A Java Library for the IEEE Standard for Fuzzy Markup Language (IEEE Std 1855-2016)
 
 JFML is an open source Java library which is aimed at facilitating interoperability and usability of fuzzy systems. 
 Notice that JFML implements the new IEEE Std 1855 published and sponsored by the Standards Committee of the IEEE Computational Intelligence Society.
