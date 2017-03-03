@@ -6,7 +6,7 @@ Notice that JFML implements the new IEEE Std 1855 published and sponsored by the
 JFML has a web page associated with a complete documentation, a good variety of examples for both users and developers, etc., The web page is hosted at:
 http://www.uco.es/JFML
 
-To build, you can clone the .git repository or download the JFML library into a .zip file from the <i>Clone or download</i> option. You can also download the source code from the <i>releases</i> in GitHub.
+To build, you can clone the .git repository or download the library into a .zip file from the <i>Clone or download</i> option. You can also download the source code from the <i>releases</i> in GitHub.
 
 We recommend following the next steps:
 </p>
