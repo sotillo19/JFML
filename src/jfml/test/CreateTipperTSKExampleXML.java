@@ -40,7 +40,7 @@ import jfml.term.TskTerm;
 import jfml.term.TskTermType;
 
 /**
- * This class creates an XML file with the definition of a TSK-type FLS for the Tipper regression problem:
+ * This class creates an XML file with the definition of a TSK-type FLS for the Tipper ruleression problem:
  *   1) Two input variables (food and service) with Triangular, rightLinear, leftGaussian, gaussian and rightGaussian membership functions
  *   2) Three rules with order-0 and order-1 in the rule consequents
  *
@@ -112,40 +112,40 @@ public class CreateTipperTSKExampleXML {
 		TskRuleBaseType fr = new TskRuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_TSK);
 
 		// RULE 1
-		TskFuzzyRuleType reg1 = new TskFuzzyRuleType("reg1", "or", "MAX", 1.0f);
+		TskFuzzyRuleType rule1 = new TskFuzzyRuleType("rule1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
 		ant1.addClause(new ClauseType(service, poor));
 		TskConsequentType con1 = new TskConsequentType();
 		con1.addTskThenClause(tip, cheap);
-		reg1.setAntecedent(ant1);
-		reg1.setTskConsequent(con1);
+		rule1.setAntecedent(ant1);
+		rule1.setTskConsequent(con1);
 
-		fr.addTskRule(reg1);
+		fr.addTskRule(rule1);
 
 		// RULE 2
-		TskFuzzyRuleType reg2 = new TskFuzzyRuleType("reg2", "or", "MAX", 1.0f);
+		TskFuzzyRuleType rule2 = new TskFuzzyRuleType("rule2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
 		TskConsequentType con2 = new TskConsequentType();
 		con2.addTskThenClause(tip, average);
-		reg2.setAntecedent(ant2);
-		reg2.setTskConsequent(con2);
-		fr.addTskRule(reg2);
+		rule2.setAntecedent(ant2);
+		rule2.setTskConsequent(con2);
+		fr.addTskRule(rule2);
 
 		// RULE 3
-		TskFuzzyRuleType reg3 = new TskFuzzyRuleType("reg3", "or", "MAX", 1.0f);
+		TskFuzzyRuleType rule3 = new TskFuzzyRuleType("rule3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
 		ant3.addClause(new ClauseType(food, delicious));
 		TskConsequentType con3 = new TskConsequentType();
 		con3.addTskThenClause(tip, generous);
-		reg3.setAntecedent(ant3);
-		reg3.setTskConsequent(con3);
-		fr.addTskRule(reg3);
+		rule3.setAntecedent(ant3);
+		rule3.setTskConsequent(con3);
+		fr.addTskRule(rule3);
 
 		tipper.addRuleBase(fr);
 

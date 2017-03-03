@@ -153,63 +153,63 @@ public class CreateTipperMamdaniExampleXML3 {
 		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
-		FuzzyRuleType reg1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
+		FuzzyRuleType rule1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
 		ant1.addClause(new ClauseType(service, poor, "very"));
 		ConsequentType con1 = new ConsequentType();
 		con1.addThenClause(tip, cheap);
-		reg1.setAntecedent(ant1);
-		reg1.setConsequent(con1);
+		rule1.setAntecedent(ant1);
+		rule1.setConsequent(con1);
 
-		rb.addRule(reg1);
+		rb.addRule(rule1);
 
 		// RULE 2
-		FuzzyRuleType reg2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
+		FuzzyRuleType rule2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
 		ConsequentType con2 = new ConsequentType();
 		con2.addThenClause(tip, average);
-		reg2.setAntecedent(ant2);
-		reg2.setConsequent(con2);
-		rb.addRule(reg2);
+		rule2.setAntecedent(ant2);
+		rule2.setConsequent(con2);
+		rb.addRule(rule2);
 
 		// RULE 3
-		FuzzyRuleType reg3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
+		FuzzyRuleType rule3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
 		ant3.addClause(new ClauseType(food, delicious));
 		ConsequentType con3 = new ConsequentType();
 		con3.addThenClause(tip, generous);
-		reg3.setAntecedent(ant3);
-		reg3.setConsequent(con3);
-		rb.addRule(reg3);
+		rule3.setAntecedent(ant3);
+		rule3.setConsequent(con3);
+		rb.addRule(rule3);
 		
 		
 		// RULE 4
-		FuzzyRuleType reg4 = new FuzzyRuleType("rule4", "or", "MAX", 1.0f);
+		FuzzyRuleType rule4 = new FuzzyRuleType("rule4", "or", "MAX", 1.0f);
 
 		AntecedentType ant4 = new AntecedentType();
 		ant4.addClause(new ClauseType(quality, acceptable));
 		ConsequentType con4 = new ConsequentType();
 		con4.addThenClause(tip, generous);
-		reg4.setAntecedent(ant4);
-		reg4.setConsequent(con4);
-		rb.addRule(reg4);
+		rule4.setAntecedent(ant4);
+		rule4.setConsequent(con4);
+		rb.addRule(rule4);
 		
 		// RULE 5
-		FuzzyRuleType reg5 = new FuzzyRuleType("rule5", "or", "MAX", 1.0f);
+		FuzzyRuleType rule5 = new FuzzyRuleType("rule5", "or", "MAX", 1.0f);
 
 		AntecedentType ant5 = new AntecedentType();
 		ant5.addClause(new ClauseType(quality, bad, "very"));
 		ConsequentType con5 = new ConsequentType();
 		con5.addThenClause(tip, cheap);
-		reg5.setAntecedent(ant5);
-		reg5.setConsequent(con5);
-		rb.addRule(reg5);
+		rule5.setAntecedent(ant5);
+		rule5.setConsequent(con5);
+		rb.addRule(rule5);
 
 		tipper.addRuleBase(rb);
 

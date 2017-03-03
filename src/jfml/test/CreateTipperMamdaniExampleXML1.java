@@ -36,7 +36,7 @@ import jfml.rulebase.MamdaniRuleBaseType;
 import jfml.term.FuzzyTermType;
 
 /**
- * This class creates an XML file with the definition of a Mamdani-type FLS for the Tipper regression problem:
+ * This class creates an XML file with the definition of a Mamdani-type FLS for the Tipper ruleression problem:
  *   1) Two input variables (food and service) with Triangular, rightLinear, leftGaussian, gaussian and rightGaussian membership functions
  *   2) Three rules:
  *      + Use of edge "very" in rule1
@@ -109,40 +109,40 @@ public class CreateTipperMamdaniExampleXML1 {
 		MamdaniRuleBaseType rb = new MamdaniRuleBaseType("rulebase1");
 
 		// RULE 1
-		FuzzyRuleType reg1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
+		FuzzyRuleType rule1 = new FuzzyRuleType("rule1", "or", "MAX", 1.0f);
 
 		AntecedentType ant1 = new AntecedentType();
 		ant1.addClause(new ClauseType(food, rancid));
 		ant1.addClause(new ClauseType(service, poor, "very"));
 		ConsequentType con1 = new ConsequentType();
 		con1.addThenClause(tip, cheap);
-		reg1.setAntecedent(ant1);
-		reg1.setConsequent(con1);
+		rule1.setAntecedent(ant1);
+		rule1.setConsequent(con1);
 
-		rb.addRule(reg1);
+		rb.addRule(rule1);
 
 		// RULE 2
-		FuzzyRuleType reg2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
+		FuzzyRuleType rule2 = new FuzzyRuleType("rule2", "or", "MAX", 1.0f);
 
 		AntecedentType ant2 = new AntecedentType();
 		ant2.addClause(new ClauseType(service, good));
 		ConsequentType con2 = new ConsequentType();
 		con2.addThenClause(tip, average);
-		reg2.setAntecedent(ant2);
-		reg2.setConsequent(con2);
-		rb.addRule(reg2);
+		rule2.setAntecedent(ant2);
+		rule2.setConsequent(con2);
+		rb.addRule(rule2);
 
 		// RULE 3
-		FuzzyRuleType reg3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
+		FuzzyRuleType rule3 = new FuzzyRuleType("rule3", "or", "MAX", 1.0f);
 
 		AntecedentType ant3 = new AntecedentType();
 		ant3.addClause(new ClauseType(service, excellent));
 		ant3.addClause(new ClauseType(food, delicious));
 		ConsequentType con3 = new ConsequentType();
 		con3.addThenClause(tip, generous);
-		reg3.setAntecedent(ant3);
-		reg3.setConsequent(con3);
-		rb.addRule(reg3);
+		rule3.setAntecedent(ant3);
+		rule3.setConsequent(con3);
+		rb.addRule(rule3);
 
 		tipper.addRuleBase(rb);
 
