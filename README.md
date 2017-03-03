@@ -6,13 +6,16 @@ Notice that JFML implements the new IEEE Std 1855 published and sponsored by the
 JFML has a web page associated with a complete documentation, a good variety of examples for both users and developers, etc., The web page is hosted at:
 http://www.uco.es/JFML
 
-To build, just run the ant file buildJFML.xml from the project's folder. We recommend following the next steps:
+To build, you can clone the .git repository from <code>git@github.com:sotillo19/JFML.git</code> or download the library into a .zip file.
+
+We recommend following the next steps:
+</p>
 <ul>
 <li>
-Download and unzip <a href="https://github.com/sotillo19/JFML/archive/master.zip" target="_blank">JFML-master.zip</a> in a local folder.
+Download the library into a .zip file from the <i>Clone or Download</i> option and unzip in a local folder.
 </li>
 <li>
-Create a <i>New Java Project</i> with <a href="https://eclipse.org/" target="_blank">Eclipse</a>. Please, remind to select as <i>Location</i> the folder created in the previous step.
+Create a <i>New Java Project</i> with Eclipse. Please, remind to select as <i>Location</i> the folder created in the previous step.
 </li>
 <li>
 Run <code>buildJFML.xml</code> as <i>Ant Build</i> with the aim of creating the project dependencies. To do so, just click the right mouse button on the xml file and then select the proper option.
@@ -27,4 +30,5 @@ It will be overwritten after running <code>buildJAR.xml</code>.
 </p>
 
 </ul>
+
 
