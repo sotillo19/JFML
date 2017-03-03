@@ -405,5 +405,17 @@ public class RuleBaseType extends FuzzySystemRuleBase{
 			
 		return b;
 	}
+	
+	@Override
+	public String getActivatedRules(){
+		String b= "";
+		int numRule=1;
+		for(FuzzyRuleType r : getRules()){
+			if(r.getEvaluation()>EPSILON)
+				b += "  RULE "+(numRule++) + ": " +r.toString() +"\n";
+		}
+			
+		return b;
+	}
     
 }

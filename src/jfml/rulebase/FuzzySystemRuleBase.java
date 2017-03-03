@@ -51,6 +51,8 @@ public abstract class FuzzySystemRuleBase {
 	static final public int TYPE_OTHER = 4;
 
 	protected int ruleBaseSystemType;
+	
+	protected float EPSILON = 0.00001f;
 
 	/**
 	 * Evaluates the rules
@@ -265,5 +267,7 @@ public abstract class FuzzySystemRuleBase {
 
 	@Override
 	public abstract String toString();
+	
+	public abstract String getActivatedRules();
 
 }

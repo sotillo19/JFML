@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jfml.knowledgebase.variable.FuzzyVariableType;
 import jfml.knowledgebase.variable.TskVariableType;
 import jfml.rule.ClauseType;
+import jfml.rule.FuzzyRuleType;
 import jfml.rule.TskClauseType;
 import jfml.rule.TskConsequentClausesType;
 import jfml.rule.TskFuzzyRuleType;
@@ -372,6 +373,18 @@ public class TskRuleBaseType extends FuzzySystemRuleBase {
 		int numRule=1;
 		for(TskFuzzyRuleType r : getTskRules())
 			b += "\tRULE "+(numRule++) + ": " +r.toString() +"\n";
+			
+		return b;
+	}
+
+	@Override
+	public String getActivatedRules(){
+		String b= "";
+		int numRule=1;
+		for(TskFuzzyRuleType r : getTskRules()){
+			if(r.getEvaluation()>EPSILON)
+				b += "  RULE "+(numRule++) + ": " +r.toString() +"\n";
+		}
 			
 		return b;
 	}

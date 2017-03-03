@@ -271,6 +271,17 @@ public class FuzzySystemType {
 	public KnowledgeBaseVariable getVariable(String name) {
 		return getKnowledgeBase().getVariable(name);
 	}
+	
+	/**
+	 * Return a variable instance identifies by its name
+	 * 
+	 * @param name
+	 *            allowed object is {@link String }
+	 * @return allowed object is {@link KnowledgeBaseVariable }
+	 */
+	public List<KnowledgeBaseVariable> getVariables() {
+		return getKnowledgeBase().getKnowledgeBaseVariables();
+	}
 
 	/**
 	 * Evaluate the fuzzy system
@@ -394,6 +405,37 @@ public class FuzzySystemType {
 				rbi = (FuzzySystemRuleBase) ((JAXBElement) rb).getValue();
 				if (rbi != null)
 					b.append(rbi.toString());
+			}
+		}
+		return b.toString();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public String getInferenceResults(){
+		StringBuffer b = new StringBuffer("");
+		b.append("KNOWLEDGEBASE:\n");
+
+		// VARIABLES
+		for (Object v : getKnowledgeBase().getVariables()) {
+			KnowledgeBaseVariable var = null;
+			if (((JAXBElement<?>) v).getValue() instanceof KnowledgeBaseVariable) {
+				var = (KnowledgeBaseVariable) ((JAXBElement<?>) v).getValue();
+				if (var != null){
+					if(var.isInput())
+						b.append("  (INPUT): " + var.getName() + " = " + var.getValue() + "\n");
+					else if(var.isOutput())
+						b.append("  (OUTPUT): " + var.getName() + " = " + var.getValue() + "\n");
+				}
+			}
+		}
+
+		b.append("ACTIVATED RULES:\n");
+		for (Object rb : getRuleBase()) {
+			FuzzySystemRuleBase rbi = null;
+			if (((JAXBElement) rb).getValue() instanceof FuzzySystemRuleBase) {
+				rbi = (FuzzySystemRuleBase) ((JAXBElement) rb).getValue();
+				if (rbi != null)
+					b.append(rbi.getActivatedRules());
 			}
 		}
 		return b.toString();
