@@ -170,6 +170,7 @@ public class CreateInvertedPendulumTSKExampleXML2 {
 
 		// RULE BASE
 		TskRuleBaseType rb = new TskRuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_TSK);
+		rb.setActivationMethod("PROD");
 
 		// RULE 1
 		TskFuzzyRuleType r1 = new TskFuzzyRuleType("rule1", "and", "MIN", 1.0f);

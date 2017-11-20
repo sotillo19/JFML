@@ -403,7 +403,7 @@ public class FuzzyTermType extends FuzzyTerm{
 		case FuzzyTerm.TYPE_trapezoidShape:
 			four =getTrapezoidShape();
 			if(four!=null){
-				param = new float[2];
+				param = new float[4];
 				param[0] = four.getParam1();
 				param[1] = four.getParam2();
 				param[2] = four.getParam3();

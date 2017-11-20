@@ -110,6 +110,7 @@ public class CreateTipperTSKExampleXML {
 
 		// RULE BASE
 		TskRuleBaseType fr = new TskRuleBaseType("rulebase1", FuzzySystemRuleBase.TYPE_TSK);
+		fr.setActivationMethod("PROD");
 
 		// RULE 1
 		TskFuzzyRuleType rule1 = new TskFuzzyRuleType("rule1", "or", "MAX", 1.0f);

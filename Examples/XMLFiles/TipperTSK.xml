@@ -37,7 +37,7 @@
         </tskVariable>
     </knowledgeBase>
     <tskRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
-        <tskRule name="rule1" orMethod="MAX" connector="or" weight="1.0">
+        <tskRule name="reg1" orMethod="MAX" connector="or" weight="1.0">
             <antecedent>
                 <clause>
                     <variable>food</variable>
@@ -57,7 +57,7 @@
                 </tskThen>
             </tskConsequent>
         </tskRule>
-        <tskRule name="rule2" orMethod="MAX" connector="or" weight="1.0">
+        <tskRule name="reg2" orMethod="MAX" connector="or" weight="1.0">
             <antecedent>
                 <clause>
                     <variable>service</variable>
@@ -73,7 +73,7 @@
                 </tskThen>
             </tskConsequent>
         </tskRule>
-        <tskRule name="rule3" orMethod="MAX" connector="or" weight="1.0">
+        <tskRule name="reg3" orMethod="MAX" connector="or" weight="1.0">
             <antecedent>
                 <clause>
                     <variable>service</variable>

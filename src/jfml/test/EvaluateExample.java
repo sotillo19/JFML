@@ -336,6 +336,7 @@ public class EvaluateExample {
 			if (faux.exists()) {
 		      this.fs = JFML.load(faux);
               if (this.fs!=null) {
+	            //System.out.println(fs.toString());
 			    int nbv= this.fs.getKnowledgeBase().getVariables().size();
 			    if (this.NbOutputs==-1) {
 			    	this.NbOutputs= nbv - this.NbInputs;
@@ -363,6 +364,7 @@ public class EvaluateExample {
 	}
 
     public float[] makeInference(int d) {
+            //System.out.println(fs.toString());
 	        float[] value= new float[this.NbOutputs];
 			for (int k=0; k<this.NbOutputs; k++) {
 			     value[k]=-1; // no inference
@@ -400,6 +402,7 @@ public class EvaluateExample {
 				  warning= true;
 			  }
 			  if (!warning) {
+		        //System.out.println(fs.toString());
 		        //System.out.println();
 		        // inference
 			    if (d>=0)
@@ -409,6 +412,7 @@ public class EvaluateExample {
 
 			    this.fs.evaluate();
 		
+	            //System.out.println(fs.toString());
                 //System.out.println("GET OUT");
 			    // get output
 				KnowledgeBaseVariable[] output= new KnowledgeBaseVariable[this.NbOutputs];
@@ -425,6 +429,7 @@ public class EvaluateExample {
 		            output[1] =  this.fs.getVariable("av");
 				} else if (this.exOpt.equals("USERXML")) {
 				    for (int k=0; k<this.NbOutputs; k++) {
+				    	 //System.out.println("OUT"+String.valueOf(k+1)+"  ("+this.outputNames[k]+")"); 
 		                 output[k] =  this.fs.getVariable(this.outputNames[k]);
 					}
 				}

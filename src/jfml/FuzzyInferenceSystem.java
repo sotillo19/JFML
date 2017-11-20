@@ -53,6 +53,7 @@ public class FuzzyInferenceSystem extends FuzzySystemType {
 	 */
 	public FuzzyInferenceSystem(FuzzySystemType fst){
 		super(fst.getName(),fst.getKnowledgeBase(),fst.getRuleBase(),fst.getNetworkAddress());
+		this.reset(this.getKnowledgeBase(), this.getRuleBase());
 	}
 	
 	

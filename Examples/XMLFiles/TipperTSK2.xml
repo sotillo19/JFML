@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<fuzzySystem xmlns="http://www.ieee1855.org" name="tipper-MAMDANI">
+<fuzzySystem xmlns="http://www.ieee1855.org" name="tipper-TSK">
     <knowledgeBase>
-        <fuzzyVariable name="food" scale="" domainleft="1.4E-45" domainright="3.4028235E38" type="input" accumulation="MAX">
+        <fuzzyVariable name="food" scale="" domainleft="1.4E-45" domainright="3.4028235E38" type="input" accumulation="BSUM">
+            <fuzzyTerm name="delicious" complement="false">
+                <pointSetShape interpolationMethod="linear" degree="1">
+                    <point x="5.5" y="0.0"/>
+                    <point x="10.0" y="1.0"/>
+                </pointSetShape>
+            </fuzzyTerm>
             <fuzzyTerm name="rancid" complement="false">
                 <pointSetShape interpolationMethod="linear" degree="1">
                     <point x="0.0" y="0.0"/>
@@ -9,15 +15,9 @@
                     <point x="5.5" y="0.0"/>
                 </pointSetShape>
             </fuzzyTerm>
-            <fuzzyTerm name="delicious" complement="false">
-                <pointSetShape interpolationMethod="linear" degree="1">
-                    <point x="5.5" y="0.0"/>
-                    <point x="10.0" y="1.0"/>
-                </pointSetShape>
-            </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="service" scale="" domainleft="1.4E-45" domainright="3.4028235E38" type="input" accumulation="MAX">
-            <fuzzyTerm name="poor" complement="false">
+        <fuzzyVariable name="service" scale="" domainleft="1.4E-45" domainright="3.4028235E38" type="input" accumulation="BSUM">
+            <fuzzyTerm name="excellent" complement="false">
                 <pointSetShape interpolationMethod="linear" degree="1">
                     <point x="0.0" y="0.0"/>
                     <point x="10.0" y="1.0"/>
@@ -30,26 +30,26 @@
                     <point x="10.0" y="0.0"/>
                 </pointSetShape>
             </fuzzyTerm>
-            <fuzzyTerm name="excellent" complement="false">
+            <fuzzyTerm name="poor" complement="false">
                 <pointSetShape interpolationMethod="linear" degree="1">
                     <point x="0.0" y="0.0"/>
                     <point x="10.0" y="1.0"/>
                 </pointSetShape>
             </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="tip" scale="" domainleft="0.0" domainright="20.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
-            <fuzzyTerm name="cheap" complement="false">
-                <singletonShape param1="0.0"/>
-            </fuzzyTerm>
+        <fuzzyVariable name="tip" scale="" domainleft="-100.0" domainright="100.0" type="output" accumulation="BSUM" defuzzifier="COG" defaultValue="-100.0">
             <fuzzyTerm name="average" complement="false">
-                <singletonShape param1="5.0"/>
+                <singletonShape param1="1.6"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="cheap" complement="false">
+                <singletonShape param1="1.9"/>
             </fuzzyTerm>
             <fuzzyTerm name="generous" complement="false">
-                <singletonShape param1="10.0"/>
+                <singletonShape param1="0.6"/>
             </fuzzyTerm>
         </fuzzyVariable>
     </knowledgeBase>
-    <mamdaniRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+    <mamdaniRuleBase name="rulebase1" activationMethod="PROD" andMethod="MIN" orMethod="MAX">
         <rule name="1" andMethod="MIN" orMethod="MAX" connector="OR" weight="1.0">
             <antecedent>
                 <clause>

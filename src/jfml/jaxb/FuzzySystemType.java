@@ -288,7 +288,7 @@ public class FuzzySystemType {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private void reset(KnowledgeBaseType knowledgeBase, List<Object> ruleBase) {
+	protected void reset(KnowledgeBaseType knowledgeBase, List<Object> ruleBase) {
 		// RESETTING VARIABLES
 		boolean tsukamoto = false;
 		for (Object v : knowledgeBase.getVariables()) {

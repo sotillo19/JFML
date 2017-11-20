@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <fuzzySystem xmlns="http://www.ieee1855.org" name="iris - MAMDANI">
     <knowledgeBase>
-        <fuzzyVariable name="PetalWidth" scale="" domainleft="0.1" domainright="2.5" type="input">
+        <fuzzyVariable name="PetalWidth" scale="" domainleft="0.0" domainright="2.5" type="input">
             <fuzzyTerm name="lowLIN" complement="false">
                 <leftLinearShape param1="0.0" param2="0.8"/>
             </fuzzyTerm>
@@ -9,37 +9,37 @@
                 <leftGaussianShape param1="0.5" param2="0.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="lowPi" complement="false">
-                <piShape param1="1.0" param2="1.2"/>
+                <piShape param1="1" param2="1.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="lowZ" complement="false">
-                <zShape param1="1.0" param2="0.2"/>
+                <sShape param1="1" param2="0.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="mediumTRI" complement="false">
-                <triangularShape param1="0.5" param2="1.0" param3="1.5"/>
+                <triangularShape param1="0.5" param2="1" param3="1.5"/>
             </fuzzyTerm>
             <fuzzyTerm name="mediumTRA" complement="false">
-                <trapezoidShape param1="0.25" param2="1.0" param3="2.0" param4="2.25"/>
+                <trapezoidShape param1="0.25" param2="1" param3="2" param4="2.25"/>
             </fuzzyTerm>
             <fuzzyTerm name="mediumGAU" complement="false">
-                <gaussianShape param1="1.0" param2="0.2"/>
+                <gaussianShape param1="1" param2="0.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="mediumREC" complement="false">
-                <rectangularShape param1="1.0" param2="2.0"/>
+                <rectangularShape param1="1" param2="2"/>
             </fuzzyTerm>
             <fuzzyTerm name="highLIN" complement="false">
                 <rightLinearShape param1="1.5" param2="2.5"/>
             </fuzzyTerm>
             <fuzzyTerm name="highGAU" complement="false">
-                <rightGaussianShape param1="2.0" param2="0.2"/>
+                <rightGaussianShape param1="2" param2="0.2"/>
             </fuzzyTerm>
             <fuzzyTerm name="highSIN" complement="false">
-                <singletonShape param1="2.0"/>
+                <singletonShape param1="2"/>
             </fuzzyTerm>
             <fuzzyTerm name="highS" complement="false">
-                <sShape param1="2.0" param2="0.2"/>
+                <sShape param1="2" param2="0.2"/>
             </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="MOM" defaultValue="1.0">
+        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="1.0">
             <fuzzyTerm name="setosa" complement="false">
                 <singletonShape param1="1.0"/>
             </fuzzyTerm>

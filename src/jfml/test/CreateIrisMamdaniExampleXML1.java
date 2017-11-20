@@ -79,13 +79,13 @@ public class CreateIrisMamdaniExampleXML1 {
 		irisClass.setType("output");
 
 		//  FUZZY TERM setosa
-		FuzzyTermType irisClass_setosa = new FuzzyTermType("setosa", FuzzyTermType.TYPE_singletonShape, (new float[] { 1f }));
+		FuzzyTermType irisClass_setosa = new FuzzyTermType("setosa", FuzzyTermType.TYPE_triangularShape, (new float[] { 1f, 1f, 2f }));
 		irisClass.addFuzzyTerm(irisClass_setosa);
 		//  FUZZY TERM virginica
-		FuzzyTermType irisClass_virginica = new FuzzyTermType("virginica", FuzzyTermType.TYPE_singletonShape, (new float[] { 2f }));
+		FuzzyTermType irisClass_virginica = new FuzzyTermType("virginica", FuzzyTermType.TYPE_triangularShape, (new float[] { 1f, 2f, 3f }));
 		irisClass.addFuzzyTerm(irisClass_virginica);
 		//  FUZZY TERM versicolor
-		FuzzyTermType irisClass_versicolor = new FuzzyTermType("versicolor", FuzzyTermType.TYPE_singletonShape, (new float[] { 3f }));
+		FuzzyTermType irisClass_versicolor = new FuzzyTermType("versicolor", FuzzyTermType.TYPE_triangularShape, (new float[] { 2f, 3f, 3f }));
 		irisClass.addFuzzyTerm(irisClass_versicolor);
 
 		kb.addVariable(irisClass);

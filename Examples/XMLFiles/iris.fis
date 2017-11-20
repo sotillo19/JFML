@@ -1,0 +1,67 @@
+[System]
+Name='New Knowledge Base'
+Type='sugeno'
+NumInputs=4
+NumOutputs=1
+NumRules=15
+AndMethod='min'
+OrMethod='max'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+
+[Input1]
+Name='Sepal Length'
+Range=[4.3 7.9]
+NumMFs=3
+MF1='low sl':'trapmf',[4.3 4.3 4.3 6.1]
+MF2='average':'trimf',[4.3 6.1 7.9]
+MF3='high':'trapmf',[6.1 7.9 7.9 7.9]
+
+[Input2]
+Name='Sepal Width'
+Range=[2.0 4.4]
+NumMFs=3
+MF1='low':'trapmf',[2.0 2.0 2.0 3.2]
+MF2='average':'trimf',[2.0 3.2 4.4]
+MF3='high':'trapmf',[3.2 4.4 4.4 4.4]
+
+[Input3]
+Name='Petal Length'
+Range=[1.0 6.9]
+NumMFs=3
+MF1='low':'trapmf',[1.0 1.0 1.0 3.95]
+MF2='average':'trimf',[1.0 3.95 6.9]
+MF3='high':'trapmf',[3.95 6.9 6.9 6.9]
+
+[Input4]
+Name='Petal Width'
+Range=[0.1 2.5]
+NumMFs=3
+MF1='low':'trapmf',[0.1 0.1 0.1 1.3]
+MF2='average':'trimf',[0.1 1.3 2.5]
+MF3='high':'trapmf',[1.3 2.5 2.5 2.5]
+
+[Output1]
+Name='irisClass'
+Range=[0 1]
+NumMFs=2
+MF1='val0':'constant',[0]
+MF2='val1':'constant',[1]
+
+[Rules]
+0 0 1 1 , 2 (1) : 1
+1 2 2 1 , 2 (1) : 1
+2 2 2 1 , 2 (1) : 1
+0 1 1 2 , 1 (1) : 1
+0 2 1 2 , 2 (1) : 1
+0 3 1 2 , 2 (1) : 1
+0 0 2 2 , 1 (1) : 1
+0 1 3 2 , 1 (1) : 1
+0 2 3 2 , 1 (1) : 1
+0 3 3 2 , 1 (1) : 1
+1 1 0 3 , 1 (1) : 1
+2 1 0 3 , 1 (1) : 1
+3 1 0 3 , 1 (1) : 1
+1 2 0 3 , 1 (1) : 1
+2 2 0 3 , 1 (1) : 1

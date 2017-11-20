@@ -39,7 +39,7 @@
         </tsukamotoVariable>
     </knowledgeBase>
     <tsukamotoRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
-        <rule name="rule1" orMethod="MAX" connector="or" weight="1.0">
+        <rule name="reg1" orMethod="MAX" connector="or" weight="1.0">
             <antecedent>
                 <clause>
                     <variable>food</variable>
@@ -59,7 +59,7 @@
                 </then>
             </consequent>
         </rule>
-        <rule name="rule2" orMethod="MAX" connector="or" weight="1.0">
+        <rule name="reg2" orMethod="MAX" connector="or" weight="1.0">
             <antecedent>
                 <clause>
                     <variable>service</variable>
@@ -75,7 +75,7 @@
                 </then>
             </consequent>
         </rule>
-        <rule name="rule3" orMethod="MAX" connector="or" weight="1.0">
+        <rule name="reg3" orMethod="MAX" connector="or" weight="1.0">
             <antecedent>
                 <clause>
                     <variable>service</variable>

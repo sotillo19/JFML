@@ -14,13 +14,13 @@
         </fuzzyVariable>
         <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="MOM" defaultValue="1.0">
             <fuzzyTerm name="setosa" complement="false">
-                <singletonShape param1="1.0"/>
+                <triangularShape param1="1.0" param2="1.0" param3="2.0"/>
             </fuzzyTerm>
             <fuzzyTerm name="virginica" complement="false">
-                <singletonShape param1="2.0"/>
+                <triangularShape param1="1.0" param2="2.0" param3="3.0"/>
             </fuzzyTerm>
             <fuzzyTerm name="versicolor" complement="false">
-                <singletonShape param1="3.0"/>
+                <triangularShape param1="2.0" param2="3.0" param3="3.0"/>
             </fuzzyTerm>
         </fuzzyVariable>
     </knowledgeBase>

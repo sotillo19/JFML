@@ -60,5 +60,35 @@ Tests:
 > java -jar ./lib/JFML-v1.0.jar Robot Mamdani ./XMLFiles/test-data-Robot.txt
 > java -jar ./lib/JFML-v1.0.jar ./XMLFiles/RobotIEEEstd1855.xml ./XMLFiles/test-data-Robot.txt
 > java -jar ./lib/JFML-v1.0.jar ./XMLFiles/RobotIEEEstd1855.xml 2 la av rd 0.2 dq 0.25 o 20 v 0.25
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/TipperTsukamoto1.xml 1 tip food 5 service 4
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/TipperTsukamoto1.xml /XMLFiles/test-data-Tipper1.txt
 
-In addition, notice that you can run the examples above by calling to the related bat files in Windows OS or by running the Makefile otherwise.
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample MATLAB IrisMamdani1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample MATLAB TipperMamdani1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample MATLAB TipperTsukamoto1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample MATLAB TipperAnYa1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample MATLAB TipperTSK
+
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample MATLAB Tipper
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/Tipper.xml ./XMLFiles/test-data-Tipper1.txt
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample MATLAB Iris
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/Iris.xml ./XMLFiles/test-data-iris3.txt
+
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample ./XMLFiles/TipperMamdani2.fis
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample ./XMLFiles/TipperTSK2.fis
+
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample FCL IrisMamdani1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample FCL TipperMamdani1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample FCL TipperTsukamoto1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample FCL TipperAnYa1
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ExportExample FCL TipperTSK
+
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample FCL Tipper
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/Tipper.xml ./XMLFiles/test-data-Tipper1.txt
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample FCL Robot
+> java -jar ./lib/JFML-v1.0.jar ./XMLFiles/Robot.xml ./XMLFiles/test-data-Robot.txt
+
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample ./XMLFiles/TipperTSK2.fcl
+> java -classpath ./lib/JFML-v1.0.jar jfml.test.ImportExample ./XMLFiles/TipperMamdani2.fcl
+
+In addition, notice that you can run some of the examples above by calling to the related bat files in Windows OS or by running the Makefile otherwise.
