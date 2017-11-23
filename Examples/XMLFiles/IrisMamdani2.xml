@@ -54,7 +54,7 @@
                 <trapezoidShape param1="1.337" param2="2.074" param3="2.5" param4="2.5"/>
             </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="MOM" defaultValue="1.0">
+        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="LM" defaultValue="1.0">
             <fuzzyTerm name="setosa" complement="false">
                 <singletonShape param1="1.0"/>
             </fuzzyTerm>

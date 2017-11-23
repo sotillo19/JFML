@@ -1,0 +1,33 @@
+[System]
+Name='iris - MAMDANI'
+Type='mamdani'
+Version=2.0
+NumInputs=1
+NumOutputs=1
+NumRules=3
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='mom'
+
+[Input1]
+Name='PetalWidth'
+Range=[0.1 2.5]
+NumMFs=3
+MF1='low':'trapmf',[0.1 0.1 0.244 1.087]
+MF2='medium':'trapmf',[0.244 1.087 1.419 1.906]
+MF3='high':'trapmf',[1.419 1.906 2.5 2.5]
+
+[Output1]
+Name='irisClass'
+Range=[1.0 3.0]
+NumMFs=3
+MF1='setosa':'trimf',[1.0 1.0 2.0]
+MF2='virginica':'trimf',[1.0 2.0 3.0]
+MF3='versicolor':'trimf',[2.0 3.0 3.0]
+
+[Rules]
+1, 1 (1.0) : 1
+2, 2 (1.0) : 1
+3, 3 (1.0) : 1

@@ -102,7 +102,7 @@ public class CreateIrisMamdaniExampleXML3 {
 		FuzzyVariableType irisClass = new FuzzyVariableType("irisClass", 1, 3);
 		irisClass.setDefaultValue(1f);
 		irisClass.setAccumulation("MAX");
-		irisClass.setDefuzzifierName("MOM");
+		irisClass.setDefuzzifierName("LM");
 		irisClass.setType("output");
 
 		//  FUZZY TERM setosa

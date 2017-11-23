@@ -39,7 +39,7 @@
                 <sShape param1="2" param2="0.2"/>
             </fuzzyTerm>
         </fuzzyVariable>
-        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="1.0">
+        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="LM" defaultValue="1.0">
             <fuzzyTerm name="setosa" complement="false">
                 <singletonShape param1="1.0"/>
             </fuzzyTerm>
