@@ -1,9 +1,10 @@
 JDK=
 JFMLpath=.
 JFML=$(JFMLpath)/lib/JFML-v1.1.jar
+JFMLxmlfiles=$(JFMLpath)/XMLfiles/
 
 default:
-	java -jar $(JFML) Iris Mamdani1 ./XMLFiles/test-data-Iris1.txt
+	java -jar $(JFML) Tipper Mamdani1 $(JFMLxmlfiles)test-data-Tipper1.txt
 
 createIrisMamdani1:
 	java -classpath $(JFML) jfml.test.CreateIrisMamdaniExampleXML1
@@ -48,124 +49,124 @@ createTipperTsukamoto2:
 	java -classpath $(JFML) jfml.test.CreateTipperTsukamotoExampleXML2
 
 testIrisMamdani1a:
-	java -jar $(JFML) Iris Mamdani1 ./XMLFiles/test-data-Iris1.txt
+	java -jar $(JFML) Iris Mamdani1 $(JFMLxmlfiles)test-data-Iris1.txt
 
 testIrisMamdani1b:
 	java -jar $(JFML) Iris Mamdani1 PetalWidth 0.2
 	
 testIrisMamdani2a:
-	java -jar $(JFML) Iris Mamdani2 ./XMLFiles/test-data-Iris2.txt
+	java -jar $(JFML) Iris Mamdani2 $(JFMLxmlfiles)test-data-Iris2.txt
 
 testIrisMamdani2b:
 	java -jar $(JFML) Iris Mamdani2 SepalLength 5.1 SepalWidth 3.5 PetalLength 1.4 PetalWidth 0.2
 
 testIrisMamdani3a:
-	java -jar $(JFML) Iris Mamdani3 ./XMLFiles/test-data-Iris1.txt
+	java -jar $(JFML) Iris Mamdani3 $(JFMLxmlfiles)test-data-Iris1.txt
 
 testIrisMamdani3b:
 	java -jar $(JFML) Iris Mamdani3 PetalWidth 0.5
 
 testInvertedPendulumMamdani1:
-	java -jar $(JFML) InvertedPendulum Mamdani1 ./XMLFiles/test-data-InvertedPendulum.txt
+	java -jar $(JFML) InvertedPendulum Mamdani1 $(JFMLxmlfiles)test-data-InvertedPendulum.txt
 	
 testInvertedPendulumMamdani2:
-	java -jar $(JFML) InvertedPendulum Mamdani2 ./XMLFiles/test-data-InvertedPendulum.txt
+	java -jar $(JFML) InvertedPendulum Mamdani2 $(JFMLxmlfiles)test-data-InvertedPendulum.txt
 
 testInvertedPendulumTSK1:
-	java -jar $(JFML) InvertedPendulum TSK1 ./XMLFiles/test-data-InvertedPendulum.txt
+	java -jar $(JFML) InvertedPendulum TSK1 $(JFMLxmlfiles)test-data-InvertedPendulum.txt
 	
 testInvertedPendulumTSK2:
-	java -jar $(JFML) InvertedPendulum TSK2 ./XMLFiles/test-data-InvertedPendulum.txt
+	java -jar $(JFML) InvertedPendulum TSK2 $(JFMLxmlfiles)test-data-InvertedPendulum.txt
 
 testJapaneseDietAssessmentMamdani:
-	java -jar $(JFML) JapaneseDietAssessment Mamdani ./XMLFiles/test-data-JapaneseDietAssessment.txt
+	java -jar $(JFML) JapaneseDietAssessment Mamdani $(JFMLxmlfiles)test-data-JapaneseDietAssessment.txt
 
 testTipperMamdani1:
-	java -jar $(JFML) Tipper Mamdani1 ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) Tipper Mamdani1 $(JFMLxmlfiles)test-data-Tipper1.txt
 
 testTipperMamdani2:
-	java -jar $(JFML) Tipper Mamdani2 ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) Tipper Mamdani2 $(JFMLxmlfiles)test-data-Tipper1.txt
 
 testTipperMamdani3:
-	java -jar $(JFML) Tipper Mamdani3 ./XMLFiles/test-data-Tipper2.txt
+	java -jar $(JFML) Tipper Mamdani3 $(JFMLxmlfiles)test-data-Tipper2.txt
 
 testTipperTSK:
-	java -jar $(JFML) Tipper TSK ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) Tipper TSK $(JFMLxmlfiles)test-data-Tipper1.txt
 
 testTipperTsukamoto1:
-	java -jar $(JFML) Tipper Tsukamoto1 ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) Tipper Tsukamoto1 $(JFMLxmlfiles)test-data-Tipper1.txt
 
 testTipperTsukamoto2:
-	java -jar $(JFML) Tipper Tsukamoto2 ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) Tipper Tsukamoto2 $(JFMLxmlfiles)test-data-Tipper1.txt
 	
 testRobotMamdani:
-	java -jar $(JFML) Robot Mamdani ./XMLFiles/test-data-Robot.txt
+	java -jar $(JFML) Robot Mamdani $(JFMLxmlfiles)test-data-Robot.txt
 
 testRobot1:
-	java -jar $(JFML) $(JFMLpath)/XMLFiles/RobotIEEEstd1855.xml ./XMLFiles/test-data-Robot.txt
+	java -jar $(JFML) $(JFMLxmlfiles)RobotIEEEstd1855.xml $(JFMLxmlfiles)test-data-Robot.txt
 
 testRobot2:
-	java -jar $(JFML) $(JFMLpath)/XMLFiles/RobotIEEEstd1855.xml 2 la av rd 0.2 dq 0.25 o 20 v 0.25
+	java -jar $(JFML) $(JFMLxmlfiles)RobotIEEEstd1855.xml 2 la av rd 0.2 dq 0.25 o 20 v 0.25
 	
 exportIrisMamdani1MATLAB:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/IrisMamdani1.xml $(JFMLpath)/XMLFiles/IrisMamdani1.fis
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)IrisMamdani1.xml $(JFMLxmlfiles)IrisMamdani1.fis
 
 exportIrisMamdani1FCL:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/IrisMamdani1.xml $(JFMLpath)/XMLFiles/IrisMamdani1.fcl
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)IrisMamdani1.xml $(JFMLxmlfiles)IrisMamdani1.fcl
 	
 exportIrisMamdani2MATLAB:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/IrisMamdani2.xml $(JFMLpath)/XMLFiles/IrisMamdani2.fis
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)IrisMamdani2.xml $(JFMLxmlfiles)IrisMamdani2.fis
 	
 exportTipperMamdani1MATLAB:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/TipperMamdani1.xml $(JFMLpath)/XMLFiles/TipperMamdani1.fis
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperMamdani1.xml $(JFMLxmlfiles)TipperMamdani1.fis
 
 exportTipperMamdani1FCL:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/TipperMamdani1.xml $(JFMLpath)/XMLFiles/TipperMamdani1.fcl
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperMamdani1.xml $(JFMLxmlfiles)TipperMamdani1.fcl
 
 exportTipperMamdani2MATLAB:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/TipperMamdani2.xml $(JFMLpath)/XMLFiles/TipperMamdani2.fis
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperMamdani2.xml $(JFMLxmlfiles)TipperMamdani2.fis
 
 exportTipperMamdani2FCL:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/TipperMamdani2.xml $(JFMLpath)/XMLFiles/TipperMamdani2.fcl
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperMamdani2.xml $(JFMLxmlfiles)TipperMamdani2.fcl
 	
 exportTipperTSKMATLAB:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/TipperTSK.xml $(JFMLpath)/XMLFiles/TipperTSK.fis
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperTSK.xml $(JFMLxmlfiles)TipperTSK.fis
 
 exportTipperTSKFCL:
-	java -classpath $(JFML) jfml.test.ExportExample $(JFMLpath)/XMLFiles/TipperTSK.xml $(JFMLpath)/XMLFiles/TipperTSK.fcl
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperTSK.xml $(JFMLxmlfiles)TipperTSK.fcl
 	
 importIrisMamdani1MATLAB:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/IrisMamdani1.fis $(JFMLpath)/XMLFiles/IrisMamdani1.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)IrisMamdani1.fis $(JFMLxmlfiles)IrisMamdani1.xml
 
 importIrisMamdani1FCL:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/IrisMamdani1.fcl $(JFMLpath)/XMLFiles/IrisMamdani1.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)IrisMamdani1.fcl $(JFMLxmlfiles)IrisMamdani1.xml
 	
 importIrisMamdani2MATLAB:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/IrisMamdani2.fis $(JFMLpath)/XMLFiles/IrisMamdani2.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)IrisMamdani2.fis $(JFMLxmlfiles)IrisMamdani2.xml
 	
 importTipperMamdani1MATLAB:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/TipperMamdani1.fis $(JFMLpath)/XMLFiles/TipperMamdani1.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperMamdani1.fis $(JFMLxmlfiles)TipperMamdani1.xml
 
 importTipperMamdani1FCL:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/TipperMamdani1.fcl $(JFMLpath)/XMLFiles/TipperMamdani1.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperMamdani1.fcl $(JFMLxmlfiles)TipperMamdani1.xml
 
 importTipperMamdani2MATLAB:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/TipperMamdani2.fis $(JFMLpath)/XMLFiles/TipperMamdani2.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperMamdani2.fis $(JFMLxmlfiles)TipperMamdani2.xml
 
 importTipperMamdani2FCL:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/TipperMamdani2.fcl $(JFMLpath)/XMLFiles/TipperMamdani2.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperMamdani2.fcl $(JFMLxmlfiles)TipperMamdani2.xml
 	
 importTipperTSKMATLAB:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/TipperTSK.fis $(JFMLpath)/XMLFiles/TipperTSK.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperTSK.fis $(JFMLxmlfiles)TipperTSK.xml
 
 importTipperTSKFCL:
-	java -classpath $(JFML) jfml.test.ImportExample $(JFMLpath)/XMLFiles/TipperTSK.fcl $(JFMLpath)/XMLFiles/TipperTSK.xml
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperTSK.fcl $(JFMLxmlfiles)TipperTSK.xml
 
 testIrisMamdani1Import:
-	java -jar $(JFML) $(JFMLpath)/XMLFiles/IrisMamdani1.xml ./XMLFiles/test-data-Iris1.txt
+	java -jar $(JFML) $(JFMLxmlfiles)IrisMamdani1.xml $(JFMLxmlfiles)test-data-Iris1.txt
 
 testTipperMamdani1Import:
-	java -jar $(JFML) $(JFMLpath)/XMLFiles/TipperMamdani1.xml ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) $(JFMLxmlfiles)TipperMamdani1.xml $(JFMLxmlfiles)test-data-Tipper1.txt
 
 testTipperTSKImport:
-	java -jar $(JFML) $(JFMLpath)/XMLFiles/TipperTSK.xml ./XMLFiles/test-data-Tipper1.txt
+	java -jar $(JFML) $(JFMLxmlfiles)TipperTSK.xml $(JFMLxmlfiles)test-data-Tipper1.txt
