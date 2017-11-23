@@ -32,7 +32,7 @@ import jfml.term.FuzzyTermType;
 
 public abstract class DefuzzifierContinuous extends Defuzzifier implements Iterable<Float>{
 
-	public static int DEFAULT_NUMBER_OF_POINTS = 1000;
+	public static int DEFAULT_NUMBER_OF_POINTS = 2000;
 
 	protected float stepSize;
 	
@@ -82,7 +82,7 @@ public abstract class DefuzzifierContinuous extends Defuzzifier implements Itera
 	 * Initialize defuzzifier
 	 * @param min : Minimum
 	 * @param max : Maximum
-	 * @param numberOfPoints
+	 * @param numberOfPoints // default value 2000
 	 */
 	private void init(float min, float max, int numberOfPoints, List<FuzzyTermType> terms) {
 		discreteValues = new TreeMap<Float, Float>();

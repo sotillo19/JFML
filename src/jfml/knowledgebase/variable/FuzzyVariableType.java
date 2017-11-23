@@ -444,8 +444,13 @@ public class FuzzyVariableType extends FuzzyVariable{
      */
 	@Override
 	public float getValue() {
-		if(this.getDefuzzifier()!=null && this.isOutput() && Float.isNaN(value))
-    		return getDefuzzifier().defuzzify();
+		if(this.getDefuzzifier()!=null && this.isOutput() && Float.isNaN(value)){
+			float v = getDefuzzifier().defuzzify();
+			if(Float.isNaN(v))
+				return getDefaultValue();
+			else
+				return v;
+		}
     	else
     		return value;
 	}

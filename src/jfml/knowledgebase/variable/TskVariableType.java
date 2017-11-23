@@ -347,7 +347,10 @@ public class TskVariableType extends KnowledgeBaseVariable {
 			sum += zi.getW();
 			res += zi.getW()*zi.getZ();
 		}
-		return res/sum;
+		if(sum == 0)
+			return getDefaultValue();
+		else
+			return res/sum;
 	}
 
 	@Override

@@ -353,9 +353,9 @@ public class ExportMatlab extends Export {
             	defMethod="centroid";
             } else if (defMethod.equals("COA")) {
             	System.out.println("WARNING: \'COA\' defMethod is not defined in MATLAB.");
-            	System.out.println("    We replaced \'COA\' by \'centroid\' in MATLAB.");
+            	System.out.println("    We replaced \'COA\' by \'bisector\' in MATLAB.");
         	    System.out.println();
-            	defMethod="centroid";
+            	defMethod="bisector";
             } else if (defMethod.equals("WA")) {
             	defMethod="wtaver";
             } else if (defMethod.startsWith("custom")) {
@@ -398,9 +398,9 @@ public class ExportMatlab extends Export {
                          } else if (mfMatlab.equals("gaussmf")) {
                         	 params=pp[1]+" "+pp[0];
                          } else if (mfType.startsWith("rightlinear")) {
-                        	 params=pp[0]+" "+pp[0]+" "+pp[1];
-                         } else if (mfType.startsWith("leftlinear")) {
                         	 params=pp[0]+" "+pp[1]+" "+pp[1];
+                         } else if (mfType.startsWith("leftlinear")) {
+                        	 params=pp[0]+" "+pp[0]+" "+pp[1];
                          } else if (mfType.startsWith("user")) {
                         	 params=String.valueOf((in.getDomainleft()+in.getDomainright())/2);
                          } else {
@@ -451,9 +451,9 @@ public class ExportMatlab extends Export {
                          } else if (mfMatlab.equals("gaussmf")) {
                         	 params=pp[1]+" "+pp[0];
                          } else if (mfType.startsWith("rightlinear")) {
-                        	 params=pp[0]+" "+pp[0]+" "+pp[1];
-                         } else if (mfType.startsWith("leftlinear")) {
                         	 params=pp[0]+" "+pp[1]+" "+pp[1];
+                         } else if (mfType.startsWith("leftlinear")) {
+                        	 params=pp[0]+" "+pp[0]+" "+pp[1];
                          } else if (mfType.startsWith("user")) {
                         	 params=String.valueOf((out.getDomainleft()+out.getDomainright())/2);
                          } else {
@@ -489,12 +489,11 @@ public class ExportMatlab extends Export {
                          if (ord > 0) {
                              mfMatlab= "linear";
                              Iterator<Float> fi= lv.iterator();
+                             Float last= fi.next().floatValue();
                              while (fi.hasNext()) {
-                            	 params= params + String.valueOf(fi.next().floatValue());
-                            	 if (fi.hasNext()) {
-                            		 params= params + " ";
-                            	 }
+                            	 params= params + String.valueOf(fi.next().floatValue())+ " ";
                              }
+                             params= params + last;
                          } else {
                              mfMatlab= "constant";
                              params=""+lv.get(0);

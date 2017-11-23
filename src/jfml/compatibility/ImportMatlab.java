@@ -204,7 +204,7 @@ public class ImportMatlab extends Import {
 				//System.out.println(defuzzMethod);
                 String dm="COA";
                 if (defuzzMethod.equals("centroid")) {
-                	dm= "COA";
+                	dm= "COG";
                 } else if (defuzzMethod.equals("bisector")) { 
                 	dm= "COA";
                 } else if (defuzzMethod.equals("mom")) { 
@@ -308,13 +308,13 @@ public class ImportMatlab extends Import {
         				//System.out.println(aux);
         				float[] pp;
         				if (ttype.equals("trimf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_triangularShape, pp);
         				} else if (ttype.equals("trapmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_trapezoidShape, pp);
         				} else if (ttype.equals("gaussmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
         					float c= pp[1];
         					float sigma= pp[0];
         					pp[0]= c;
@@ -349,7 +349,7 @@ public class ImportMatlab extends Import {
         					//pp[1]= a*a;
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_triangularShape, pp);
         				} else if (ttype.equals("sigmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				// it does not exist in JFML. Look for the most similar shape
                         	System.out.println("WARNING: Unknown membership function");
                         	System.out.println("    We set \'TYPE_sShape\'");
@@ -393,20 +393,20 @@ public class ImportMatlab extends Import {
                         	pp[2]=vrange[1];
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_triangularShape, pp);
         				} else if (ttype.equals("zmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_zShape, pp);
         				} else if (ttype.equals("pimf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				// it does not exist in JFML. Look for the most similar shape
                         	System.out.println("WARNING: Unknown membership function");
                         	System.out.println("    We set \'TYPE_trapezoidShape\'");
                         	System.out.println();
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_trapezoidShape, pp);
         				} else if (ttype.equals("smf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_sShape, pp);
         				} else if (ttype.equals("constant")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
            				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_singletonShape, pp);
         				}
         				in[n].addFuzzyTerm(ft[k]);
@@ -521,15 +521,15 @@ public class ImportMatlab extends Import {
         				//System.out.println(aux);
         				float[] pp= null;
         				if (ttype.equals("trimf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_triangularShape, pp);
         				} else if (ttype.equals("trapmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_trapezoidShape, pp);
         				} else if (ttype.equals("gaussmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
         					float c= pp[1];
         					float sigma= pp[0];
         					pp[0]= c;
@@ -567,7 +567,7 @@ public class ImportMatlab extends Import {
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_triangularShape, pp);
         				} else if (ttype.equals("sigmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				// it does not exist in JFML. Look for the most similar shape
                         	System.out.println("WARNING: Unknown membership function");
                         	System.out.println("    We set \'TYPE_sShape\'");
@@ -614,11 +614,11 @@ public class ImportMatlab extends Import {
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_triangularShape, pp);
         				} else if (ttype.equals("zmf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_zShape, pp);
         				} else if (ttype.equals("pimf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				// it does not exist in JFML. Look for the most similar shape
                         	System.out.println("WARNING: Unknown membership function");
                         	System.out.println("    We set \'TYPE_trapezoidShape\'");
@@ -626,15 +626,15 @@ public class ImportMatlab extends Import {
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_trapezoidShape, pp);
         				} else if (ttype.equals("smf")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_sShape, pp);
         				} else if (ttype.equals("constant")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, false);
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_singletonShape, pp);
         				} else if (ttype.equals("linear")) {
-        					pp= this.fillParameters(aux);
+        					pp= this.fillParameters(aux, true);
         					// this is only for TSK-order1
         				}
         				if (type.equals("mamdani")) {
@@ -830,13 +830,22 @@ public class ImportMatlab extends Import {
 		return fuzzySystemIEEE;
 	}
 
-	public float[] fillParameters(String line) {
+	public float[] fillParameters(String line, boolean linear) {
         line= line.substring(1,line.length()-1);
         String[] params= line.split(" ");
         float[] result= new float[params.length];
-		for (int m=0; m<params.length; m++) {
-            result[m]= (new Float(params[m])).floatValue();
-			//System.out.println(result[m]);
+        if (linear) {
+        	result[params.length-1]= (new Float(params[0])).floatValue();
+        } else {
+        	result[0]= (new Float(params[0])).floatValue();
+        }
+		for (int m=0; m<params.length-1; m++) {
+			if (linear) {
+                result[m]= (new Float(params[m+1])).floatValue();
+			} else {
+                result[m+1]= (new Float(params[m+1])).floatValue();
+			}
+		    //System.out.println(result[m]);
 		}
         return result;
 	}

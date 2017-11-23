@@ -66,5 +66,9 @@ public class WZ {
 		this.z = z;
 	}
 	
+	@Override
+	public String toString(){
+		return "WZ:["+w+", "+z+"]";
+	}
 	
 }

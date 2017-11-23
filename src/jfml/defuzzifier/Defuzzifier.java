@@ -24,7 +24,7 @@
 package jfml.defuzzifier;
 
 /**
- * Abstract class for representing the Deffuzifier concept
+ * Abstract class for representing the Defuzzifier concept
  * @author sotillo19
  *
  */

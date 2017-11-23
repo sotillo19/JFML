@@ -42,7 +42,7 @@ public class ImportExample {
         if (args.length==1) {
         	File faux= new File(args[0]);
         	if (!faux.exists()) {
-    		    System.out.println("WARNING: The target file does not exist.");
+    		    System.out.println("WARNING: The target input file does not exist.");
         	} else {
         		if ( (!args[0].endsWith(".fcl")) && (!args[0].endsWith(".fis")) ) {
         		    System.out.println("WARNING: Only FCL (\'*.fcl\') and MATLAB (\'*.fis\') files are admitted.");
@@ -74,14 +74,59 @@ public class ImportExample {
 		    		}
         		}
         	}
-        } else if (args.length!=2) {
+        } else if (args.length==2) {
+        	File fauxIn= new File(args[0]);
+        	File fauxOut= new File(args[1]);
+        	boolean warning= false;
+        	if (!fauxIn.exists()) {
+    		    System.out.println("WARNING: The input file does not exist.");
+    		    warning=true;
+        	} 
+        	if (!warning && fauxOut.exists()) {
+    		    System.out.println("WARNING: The output file already exists.");
+		        System.out.println("Please, launch the program again with another output file name.");
+    		    warning=true;
+        	}
+        	if (!warning && (!args[0].endsWith(".fcl")) && (!args[0].endsWith(".fis"))) {
+    		    System.out.println("WARNING: Only FCL (\'*.fcl\') and MATLAB (\'*.fis\') files are admitted.");
+    		    warning=true;
+        	}
+        	if (!warning && (!args[1].endsWith(".xml"))) {
+    		    System.out.println("WARNING: The output file name must ends with .xml");
+    		    warning=true;
+        	}
+        	if (!warning) {
+       		    Import is=null;
+       		    String Lang;
+       		    if (args[0].endsWith(".fcl")) {
+       		        is= new ImportFCL();
+       		        Lang= "FCL";
+       		    } else {
+       		        is= new ImportMatlab();
+       		        Lang= "MATLAB";
+       		    }
+	    		FuzzyInferenceSystem fs = is.importFuzzySystem(args[0]);
+	    		if (fs!=null) {
+	    		  File dirXMLFiles = new File("./XMLFiles/");
+	    		  if (!dirXMLFiles.exists()) {
+	    			dirXMLFiles.mkdir();
+	    		  }
+	    		  JFML.writeFSTtoXML(fs, fauxOut);
+	    		  System.out.println("Imported fuzzy system: from "+Lang+ " to JFML");
+	    		  System.out.println("New file: "+fauxOut);
+	    		  //printing the FuzzySystem
+	    		  System.out.println(fs.toString());
+	    		}
+        	}
+        } else if (args.length!=3) {
 		    System.out.println("Please, check the arguments given to the program");
 			System.out.println("Notice that the program has 2 main arguments (Language ProblemName DataFile) but brackets are not required");
-		    System.out.println("  Options: MATLAB [Tipper | Iris]");
-		    System.out.println("  Options: FCL [Tipper | Robot]");
+		    System.out.println("  Options: MATLAB [Tipper | Iris] output.xml");
+		    System.out.println("  Options: FCL [Tipper | Robot] output.xml");
         } else {
 		    Import is=null;
 		    String Lang=args[0];
+        	File fauxOut= new File(args[2]);
 		    boolean goon= true;
 		    if (Lang.equals("FCL")) {
 		        is= new ImportFCL();
@@ -91,20 +136,27 @@ public class ImportExample {
 		        goon= false;
 		        System.out.println("Please, check the arguments given to the program");
 			    System.out.println("Unfortunately, you select an unknown Language");
-				System.out.println("Notice that the program has 2 main arguments (Language ProblemName DataFile) but brackets are not required");
-			    System.out.println("  Options: MATLAB [Tipper | Iris]");
-			    System.out.println("  Options: FCL [Tipper | Robot]");
+				System.out.println("Notice that the program has 3 main arguments (Language ProblemName DataFile) but brackets are not required");
+			    System.out.println("  Options: MATLAB [Tipper | Iris] output.xml");
+			    System.out.println("  Options: FCL [Tipper | Robot] output.xml");
 		    }
+        	if (goon && fauxOut.exists()) {
+    		    System.out.println("WARNING: The output file already exists.");
+		        System.out.println("Please, launch the program again with another output file name.");
+    		    goon=false;
+        	}
+        	if (goon && (!args[2].endsWith(".xml"))) {
+    		    System.out.println("WARNING: The output file name must ends with .xml");
+    		    goon=false;
+        	}
 		    if (goon && is!=null) {
 		        String ifs="";	
-		        File xmlFile= null;
 		    	if (args[1].equals("Tipper")) {
 				    if (Lang.equals("FCL")) {
 				    	ifs= "./XMLFiles/Tipper.fcl";
 				    } else if (Lang.equals("MATLAB")) {
 				    	ifs= "./XMLFiles/Tipper.fis";
 				    } 
-		    		xmlFile = new File("./XMLFiles/Tipper.xml");
 		    	} else if (args[1].equals("Robot")) {
 				    if (Lang.equals("FCL")) {
 			    		ifs= "./XMLFiles/robot.fcl";
@@ -112,30 +164,28 @@ public class ImportExample {
 				        goon= false;
 				        System.out.println("Please, check the arguments given to the program");
 					    System.out.println("Unfortunately, you select an unknown Language");
-						System.out.println("Notice that the program has 2 main arguments (Language ProblemName DataFile) but brackets are not required");
-					    System.out.println("  Options: MATLAB [Tipper | Iris]");
-					    System.out.println("  Options: FCL [Tipper | Robot]");
+						System.out.println("Notice that the program has 3 main arguments (Language ProblemName DataFile) but brackets are not required");
+					    System.out.println("  Options: MATLAB [Tipper | Iris] output.xml");
+					    System.out.println("  Options: FCL [Tipper | Robot] output.xml");
 				    }
-		    		xmlFile = new File("./XMLFiles/Robot.xml");
 		    	} else if (args[1].equals("Iris")) {
 				    if (Lang.equals("FCL")) {
 				        goon= false;
 				        System.out.println("Please, check the arguments given to the program");
 					    System.out.println("Unfortunately, you select an unknown Language");
-						System.out.println("Notice that the program has 2 main arguments (Language ProblemName DataFile) but brackets are not required");
-					    System.out.println("  Options: MATLAB [Tipper | Iris]");
-					    System.out.println("  Options: FCL [Tipper | Robot]");
+						System.out.println("Notice that the program has 3 main arguments (Language ProblemName DataFile) but brackets are not required");
+					    System.out.println("  Options: MATLAB [Tipper | Iris] output.xml");
+					    System.out.println("  Options: FCL [Tipper | Robot] output.xml");
 				    } else if (Lang.equals("MATLAB")) {
 			    		ifs= "./XMLFiles/iris.fis"; 
 		    	    }
-		    		xmlFile = new File("./XMLFiles/iris.xml");
 		    	} else {
 			        goon= false;
 			        System.out.println("Please, check the arguments given to the program");
 				    System.out.println("Unfortunately, you select an unknown ProblemName");
-					System.out.println("Notice that the program has 2 main arguments (Language ProblemName DataFile) but brackets are not required");
-				    System.out.println("  Options: MATLAB [Tipper | Iris]");
-				    System.out.println("  Options: FCL [Tipper | Robot]");
+					System.out.println("Notice that the program has 3 main arguments (Language ProblemName DataFile) but brackets are not required");
+				    System.out.println("  Options: MATLAB [Tipper | Iris] output.xml");
+				    System.out.println("  Options: FCL [Tipper | Robot] output.xml");
 		    	}
 		    	if (goon && !ifs.equals("")) {
 			    	//loading Fuzzy System from an file according the standard FCL (IEC 1131)
@@ -145,9 +195,9 @@ public class ImportExample {
 		    		  if (!dirXMLFiles.exists())
 		    			dirXMLFiles.mkdir();
 
-		    		  JFML.writeFSTtoXML(fs, xmlFile);
+		    		  JFML.writeFSTtoXML(fs, fauxOut);
 		    		  System.out.println("Imported fuzzy system: from "+Lang+ " to JFML");
-		    		  System.out.println("New file: "+xmlFile);
+		    		  System.out.println("New file: "+fauxOut);
 		    		  //printing the FuzzySystem
 		    		  System.out.println(fs.toString());
 		    		}

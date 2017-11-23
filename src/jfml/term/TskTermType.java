@@ -81,10 +81,10 @@ public class TskTermType extends TskTerm{
     }
 
     /**
-     * Constructor using the name, the order and a list of coefficients
+     * Constructor using the name, the order and a list of coefficients (c, a, b, ...)
      * @param name the name of the TSK term
      * @param order the order of the TSK term (0 or 1)
-     * @param coeff a list of coefficients
+     * @param coeff a list of coefficients (c, a, b, ...) : z = c + av1 + bv2 + ... mvn
      */
     public TskTermType(String name, int order, float[] coeff) {
 		super();
