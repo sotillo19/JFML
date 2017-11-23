@@ -1,7 +1,7 @@
 JDK=
 JFMLpath=.
 JFML=$(JFMLpath)/lib/JFML-v1.1.jar
-JFMLxmlfiles=$(JFMLpath)/XMLfiles/
+JFMLxmlfiles=$(JFMLpath)/XMLFiles/
 
 default:
 	java -jar $(JFML) Tipper Mamdani1 $(JFMLxmlfiles)test-data-Tipper1.txt
