@@ -393,23 +393,28 @@ public class ExportMatlab extends Export {
                          String mfMatlab= getMatlabMF(mfType);
                          String params="";
                          float[] pp= term.getParam();
-                         if (mfMatlab.equals("pimf")) {
-                        	 params=pp[0]+" "+pp[3];
-                         } else if (mfMatlab.equals("gaussmf")) {
-                        	 params=pp[1]+" "+pp[0];
-                         } else if (mfType.startsWith("rightlinear")) {
-                        	 params=pp[0]+" "+pp[1]+" "+pp[1];
-                         } else if (mfType.startsWith("leftlinear")) {
-                        	 params=pp[0]+" "+pp[0]+" "+pp[1];
-                         } else if (mfType.startsWith("user")) {
-                        	 params=String.valueOf((in.getDomainleft()+in.getDomainright())/2);
-                         } else {
-                           for (int p=0;p<pp.length; p++) {
-                        	 params= params+pp[p];
-                        	 if (p < pp.length-1) {
-                        		 params= params+" ";
-                        	 }
+                         if (pp != null) {
+                           if (mfMatlab.equals("pimf")) {
+                        	   params=pp[0]+" "+pp[3];
+                           } else if (mfMatlab.equals("gaussmf")) {
+                        	   params=pp[1]+" "+pp[0];
+                           } else if (mfType.startsWith("rightlinear")) {
+                        	   params=pp[0]+" "+pp[1]+" "+pp[1];
+                           } else if (mfType.startsWith("leftlinear")) {
+                        	   params=pp[0]+" "+pp[0]+" "+pp[1];
+                           } else if (mfType.startsWith("user")) {
+                        	   params=String.valueOf((in.getDomainleft()+in.getDomainright())/2);
+                           } else {
+                               for (int p=0;p<pp.length; p++) {
+                        	     params= params+pp[p];
+                        	     if (p < pp.length-1) {
+                        		   params= params+" ";
+                        	     }
+                               }
                            }
+                         } else {
+                        	 mfMatlab= "trimf";
+                        	 params= params+in.getDomainleft()+" "+String.valueOf((in.getDomainleft()+in.getDomainright())/2)+" "+in.getDomainright();
                          }
                          MF= MF+"MF"+String.valueOf(m+1)+"=\'"+tname+"\':\'"+mfMatlab+"\',["+params+"]";
                          if (m<nMFs-1) {
@@ -446,23 +451,28 @@ public class ExportMatlab extends Export {
                          String mfMatlab= getMatlabMF(mfType);
                          String params="";
                          float[] pp= term.getParam();
-                         if (mfMatlab.equals("pimf")) {
-                        	 params=pp[0]+" "+pp[3];
-                         } else if (mfMatlab.equals("gaussmf")) {
-                        	 params=pp[1]+" "+pp[0];
-                         } else if (mfType.startsWith("rightlinear")) {
-                        	 params=pp[0]+" "+pp[1]+" "+pp[1];
-                         } else if (mfType.startsWith("leftlinear")) {
-                        	 params=pp[0]+" "+pp[0]+" "+pp[1];
-                         } else if (mfType.startsWith("user")) {
-                        	 params=String.valueOf((out.getDomainleft()+out.getDomainright())/2);
-                         } else {
-                           for (int p=0;p<pp.length; p++) {
-                        	 params= params+pp[p];
-                        	 if (p < pp.length-1) {
-                        		 params= params+" ";
-                        	 }
+                         if (pp != null) {
+                           if (mfMatlab.equals("pimf")) {
+                        	   params=pp[0]+" "+pp[3];
+                           } else if (mfMatlab.equals("gaussmf")) {
+                        	   params=pp[1]+" "+pp[0];
+                           } else if (mfType.startsWith("rightlinear")) {
+                        	   params=pp[0]+" "+pp[1]+" "+pp[1];
+                           } else if (mfType.startsWith("leftlinear")) {
+                        	   params=pp[0]+" "+pp[0]+" "+pp[1];
+                           } else if (mfType.startsWith("user")) {
+                        	   params=String.valueOf((out.getDomainleft()+out.getDomainright())/2);
+                           } else {
+                               for (int p=0;p<pp.length; p++) {
+                        	     params= params+pp[p];
+                        	     if (p < pp.length-1) {
+                        		   params= params+" ";
+                        	     }
+                               }
                            }
+                         } else {
+                        	 mfMatlab= "trimf";
+                        	 params= params+out.getDomainleft()+" "+String.valueOf((out.getDomainleft()+out.getDomainright())/2)+" "+out.getDomainright();
                          }
                          MF= MF+"MF"+String.valueOf(m+1)+"=\'"+tname+"\':\'"+mfMatlab+"\',["+params+"]";
                          if (m<nMFs-1) {
@@ -536,14 +546,14 @@ public class ExportMatlab extends Export {
                     	   int ind= 0;
                     	   if (itct.hasNext()) {
                                ClauseType ct= itct.next();
-                               //System.out.println(ct.toString());
                     		   if (ct!=null) {
+                                     //System.out.println(ct.toString());
                                      FuzzyVariableType v= (FuzzyVariableType)ct.getVariable();
                                      //System.out.println(v.getName());
                                      FuzzyTermType t= (FuzzyTermType)ct.getTerm();
                                      //System.out.println(t.getName());
                                      ind= this.getMatlabMFindex(v, t)+1;
-                                 //System.out.println(ind);
+                                     //System.out.println(ind);
                     		   }
                     	   }
                     	   if (n==nInputs-1) {
@@ -717,11 +727,11 @@ public class ExportMatlab extends Export {
        	     //System.out.println("    "+names[n]);
        	     //System.out.println("    "+l.size());
         	 Iterator<ClauseType> it= l.iterator();
-             while (it.hasNext()) {
+             while (it.hasNext() && !warning) {
             	 ClauseType ct= it.next();
             	 if (ct!=null) {
             	   //System.out.println("    "+ct.toString());
-            	   if (ct.toString().contains(names[n]+ " IS ")) {
+            	   if (ct.toString().startsWith(names[n]+ " IS ")) {
             		 res.add(ct);
             		 warning= true;
             		 break;
@@ -748,10 +758,10 @@ public class ExportMatlab extends Export {
        	     //System.out.println("    "+names[n]);
        	     //System.out.println("    "+l.size());
         	 Iterator<TskClauseType> it= l.iterator();
-             while (it.hasNext()) {
+             while (it.hasNext() && !warning) {
             	 TskClauseType ct= it.next();
             	 //System.out.println("    "+ct.toString());
-            	 if (ct.toString().contains(names[n]+ " IS ")) {
+            	 if (ct.toString().startsWith(names[n]+ " IS ")) {
             		 res.add(ct);
             		 warning= true;
             		 break;

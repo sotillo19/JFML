@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="TAOMatlab - MAMDANI">
+    <knowledgeBase>
+        <fuzzyVariable name="x1" scale="" domainleft="0.0" domainright="100.0" type="input">
+            <fuzzyTerm name="VeryLow" complement="false">
+                <triangularShape param1="-25.0" param2="0.0" param3="25.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Low" complement="false">
+                <triangularShape param1="0.0" param2="25.0" param3="50.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Medium" complement="false">
+                <triangularShape param1="25.0" param2="50.0" param3="75.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="High" complement="false">
+                <triangularShape param1="50.0" param2="75.0" param3="100.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="VeryHigh" complement="false">
+                <triangularShape param1="75.0" param2="100.0" param3="125.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="VLLM" complement="false">
+                <circularDefinition>
+                    <or t-conorm="MAX">
+                        <termName>VeryLow</termName>
+                        <or t-conorm="MAX">
+                            <termName>Low</termName>
+                            <termName>Medium</termName>
+                        </or>
+                    </or>
+                </circularDefinition>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="x2" scale="" domainleft="50.0" domainright="75.0" type="input">
+            <fuzzyTerm name="VeryLow" complement="false">
+                <triangularShape param1="43.75" param2="50.0" param3="56.25"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Low" complement="false">
+                <triangularShape param1="50.0" param2="56.25" param3="62.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Medium" complement="false">
+                <triangularShape param1="56.25" param2="62.5" param3="68.75"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="High" complement="false">
+                <triangularShape param1="62.5" param2="68.75" param3="75.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="VeryHigh" complement="false">
+                <triangularShape param1="68.75" param2="75.0" param3="81.25"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Sumx1x2" scale="" domainleft="50.0" domainright="175.0" type="input">
+            <fuzzyTerm name="VeryLow" complement="false">
+                <triangularShape param1="18.75" param2="50.0" param3="81.25"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Low" complement="false">
+                <triangularShape param1="50.0" param2="81.25" param3="112.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Medium" complement="false">
+                <triangularShape param1="81.25" param2="112.5" param3="143.8"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="High" complement="false">
+                <triangularShape param1="112.5" param2="143.8" param3="175.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="VeryHigh" complement="false">
+                <triangularShape param1="143.8" param2="175.0" param3="206.3"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="HVH" complement="false">
+                <circularDefinition>
+                    <or t-conorm="MAX">
+                        <termName>High</termName>
+                        <termName>VeryHigh</termName>
+                    </or>
+                </circularDefinition>
+            </fuzzyTerm>
+            <fuzzyTerm name="VLL" complement="false">
+                <circularDefinition>
+                    <or t-conorm="MAX">
+                        <termName>VeryLow</termName>
+                        <termName>Low</termName>
+                    </or>
+                </circularDefinition>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Class" scale="" domainleft="0.0" domainright="1.0" type="output" accumulation="MAX" defuzzifier="MOM" defaultValue="0.5">
+            <fuzzyTerm name="C0" complement="false">
+                <triangularShape param1="-0.1" param2="0.0" param3="1.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="C1" complement="false">
+                <triangularShape param1="0.0" param2="1.0" param3="1.1"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+    </knowledgeBase>
+    <mamdaniRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <rule name="r1" andMethod="MIN" orMethod="MAX" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>x1</variable>
+                    <term>VeryHigh</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Class</variable>
+                        <term>C1</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="R1" andMethod="min" orMethod="MAX" connector="and" weight="0.884">
+            <antecedent>
+                <clause>
+                    <variable>Sumx1x2</variable>
+                    <term>HVH</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Class</variable>
+                        <term>C1</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="R2" andMethod="min" orMethod="MAX" connector="and" weight="0.908">
+            <antecedent>
+                <clause>
+                    <variable>x1</variable>
+                    <term>VLLM</term>
+                </clause>
+                <clause>
+                    <variable>Sumx1x2</variable>
+                    <term>VLL</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Class</variable>
+                        <term>C0</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+    </mamdaniRuleBase>
+</fuzzySystem>

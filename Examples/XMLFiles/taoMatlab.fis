@@ -1,0 +1,52 @@
+[System]
+Name='TAOMatlab'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=1
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='mom'
+
+[Input1]
+Name='x1'
+Range=[0 100]
+NumMFs=5
+MF1='VeryLow':'trimf',[-25 0 25]
+MF2='Low':'trimf',[0 25 50]
+MF3='Medium':'trimf',[25 50 75]
+MF4='High':'trimf',[50 75 100]
+MF5='VeryHigh':'trimf',[75 100 125]
+
+[Input2]
+Name='x2'
+Range=[50 75]
+NumMFs=5
+MF1='VeryLow':'trimf',[43.75 50 56.25]
+MF2='Low':'trimf',[50 56.25 62.5]
+MF3='Medium':'trimf',[56.25 62.5 68.75]
+MF4='High':'trimf',[62.5 68.75 75]
+MF5='VeryHigh':'trimf',[68.75 75 81.25]
+
+[Input3]
+Name='Sumx1x2'
+Range=[50 175]
+NumMFs=5
+MF1='VeryLow':'trimf',[18.75 50 81.25]
+MF2='Low':'trimf',[50 81.25 112.5]
+MF3='Medium':'trimf',[81.25 112.5 143.8]
+MF4='High':'trimf',[112.5 143.8 175]
+MF5='VeryHigh':'trimf',[143.8 175 206.3]
+
+[Output1]
+Name='Class'
+Range=[0 1]
+NumMFs=2
+MF1='C0':'trimf',[-0.1 0 1]
+MF2='C1':'trimf',[0 1 1.1]
+
+[Rules]
+5 0 0, 2 (1) : 1
