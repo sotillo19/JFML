@@ -1,6 +1,6 @@
 JDK=
 JFMLpath=.
-JFML=$(JFMLpath)/lib/JFML-v1.1.jar
+JFML=$(JFMLpath)/lib/JFML-v1.2.jar
 JFMLxmlfiles=$(JFMLpath)/XMLFiles/
 
 default:
@@ -170,3 +170,6 @@ testTipperMamdani1Import:
 
 testTipperTSKImport:
 	java -jar $(JFML) $(JFMLxmlfiles)TipperTSK.xml $(JFMLxmlfiles)test-data-Tipper1.txt
+
+testTao:
+	java -jar $(JFML) $(JFMLxmlfiles)taoFML.xml 1 Class x1 90 x2 60 Sumx1x2 150

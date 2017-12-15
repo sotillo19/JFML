@@ -105,7 +105,7 @@
                 </then>
             </consequent>
         </rule>
-        <rule name="R1" andMethod="min" orMethod="MAX" connector="and" weight="0.884">
+        <rule name="r2" andMethod="min" orMethod="MAX" connector="and" weight="0.884">
             <antecedent>
                 <clause>
                     <variable>Sumx1x2</variable>
@@ -121,7 +121,7 @@
                 </then>
             </consequent>
         </rule>
-        <rule name="R2" andMethod="min" orMethod="MAX" connector="and" weight="0.908">
+        <rule name="r3" andMethod="min" orMethod="MAX" connector="and" weight="0.908">
             <antecedent>
                 <clause>
                     <variable>x1</variable>

@@ -93,6 +93,18 @@ public class ConsequentType {
     }
     
     /**
+     * Adds a THEN ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the name of the {@link FuzzyTerm }
+     */
+    public void addThenClause(KnowledgeBaseVariable variable, String term){
+    	if(then==null)
+    		then = new ConsequentClausesType();
+    	
+    	then.addClause(variable, variable.getTerm(term));
+    }
+    
+    /**
      * Adds a THEN {@link ClauseType }
      * @param c a THEN {@link ClauseType }
      */
@@ -114,6 +126,18 @@ public class ConsequentType {
     		_else = new ConsequentClausesType();
     	
     	_else.addClause(variable, term);
+    }
+    
+    /**
+     * Adds an ELSE ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the name of the {@link FuzzyTerm }
+     */
+    public void addElseClause(KnowledgeBaseVariable variable, String term){
+    	if(_else==null)
+    		_else = new ConsequentClausesType();
+    	
+    	_else.addClause(variable, variable.getTerm(term));
     }
     
     /**

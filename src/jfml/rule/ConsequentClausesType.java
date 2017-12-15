@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.term.FuzzyTerm;
+import jfml.term.Term;
 
 
 /**
@@ -107,9 +108,9 @@ public class ConsequentClausesType {
     /**
      * Adds a ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
      * @param variable the {@link KnowledgeBaseVariable }
-     * @param term the {@link FuzzyTerm }
+     * @param term the {@link Term }
      */
-    public void addClause(KnowledgeBaseVariable v, FuzzyTerm t){
+    public void addClause(KnowledgeBaseVariable v, Term t){
     	if (clauses == null) {
             clauses = new ArrayList<ClauseType>();
         }

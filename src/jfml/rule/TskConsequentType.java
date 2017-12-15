@@ -92,6 +92,13 @@ public class TskConsequentType {
     	tskThen.addTskClause(variable, term);
     }
     
+    public void addTskThenClause(KnowledgeBaseVariable variable, String term){
+    	if(tskThen==null)
+    		tskThen = new TskConsequentClausesType();
+    	
+    	tskThen.addTskClause(variable, variable.getTerm(term));
+    }
+    
     /**
      * Adds a Tsk THEN {@link TskClauseType }
      * @param c a Tsk THEN {@link TskClauseType }

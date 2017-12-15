@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import jfml.knowledgebase.variable.KnowledgeBaseVariable;
 import jfml.term.FuzzyTerm;
+import jfml.term.Term;
 import jfml.term.TskTerm;
 
 
@@ -94,7 +95,7 @@ public class TskConsequentClausesType {
      * @param variable the {@link KnowledgeBaseVariable }
      * @param term the {@link FuzzyTerm }
      */
-    public void addTskClause(KnowledgeBaseVariable v, TskTerm t){
+    public void addTskClause(KnowledgeBaseVariable v, Term t){
     	if (tskClause == null) {
     		tskClause = new ArrayList<TskClauseType>();
         }
@@ -103,4 +104,17 @@ public class TskConsequentClausesType {
     		tskClause.add(c);
     }
 
+    /**
+     * Adds a TskClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the {@link FuzzyTerm }
+     */
+    public void addTskClause(KnowledgeBaseVariable v, String t){
+    	if (tskClause == null) {
+    		tskClause = new ArrayList<TskClauseType>();
+        }
+    	TskClauseType c = new TskClauseType(v,v.getTerm(t));
+    	if(c!=null)
+    		tskClause.add(c);
+    }
 }

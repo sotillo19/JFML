@@ -116,5 +116,19 @@ public class AntecedentType {
     	if(c!=null)
     		clauses.add(c);
     }
+    
+    /**
+     * Adds a ClauseType with a {@link KnowledgeBaseVariable } and a {@link FuzzyTerm }
+     * @param variable the {@link KnowledgeBaseVariable }
+     * @param term the name of the {@link FuzzyTerm }
+     */
+    public void addClause(KnowledgeBaseVariable variable, String term){
+    	if (clauses == null) {
+            clauses = new ArrayList<ClauseType>();
+        }
+    	ClauseType c = new ClauseType(variable,variable.getTerm(term));
+    	if(c!=null)
+    		clauses.add(c);
+    }
 
 }

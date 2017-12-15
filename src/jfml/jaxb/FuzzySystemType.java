@@ -162,6 +162,33 @@ public class FuzzySystemType {
 		}
 		return this.ruleBase;
 	}
+	
+	/**
+	 * Gets the FuzzySystemRuleBase from the list of RuleBase by the parameter index
+	 * @param index the index of the rulebase
+	 * @return A FuzzySystemRuleBase or null if the index does not match
+	 */
+	public FuzzySystemRuleBase getRuleBase(int index){
+		FuzzySystemRuleBase rb = null;
+		if (ruleBase != null && ruleBase.size()>index){
+			Object[] RBs= ruleBase.toArray();
+            rb= (FuzzySystemRuleBase) ((JAXBElement)RBs[index]).getValue();
+		}	
+		return rb;	
+	}
+	
+	/**
+	 * Gets an array with all the rule bases
+	 * @return an array with all the rule bases
+	 */
+	public ArrayList<FuzzySystemRuleBase> getAllRuleBase(){
+		ArrayList<FuzzySystemRuleBase> rbs = new ArrayList<>();
+		if (ruleBase != null){
+			for(Object rb : ruleBase)
+				rbs.add((FuzzySystemRuleBase) ((JAXBElement)rb).getValue());
+		}	
+		return rbs;
+	}
 
 	/**
 	 * Adds a new RuleBase to the fuzzySystem

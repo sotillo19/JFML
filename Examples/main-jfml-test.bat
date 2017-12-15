@@ -1,2 +1,2 @@
-set CPATH=.\lib\JFML-v1.1.jar
+set CPATH=.\lib\JFML-v1.2.jar
 java -classpath %CPATH% jfml.test.EvaluateExample %1 %2 %3
