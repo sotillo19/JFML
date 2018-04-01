@@ -217,12 +217,12 @@ public class ImportMatlab extends Import {
                 	dm= "WA";
                 } else if (defuzzMethod.equals("wtsum")) { 
                 	dm= "WA";
-                } else if (aggMethod.startsWith("custom")) {
+                } else if (defuzzMethod.startsWith("custom")) {
                 	System.out.println("WARNING: Customized Defuzzification method");
                 	System.out.println("    The import of custom methods is not implemented yet.");
                 	System.out.println("    We set \'COA\' as Defuzzification method");
                 	System.out.println();                            
-                	aggm= "COA";
+                	dm= "COA";
                 }
                 lines.nextToken();
             	in= new FuzzyVariableType[nInputs];
