@@ -31,7 +31,7 @@ import jfml.JFML;
 import jfml.compatibility.*;
 
 /**
- * This class presents some examples to export a fuzzy system to either MATLAB format or FCL (IEC 1131).  
+ * This class presents some examples to export a fuzzy system to either MATLAB format or FCL (IEC 1131) and PMML.  
  * 
  * @author Jose Alonso
  *
@@ -57,8 +57,8 @@ public class ExportExample {
     		    System.out.println("WARNING: The input file name must ends with .xml");
     		    goon=false;
         	}
-        	if (goon && (!args[1].endsWith(".fcl")) && (!args[1].endsWith(".fis"))) {
-    		    System.out.println("WARNING: Only FCL (\'*.fcl\') and MATLAB (\'*.fis\') files are admitted as output files.");
+        	if (goon && (!args[1].endsWith(".fcl")) && (!args[1].endsWith(".fis")) && (!args[1].endsWith(".frbsPMML"))) {
+    		    System.out.println("WARNING: Only FCL (\'*.fcl\'), MATLAB (\'*.fis\') and PMML (\'*.frbsPMML\') files are admitted as output files.");
     		    goon=false;
         	}
             if (goon) {
@@ -70,6 +70,8 @@ public class ExportExample {
     		        es= new ExportFCL();
     		    } else if (args[1].endsWith(".fis")) {
     		        es= new ExportMatlab();
+    		    } else if (args[1].endsWith(".frbsPMML")) {
+    		        es= new ExportPMML();
     		    }
     		    if (es!=null) {
    		          es.exportFuzzySystem(fs,args[1]);
@@ -87,7 +89,7 @@ public class ExportExample {
         } else if (args.length!=3) {
 		    System.out.println("Please, check the arguments given to the program");
 			System.out.println("Notice that the program has 3 main arguments (Language ProblemName OutputFile) but brackets are not required");
-		    System.out.println("  Options: [FCL | MATLAB] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
+		    System.out.println("  Options: [FCL | MATLAB | PMML] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
         } else {
 		    Export es=null;
 		    String Lang=args[0];
@@ -104,12 +106,18 @@ public class ExportExample {
 	    		    System.out.println("WARNING: The output file name must ends with .fis");
 	    		    goon=false;
 		        }
+		    } else if (Lang.equals("PMML")) {
+		        es= new ExportMatlab();
+		        if (!args[2].endsWith(".frbsPMML")) {
+	    		    System.out.println("WARNING: The output file name must ends with .frbsPMML");
+	    		    goon=false;
+		        }
 		    } else {
 		        goon= false;
 		        System.out.println("Please, check the arguments given to the program");
 			    System.out.println("Unfortunately, you select an unknown Language");
 				System.out.println("Notice that the program has 3 main arguments (Language ProblemName OutputFile) but brackets are not required");
-			    System.out.println("  Options: [FCL | MATLAB] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
+			    System.out.println("  Options: [FCL | MATLAB | PMML] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
 		    }
 		    if (goon && es!=null) {
 		        File fOut= new File(args[2]);
@@ -129,7 +137,7 @@ public class ExportExample {
 			        System.out.println("Please, check the arguments given to the program");
 				    System.out.println("Unfortunately, you select an unknown ProblemName");
 					System.out.println("Notice that the program has 3 main arguments (Language ProblemName DataFile) but brackets are not required");
-				    System.out.println("  Options: [FCL | MATLAB] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
+				    System.out.println("  Options: [FCL | MATLAB | PMML] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
 		    	}
 		    	if (goon) {
 			    	//loading Fuzzy System from an file according the standard FCL (IEC 1131)
@@ -154,7 +162,7 @@ public class ExportExample {
 				        System.out.println("Please, check the arguments given to the program");
 					    System.out.println("There is no XML file for the selected fuzzy system");
 						System.out.println("Notice that the program has 3 main arguments (Language ProblemName DataFile) but brackets are not required");
-					    System.out.println("  Options: [FCL | MATLAB] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
+					    System.out.println("  Options: [FCL | MATLAB | PMML] [IrisMamdani1 | TipperMamdani1 | TipperTsukamoto1 | TipperAnYa1 | TipperTSK] outputFile");
 					}
 		    	}
 		    }
