@@ -1,0 +1,229 @@
+<frbsPMML version='1.0' xmlns='http://www.uco.es/JFML/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.uco.es/JFML/ http://www.uco.es/JFML/'>
+<Header copyright='Copyright (c) 2018 JFML'>
+<Extension name='user' value='JFML' extender='frbs'/>
+<Application name='frbs' version='3.1'/>
+<Timestamp>Tue Mar 27 19:12:17 CEST 2018</Timestamp>
+</Header>
+<DataDictionary numberOfFields='5'>
+<DataField name='SepalLength' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='4.300' rightMargin='7.900'/>
+</DataField>
+<DataField name='SepalWidth' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='2.000' rightMargin='4.400'/>
+</DataField>
+<DataField name='PetalLength' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='1.000' rightMargin='6.900'/>
+</DataField>
+<DataField name='PetalWidth' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='0.100' rightMargin='2.500'/>
+</DataField>
+<DataField name='irisClass' optype='categorical' dataType='string'>
+<Value value='1'/>
+<Value value='2'/>
+<Value value='3'/>
+</DataField>
+</DataDictionary>
+<FrbsModel modelName='FRBCS' functionName='classification' algorithmName='MANUAL' targetFieldName='irisClass'>
+<MiningSchema>
+<MiningField name='SepalLength' usageType='active'/>
+<MiningField name='SepalWidth' usageType='active'/>
+<MiningField name='PetalLength' usageType='active'/>
+<MiningField name='PetalWidth' usageType='active'/>
+<MiningField name='irisClass' usageType='predicted'/>
+</MiningSchema>
+<Output>
+<OutputField name='Predicted_irisClass' feature='predictedValue'/>
+<OutputField name='Probability_1' optype='continuous' dataType='double' feature='probability' value='1'/>
+<OutputField name='Probability_2' optype='continuous' dataType='double' feature='probability' value='2'/>
+<OutputField name='Probability_3' optype='continuous' dataType='double' feature='probability' value='3'/>
+</Output>
+<InferenceSchema>
+<ConjunctionOperator value='MIN'/>
+<DisjunctionOperator value='MAX'/>
+<ImplicationOperator value='MIN'/>
+<AggregationOperator value='MAX'/>
+</InferenceSchema>
+<Database>
+<MembershipFunction name='SepalLength' numberOfLabels='4'>
+<FuzzyTerm name='low' type='TRAPEZOID'>
+<Parameters>
+<Left>4.300</Left>
+<LeftMiddle>4.300</LeftMiddle>
+<RightMiddle>5.019</RightMiddle>
+<Right>6.048</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='medium' type='TRIANGLE'>
+<Parameters>
+<Left>5.019</Left>
+<Middle>6.048</Middle>
+<Right>7.050</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='high' type='TRAPEZOID'>
+<Parameters>
+<Left>6.048</Left>
+<LeftMiddle>7.050</LeftMiddle>
+<RightMiddle>7.900</RightMiddle>
+<Right>7.900</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='NOT(low)' type='TRAPEZOID'>
+<Parameters>
+<Left>4.300</Left>
+<LeftMiddle>4.300</LeftMiddle>
+<RightMiddle>5.019</RightMiddle>
+<Right>6.048</Right>
+</Parameters>
+</FuzzyTerm>
+</MembershipFunction>
+<MembershipFunction name='SepalWidth' numberOfLabels='4'>
+<FuzzyTerm name='low' type='TRAPEZOID'>
+<Parameters>
+<Left>2.000</Left>
+<LeftMiddle>2.000</LeftMiddle>
+<RightMiddle>2.585</RightMiddle>
+<Right>3.119</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='medium' type='TRIANGLE'>
+<Parameters>
+<Left>2.585</Left>
+<Middle>3.119</Middle>
+<Right>3.758</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='high' type='TRAPEZOID'>
+<Parameters>
+<Left>3.119</Left>
+<LeftMiddle>3.758</LeftMiddle>
+<RightMiddle>4.400</RightMiddle>
+<Right>4.400</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='NOT(high)' type='TRAPEZOID'>
+<Parameters>
+<Left>3.119</Left>
+<LeftMiddle>3.758</LeftMiddle>
+<RightMiddle>4.400</RightMiddle>
+<Right>4.400</Right>
+</Parameters>
+</FuzzyTerm>
+</MembershipFunction>
+<MembershipFunction name='PetalLength' numberOfLabels='4'>
+<FuzzyTerm name='low' type='TRAPEZOID'>
+<Parameters>
+<Left>1.000</Left>
+<LeftMiddle>1.000</LeftMiddle>
+<RightMiddle>1.464</RightMiddle>
+<Right>4.432</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='medium' type='TRIANGLE'>
+<Parameters>
+<Left>1.464</Left>
+<Middle>4.432</Middle>
+<Right>5.826</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='high' type='TRAPEZOID'>
+<Parameters>
+<Left>4.432</Left>
+<LeftMiddle>5.826</LeftMiddle>
+<RightMiddle>6.900</RightMiddle>
+<Right>6.900</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='NOT(low)' type='TRAPEZOID'>
+<Parameters>
+<Left>1.000</Left>
+<LeftMiddle>1.000</LeftMiddle>
+<RightMiddle>1.464</RightMiddle>
+<Right>4.432</Right>
+</Parameters>
+</FuzzyTerm>
+</MembershipFunction>
+<MembershipFunction name='PetalWidth' numberOfLabels='3'>
+<FuzzyTerm name='low' type='TRAPEZOID'>
+<Parameters>
+<Left>0.000</Left>
+<LeftMiddle>0.100</LeftMiddle>
+<RightMiddle>0.244</RightMiddle>
+<Right>1.337</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='medium' type='TRIANGLE'>
+<Parameters>
+<Left>0.244</Left>
+<Middle>1.337</Middle>
+<Right>2.074</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='high' type='TRAPEZOID'>
+<Parameters>
+<Left>1.337</Left>
+<LeftMiddle>2.074</LeftMiddle>
+<RightMiddle>2.500</RightMiddle>
+<Right>2.500</Right>
+</Parameters>
+</FuzzyTerm>
+</MembershipFunction>
+</Database>
+<Rulebase numberOfRules='3'>
+<Rule id='1'>
+<If>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='SepalLength' value='dont_care'/>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='SepalWidth' value='dont_care'/>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='PetalLength' value='dont_care'/>
+<SimplePredicate field='PetalWidth' value='low'/>
+</CompoundPredicate>
+</CompoundPredicate>
+</CompoundPredicate>
+</If>
+<Then>
+<SimplePredicate field='irisClass' value='1'/>
+</Then>
+<Grade>1.000</Grade>
+</Rule>
+<Rule id='2'>
+<If>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='SepalLength' value='dont_care'/>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='SepalWidth' value='NOT(high)'/>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='PetalLength' value='medium'/>
+<SimplePredicate field='PetalWidth' value='medium'/>
+</CompoundPredicate>
+</CompoundPredicate>
+</CompoundPredicate>
+</If>
+<Then>
+<SimplePredicate field='irisClass' value='2'/>
+</Then>
+<Grade>1.000</Grade>
+</Rule>
+<Rule id='3'>
+<If>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='SepalLength' value='NOT(low)'/>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='SepalWidth' value='dont_care'/>
+<CompoundPredicate booleanOperator='and'>
+<SimplePredicate field='PetalLength' value='NOT(low)'/>
+<SimplePredicate field='PetalWidth' value='high'/>
+</CompoundPredicate>
+</CompoundPredicate>
+</CompoundPredicate>
+</If>
+<Then>
+<SimplePredicate field='irisClass' value='3'/>
+</Then>
+<Grade>1.000</Grade>
+</Rule>
+</Rulebase>
+</FrbsModel>
+</frbsPMML>

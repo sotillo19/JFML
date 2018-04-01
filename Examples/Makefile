@@ -1,6 +1,6 @@
 JDK=
 JFMLpath=.
-JFML=$(JFMLpath)/lib/JFML-v1.2.jar
+JFML=$(JFMLpath)/lib/JFML-v1.2.1.jar
 JFMLxmlfiles=$(JFMLpath)/XMLFiles/
 
 default:
@@ -135,6 +135,12 @@ exportTipperTSKMATLAB:
 exportTipperTSKFCL:
 	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperTSK.xml $(JFMLxmlfiles)TipperTSK.fcl
 	
+exportIrisMamdaniPMML:
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)IrisMamdani2.xml $(JFMLxmlfiles)IrisMamdani2.frbsPMML
+
+exportTipperTSKPMML:
+	java -classpath $(JFML) jfml.test.ExportExample $(JFMLxmlfiles)TipperTSK.xml $(JFMLxmlfiles)TipperTSK.frbsPMML
+	
 importIrisMamdani1MATLAB:
 	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)IrisMamdani1.fis $(JFMLxmlfiles)IrisMamdani1.xml
 
@@ -161,6 +167,13 @@ importTipperTSKMATLAB:
 
 importTipperTSKFCL:
 	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperTSK.fcl $(JFMLxmlfiles)TipperTSK.xml
+	
+importIrisMamdaniPMML:
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)IrisMamdani2.frbsPMML $(JFMLxmlfiles)IrisMamdani2.frbsPMML.xml
+
+importTipperTSKPMML:
+	java -classpath $(JFML) jfml.test.ImportExample $(JFMLxmlfiles)TipperTSK.frbsPMML $(JFMLxmlfiles)TipperTSK.frbsPMML.xml
+	
 
 testIrisMamdani1Import:
 	java -jar $(JFML) $(JFMLxmlfiles)IrisMamdani1.xml $(JFMLxmlfiles)test-data-Iris1.txt
@@ -173,3 +186,11 @@ testTipperTSKImport:
 
 testTao:
 	java -jar $(JFML) $(JFMLxmlfiles)taoFML.xml 1 Class x1 90 x2 60 Sumx1x2 150
+	
+testIrisMamdaniPMML:
+	java -jar $(JFML) $(JFMLxmlfiles)irisMamdani2.xml 1 irisClass SepalLength 5.5 SepalWidth 2.3 PetalLength 4 PetalWidth 1.3
+	java -jar $(JFML) $(JFMLxmlfiles)IrisMamdani2.frbsPMML.xml 1 irisClass SepalLength 5.5 SepalWidth 2.3 PetalLength 4 PetalWidth 1.3
+
+testTipperTSKPMML:
+	java -jar $(JFML) $(JFMLxmlfiles)TipperTSK.xml 1 tip food 2 service 3
+	java -jar $(JFML) $(JFMLxmlfiles)TipperTSK.frbsPMML.xml 1 tip food 2 service 3

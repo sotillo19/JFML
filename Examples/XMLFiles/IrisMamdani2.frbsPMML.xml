@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="MANUAL - FRBCS">
+    <knowledgeBase>
+        <fuzzyVariable name="SepalLength" scale="" domainleft="4.3" domainright="7.9" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="4.3" param2="4.3" param3="5.019" param4="6.048"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <triangularShape param1="5.019" param2="6.048" param3="7.05"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="6.048" param2="7.05" param3="7.9" param4="7.9"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="NOT(low)" complement="true">
+                <trapezoidShape param1="4.3" param2="4.3" param3="5.019" param4="6.048"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="SepalWidth" scale="" domainleft="2.0" domainright="4.4" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="2.0" param2="2.0" param3="2.585" param4="3.119"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <triangularShape param1="2.585" param2="3.119" param3="3.758"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="3.119" param2="3.758" param3="4.4" param4="4.4"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="NOT(high)" complement="true">
+                <trapezoidShape param1="3.119" param2="3.758" param3="4.4" param4="4.4"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="PetalLength" scale="" domainleft="1.0" domainright="6.9" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="1.0" param2="1.0" param3="1.464" param4="4.432"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <triangularShape param1="1.464" param2="4.432" param3="5.826"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="4.432" param2="5.826" param3="6.9" param4="6.9"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="NOT(low)" complement="true">
+                <trapezoidShape param1="1.0" param2="1.0" param3="1.464" param4="4.432"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="PetalWidth" scale="" domainleft="0.1" domainright="2.5" type="input">
+            <fuzzyTerm name="low" complement="false">
+                <trapezoidShape param1="0.0" param2="0.1" param3="0.244" param4="1.337"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="medium" complement="false">
+                <triangularShape param1="0.244" param2="1.337" param3="2.074"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="high" complement="false">
+                <trapezoidShape param1="1.337" param2="2.074" param3="2.5" param4="2.5"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="irisClass" scale="" domainleft="1.0" domainright="3.0" type="output" accumulation="MAX" defuzzifier="MOM" defaultValue="1.0">
+            <fuzzyTerm name="Class 1" complement="false">
+                <singletonShape param1="1.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Class 2" complement="false">
+                <singletonShape param1="2.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Class 3" complement="false">
+                <singletonShape param1="3.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+    </knowledgeBase>
+    <mamdaniRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <rule name="r1" andMethod="MIN" orMethod="MAX" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>PetalWidth</variable>
+                    <term>low</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>irisClass</variable>
+                        <term>Class 1</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="r2" andMethod="MIN" orMethod="MAX" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>SepalWidth</variable>
+                    <term>NOT(high)</term>
+                </clause>
+                <clause>
+                    <variable>PetalLength</variable>
+                    <term>medium</term>
+                </clause>
+                <clause>
+                    <variable>PetalWidth</variable>
+                    <term>medium</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>irisClass</variable>
+                        <term>Class 2</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="r3" andMethod="MIN" orMethod="MAX" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>SepalLength</variable>
+                    <term>NOT(low)</term>
+                </clause>
+                <clause>
+                    <variable>PetalLength</variable>
+                    <term>NOT(low)</term>
+                </clause>
+                <clause>
+                    <variable>PetalWidth</variable>
+                    <term>high</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>irisClass</variable>
+                        <term>Class 3</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+    </mamdaniRuleBase>
+</fuzzySystem>

@@ -1,0 +1,116 @@
+<frbsPMML version='1.0' xmlns='http://www.uco.es/JFML/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.uco.es/JFML/ http://www.uco.es/JFML/'>
+<Header copyright='Copyright (c) 2018 JFML'>
+<Extension name='user' value='JFML' extender='frbs'/>
+<Application name='frbs' version='3.1'/>
+<Timestamp>Tue Mar 27 18:52:45 CEST 2018</Timestamp>
+</Header>
+<DataDictionary numberOfFields='3'>
+<DataField name='food' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='0.000' rightMargin='10.000'/>
+</DataField>
+<DataField name='service' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='0.000' rightMargin='10.000'/>
+</DataField>
+<DataField name='tip' optype='continuous' dataType='double'>
+<Interval closure='closedClosed' leftMargin='0.000' rightMargin='1.000'/>
+</DataField>
+</DataDictionary>
+<FrbsModel modelName='TSK' functionName='regression' algorithmName='MANUAL' targetFieldName='tip'>
+<MiningSchema>
+<MiningField name='food' usageType='active'/>
+<MiningField name='service' usageType='active'/>
+<MiningField name='tip' usageType='predicted'/>
+</MiningSchema>
+<Output>
+<OutputField name='Predicted_tip' optype='continuous' dataType='double' feature='predictedValue'/>
+</Output>
+<InferenceSchema>
+<ConjunctionOperator value='MIN'/>
+<DisjunctionOperator value='MAX'/>
+<ImplicationOperator value='MIN'/>
+<AggregationOperator value='WAM'/>
+</InferenceSchema>
+<Database>
+<MembershipFunction name='food' numberOfLabels='2'>
+<FuzzyTerm name='delicious' type='TRIANGLE'>
+<Parameters>
+<Left>5.500</Left>
+<Middle>10.000</Middle>
+<Right>10.000</Right>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='rancid' type='TRIANGLE'>
+<Parameters>
+<Left>0.000</Left>
+<Middle>2.000</Middle>
+<Right>5.500</Right>
+</Parameters>
+</FuzzyTerm>
+</MembershipFunction>
+<MembershipFunction name='service' numberOfLabels='3'>
+<FuzzyTerm name='excellent' type='GAUSSIAN'>
+<Parameters>
+<Mean>10.000</Mean>
+<Variance>2.000</Variance>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='good' type='GAUSSIAN'>
+<Parameters>
+<Mean>5.000</Mean>
+<Variance>2.000</Variance>
+</Parameters>
+</FuzzyTerm>
+<FuzzyTerm name='poor' type='GAUSSIAN'>
+<Parameters>
+<Mean>0.000</Mean>
+<Variance>2.000</Variance>
+</Parameters>
+</FuzzyTerm>
+</MembershipFunction>
+</Database>
+<Rulebase numberOfRules='3'>
+<Rule id='1'>
+<If>
+<CompoundPredicate booleanOperator='or'>
+<SimplePredicate field='food' value='rancid'/>
+<SimplePredicate field='service' value='poor'/>
+</CompoundPredicate>
+</If>
+<Then type='LinearFunction'>
+<Coefficient field='food' value='5.600'/>
+<Coefficient field='service' value='6.000'/>
+<Constant value='1.900'/>
+</Then>
+<Grade>1.000</Grade>
+</Rule>
+<Rule id='2'>
+<If>
+<CompoundPredicate booleanOperator='or'>
+<SimplePredicate field='food' value='dont_care'/>
+<SimplePredicate field='service' value='good'/>
+</CompoundPredicate>
+</If>
+<Then type='LinearFunction'>
+<Coefficient field='food' value='0.000'/>
+<Coefficient field='service' value='0.000'/>
+<Constant value='1.600'/>
+</Then>
+<Grade>1.000</Grade>
+</Rule>
+<Rule id='3'>
+<If>
+<CompoundPredicate booleanOperator='or'>
+<SimplePredicate field='food' value='delicious'/>
+<SimplePredicate field='service' value='excellent'/>
+</CompoundPredicate>
+</If>
+<Then type='LinearFunction'>
+<Coefficient field='food' value='1.300'/>
+<Coefficient field='service' value='1.000'/>
+<Constant value='0.600'/>
+</Then>
+<Grade>1.000</Grade>
+</Rule>
+</Rulebase>
+</FrbsModel>
+</frbsPMML>
