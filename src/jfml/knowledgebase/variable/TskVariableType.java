@@ -330,6 +330,8 @@ public class TskVariableType extends KnowledgeBaseVariable {
 		}
 		else if(comb.contains("custom"))
 			v= customCombination(this.z);
+		else
+			v = defaultValue;
 		
 		return v;
 	}

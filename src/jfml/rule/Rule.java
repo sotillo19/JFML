@@ -214,9 +214,9 @@ public abstract class Rule {
 	 * @return
 	 */
 	private float prod(float[] degrees) {
-		float res=0;
+		float res=degrees[0];
 		
-		for(int i=0;i<degrees.length;i++)
+		for(int i=1;i<degrees.length;i++)
 			res*=degrees[i];
 		
 		return res;

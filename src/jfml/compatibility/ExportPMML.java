@@ -52,7 +52,7 @@ import jfml.term.FuzzyTermType;
 import jfml.term.TskTermType;
 
 /**
- * This class allows to export a fuzzy system in format FML to MATLAB format
+ * This class allows to export a fuzzy system in format PMML
  * 
  * @author Jose Alonso
  *

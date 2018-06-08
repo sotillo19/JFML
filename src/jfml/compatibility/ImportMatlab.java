@@ -634,6 +634,7 @@ public class ImportMatlab extends Import {
             				if (type.equals("mamdani"))
             				    ft[k] = new FuzzyTermType(tname, FuzzyTermType.TYPE_singletonShape, pp);
         				} else if (ttype.equals("linear")) {
+        					//System.out.println("linear MF");
         					pp= this.fillParameters(aux, true);
         					// this is only for TSK-order1
         				}
@@ -835,13 +836,15 @@ public class ImportMatlab extends Import {
         String[] params= line.split(" ");
         float[] result= new float[params.length];
         if (linear) {
-        	result[params.length-1]= (new Float(params[0])).floatValue();
+        	//System.out.println(line);
+        	//result[params.length-1]= (new Float(params[0])).floatValue();
+        	result[0]= (new Float(params[params.length-1])).floatValue();
         } else {
         	result[0]= (new Float(params[0])).floatValue();
         }
 		for (int m=0; m<params.length-1; m++) {
 			if (linear) {
-                result[m]= (new Float(params[m+1])).floatValue();
+                result[m+1]= (new Float(params[m])).floatValue();
 			} else {
                 result[m+1]= (new Float(params[m+1])).floatValue();
 			}
