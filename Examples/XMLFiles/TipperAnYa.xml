@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="tipper - AnYa">
+    <knowledgeBase>
+        <anYaDataCloud name="food">
+            <datum>1.0</datum>
+            <datum>1.7</datum>
+            <datum>4.0</datum>
+            <datum>3.2</datum>
+        </anYaDataCloud>
+        <anYaDataCloud name="service">
+            <datum>6.0</datum>
+            <datum>5.7</datum>
+            <datum>7.0</datum>
+            <datum>4.6</datum>
+        </anYaDataCloud>
+        <anYaDataCloud name="quality">
+            <datum>8.0</datum>
+            <datum>7.7</datum>
+            <datum>10.0</datum>
+            <datum>8.6</datum>
+        </anYaDataCloud>
+        <fuzzyVariable name="tip" scale="" domainleft="0.0" domainright="20.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
+            <fuzzyTerm name="cheap" complement="false">
+                <triangularShape param1="0.0" param2="5.0" param3="10.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="average" complement="false">
+                <triangularShape param1="5.0" param2="10.0" param3="15.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="generous" complement="false">
+                <triangularShape param1="10.0" param2="15.0" param3="20.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+    </knowledgeBase>
+    <anYaRuleBase name="rulebase1">
+        <anYaRule name="rule1" weight="1.0">
+            <anYaAntecedent>
+                <dataCloudName>food</dataCloudName>
+            </anYaAntecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>tip</variable>
+                        <term>cheap</term>
+                    </clause>
+                </then>
+            </consequent>
+        </anYaRule>
+        <anYaRule name="rule2" weight="1.0">
+            <anYaAntecedent>
+                <dataCloudName>service</dataCloudName>
+            </anYaAntecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>tip</variable>
+                        <term>average</term>
+                    </clause>
+                </then>
+            </consequent>
+        </anYaRule>
+        <anYaRule name="rule3" weight="1.0">
+            <anYaAntecedent>
+                <dataCloudName>quality</dataCloudName>
+            </anYaAntecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>tip</variable>
+                        <term>generous</term>
+                    </clause>
+                </then>
+            </consequent>
+        </anYaRule>
+    </anYaRuleBase>
+</fuzzySystem>

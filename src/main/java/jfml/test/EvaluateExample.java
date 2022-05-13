@@ -475,6 +475,8 @@ public class EvaluateExample {
 
 	public static void main(String[] args) {
 
+		args = new String[]{"Tipper", "Mamdani1", "./Examples/XMLFiles/test-data-Tipper1.txt"};
+
 	    boolean warning= false;
 		if (args!=null) {
 		  if (args.length == 2) {

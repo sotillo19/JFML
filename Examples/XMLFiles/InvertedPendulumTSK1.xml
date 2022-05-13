@@ -85,7 +85,7 @@
             </tskTerm>
         </tskVariable>
     </knowledgeBase>
-    <tskRuleBase name="rulebase1" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+    <tskRuleBase name="rulebase1" activationMethod="PROD" andMethod="MIN" orMethod="MAX">
         <tskRule name="rule1" andMethod="MIN" connector="and" weight="1.0">
             <antecedent>
                 <clause>
