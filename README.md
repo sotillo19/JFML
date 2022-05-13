@@ -6,29 +6,30 @@ Notice that JFML implements the new IEEE Std 1855 published and sponsored by the
 JFML has a web page associated with a complete documentation, a good variety of examples for both users and developers, etc., The web page is hosted at:
 http://www.uco.es/JFML
 
-To build, you can clone the .git repository or download the library into a .zip file from the <i>Clone or download</i> option. You can also download the source code from the <i>releases</i> in GitHub.
+## JFML-Core
 
-We recommend following the next steps:
-</p>
-<ul>
-<li>
-Download the library into a .zip file from the <i>Clone or Download</i> option or from the <a href="https://github.com/sotillo19/JFML/releases">releases</a> and unzip it in a local folder.
-</li>
-<li>
-Create a <i>New Java Project</i> with Eclipse. Please, remind to select as <i>Location</i> the folder created in the previous step.
-</li>
-<li>
-Run <code>buildJFML.xml</code> as <i>Ant Build</i> with the aim of creating the project dependencies. To do so, just click the right mouse button on the xml file and then select the proper option.
-Notice that <a href="http://ant.apache.org/" target="_blank">ant</a> is freely available and it is usually integrated with Eclipse.
-</li>
-<li>
-In case of changing the source files, then run <code>buildJAR.xml</code> as <i>Ant Build</i> with the aim of compiling source files and creating the jar library.
-</li>
-<p>
-Notice that the source code zip file already includes a compiled jar library ready to use in the <code>Examples</code> folder.
-It will be overwritten after running <code>buildJAR.xml</code>.
-</p>
+From v1.3, JFML —now renamed as JFML-Core— is compiled with Java 11 and uses Maven to do so, whilst previous versions use Ant and Java 8. This module has two main purposes:
+- It contains the definition of the main classes, such as FuzzyVariable.
+- It applies an already built Fuzzy Logic System to a data set to predict the data output value.
 
-</ul>
+### How to use
 
+To build, you can clone the .git repository or download the library into a .zip file from the `Clone or download` option. You can also download the source code from the `releases` in GitHub.
 
+We recommend following the next steps to use it if no modification is needed:
+- Download the library into a .zip file from the _Clone or Download_ option or from the <a href="https://github.com/sotillo19/JFML/releases">releases</a>
+- Unzip it in a local folder.
+- At the root of the project, go (`cd`) to _Examples_.
+- Run the following command:
+```
+java -jar ./lib/<jar-file> <problem> <fls> ./XMLFiles/<test-data-file>
+```
+This command is thoroughly explained in _Examples/README-EXAMPLES.txt_.
+
+In case of changing the source files:
+- Make the necessary changes.
+- Do `mvn clean install`.
+- A new artifact, as a JAR file, will be generated at the _target_ folder.
+- Copy and paste that JAR to _Examples/lib_.
+- At the root of the project, go (`cd`) to _Examples_.
+- Run the main command.
