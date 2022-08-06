@@ -4,7 +4,7 @@ JFML is an open source Java library which is aimed at facilitating interoperabil
 Notice that JFML implements the new IEEE Std 1855 published and sponsored by the Standards Committee of the IEEE Computational Intelligence Society.
 
 JFML has a web page associated with a complete documentation, a good variety of examples for both users and developers, etc., The web page is hosted at:
-http://www.uco.es/JFML
+https://www.jfml.es.
 
 ## JFML-Core
 
