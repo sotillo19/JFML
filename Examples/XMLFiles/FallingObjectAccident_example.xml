@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fuzzySystem xmlns="http://www.ieee1855.org" name="Falling Object Risk">
+    <knowledgeBase>
+        <fuzzyVariable name="Safety_helmet" domainleft="-1.0" domainright="10.0" type="input" defaultValue="0.0">
+            <fuzzyTerm name="Wearing">
+                <singletonShape param1="1.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Not_wearing">
+                <singletonShape param1="0.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Distance_worker-load" domainleft="0.0" domainright="50.0" type="input" defaultValue="50.0">
+            <fuzzyTerm name="Near">
+                <trapezoidShape param1="0.0" param2="0.0"  param3="10.0"  param4="20.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Medium">
+                <trapezoidShape param1="10.0" param2="20.0"  param3="30.0"  param4="40.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Far">
+                <trapezoidShape param1="30.0" param2="40.0"  param3="50.0"  param4="50.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Safety_barrier" domainleft="-1.0" domainright="10.0" type="input" defaultValue="1.0">
+            <fuzzyTerm name="Installed">
+                <singletonShape param1="1.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Uninstalled">
+                <singletonShape param1="0.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Wind_velocity" domainleft="0.0" domainright="120.0" type="input" defaultValue="0.0">
+            <fuzzyTerm name="Low">
+                <trapezoidShape param1="0.0" param2="0.0"  param3="10.0"  param4="15.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Medium">
+                <trapezoidShape param1="10.0" param2="15.0"  param3="20.0"  param4="40.0"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="High">
+                <trapezoidShape param1="20.0" param2="40.0"  param3="120.0"  param4="120.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+        <fuzzyVariable name="Smart_Wristband" domainleft="0.0" domainright="10.0" type="output" accumulation="MAX" defuzzifier="COG" defaultValue="0.0">
+            <fuzzyTerm name="Very_Low_Risk">
+                <trapezoidShape param1="0.0" param2="0.0" param3="1.5"  param4="2.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Low_Risk">
+                <trapezoidShape param1="1.5" param2="2.5" param3="3.5"  param4="4.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Medium_Risk">
+                <trapezoidShape param1="3.5" param2="4.5" param3="5.5"  param4="6.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="High_Risk">
+                <trapezoidShape param1="5.5" param2="6.5" param3="7.5"  param4="8.5"/>
+            </fuzzyTerm>
+            <fuzzyTerm name="Very_High_Risk">
+                <trapezoidShape param1="7.5" param2="8.5" param3="10.0"  param4="10.0"/>
+            </fuzzyTerm>
+        </fuzzyVariable>
+    </knowledgeBase>
+    <mamdaniRuleBase name="RB_FallingObjects" activationMethod="MIN" andMethod="MIN" orMethod="MAX">
+        <rule name="rule01" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Safety_barrier</variable>
+                    <term>Installed</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>Low</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Low_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule02" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Safety_barrier</variable>
+                    <term>Installed</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Not_wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Medium_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule03" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Near</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Not_wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Very_High_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule04" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Not_wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>High_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule05" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Medium_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule06" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Safety_barrier</variable>
+                    <term>Uninstalled</term>
+                </clause>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Far</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Low_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule07" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Safety_barrier</variable>
+                    <term>Installed</term>
+                </clause>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Far</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Very_Low_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule08" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Far</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>High</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>High_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule09" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>High</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Very_High_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule10" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Near</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>High</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Very_High_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule11" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Near</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>Medium</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>High_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule12" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Near</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Medium_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule13" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Low_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+        <rule name="rule14" andMethod="MIN" connector="and" weight="1.0">
+            <antecedent>
+                <clause>
+                    <variable>Distance_worker-load</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Wind_velocity</variable>
+                    <term>Medium</term>
+                </clause>
+                <clause>
+                    <variable>Safety_helmet</variable>
+                    <term>Wearing</term>
+                </clause>
+                <clause>
+                    <variable>Safety_barrier</variable>
+                    <term>Installed</term>
+                </clause>
+            </antecedent>
+            <consequent>
+                <then>
+                    <clause>
+                        <variable>Smart_Wristband</variable>
+                        <term>Very_Low_Risk</term>
+                    </clause>
+                </then>
+            </consequent>
+        </rule>
+    </mamdaniRuleBase>
+</fuzzySystem>
